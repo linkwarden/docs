@@ -21,6 +21,7 @@ const config = {
   organizationName: "linkwarden", // Usually your GitHub org/user name.
   projectName: "docs", // Usually your repo name.
   trailingSlash: false,
+  deploymentBranch: "deployment",
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",

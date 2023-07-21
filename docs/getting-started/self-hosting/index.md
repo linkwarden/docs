@@ -77,13 +77,14 @@ nano .env
 
 ```
 NEXTAUTH_SECRET=
-DATABASE_URL=
 NEXTAUTH_URL=
+DATABASE_URL=
 ```
 
 So basically:
 
 - `NEXTAUTH_SECRET`: A **SUPER** sensitive secret that you should keep it safe, you don't need to memorize it like a password.
+- `NEXTAUTH_URL`: The domain (or IP) where Linkwarden is hosted on, for instance if you're running it on your local network it would be `http://localhost:3000`.
 - `DATABASE_URL`: This is your database connection string, which has a format like this:
 
 ```

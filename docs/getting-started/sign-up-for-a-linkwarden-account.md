@@ -14,7 +14,7 @@ If you had any questions, feel free to reach out to us at [support@linkwarden.ap
 
 ### Step 1: Register and confirm your email
 
-Head to [cloud.linkwarden.app/register](https://cloud.linkwarden.app/register), from their you should enter:
+Head to [cloud.linkwarden.app/register](https://cloud.linkwarden.app/register), from there you should enter:
 
 - A Display Name, which can be pretty much anything and it doesn't have to be unique.
 - An email, which is the **ONLY** form of validation when you need support with your account and recovery.

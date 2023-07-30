@@ -59,6 +59,12 @@ And run:
 yarn
 ```
 
+And also run:
+
+```
+npx playwright install-deps
+```
+
 To install the dependencies.
 
 #### 3. Create a file named `.env`:

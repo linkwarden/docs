@@ -68,10 +68,9 @@ nano .env
 NEXTAUTH_SECRET=VERY_SENSITIVE_SECRET
 NEXTAUTH_URL=http://localhost:3000
 POSTGRES_PASSWORD=YOUR_POSTGRES_PASSWORD
-DATABASE_URL=postgresql://postgres:YOUR_POSTGRES_PASSWORD@postgres:5432/postgres
 ```
 
-The only thing you need to change here is `YOUR_POSTGRES_PASSWORD` and `VERY_SENSITIVE_SECRET`.
+The only thing you need to change here is `YOUR_POSTGRES_PASSWORD` and `VERY_SENSITIVE_SECRET`, they both should be different secret phrases.
 
 The `NEXTAUTH_URL` should be changed to you're domain name _only if you are hosting it somewhere else_.
 

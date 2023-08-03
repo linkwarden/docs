@@ -66,8 +66,8 @@ nano .env
 
 ```
 NEXTAUTH_SECRET=VERY_SENSITIVE_SECRET
-NEXTAUTH_URL=http://localhost:3000
 POSTGRES_PASSWORD=YOUR_POSTGRES_PASSWORD
+NEXTAUTH_URL=http://localhost:3000
 ```
 
 The only thing you need to change here is `YOUR_POSTGRES_PASSWORD` and `VERY_SENSITIVE_SECRET`, they both should be different secret phrases.

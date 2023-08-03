@@ -4,12 +4,6 @@ sidebar_position: 1
 
 # Self Hosting
 
-:::note
-
-Docker is on its way! 🐋
-
-:::
-
 Here you can find everything you need to setup a fully fledged Linkwarden instance on your own server.
 
 ## Requirements
@@ -28,12 +22,68 @@ Linkwarden supports all major desktop OS's (Linux, MacOS, Windows), but note tha
 
 To setup Linkwarden, you'll first need to install a few things:
 
+#### If you're installing using Docker
+
+- docker
+- git
+
+#### If you're taking the manual approach
+
 - git
 - node.js
 - yarn
 - postgres
 
 ## Installation
+
+### Docker 🐋
+
+#### 1. Start by cloning the repository with the following command:
+
+```
+git clone https://github.com/linkwarden/linkwarden.git
+```
+
+#### 2. Change directory to the cloned repo using the following command:
+
+```
+cd linkwarden
+```
+
+#### 3. Create a file named `.env`:
+
+```
+touch .env
+```
+
+And open it:
+
+```
+nano .env
+```
+
+#### 4. Copy and paste the following and define the values:
+
+```
+NEXTAUTH_SECRET=VERY_SENSITIVE_SECRET
+NEXTAUTH_URL=http://localhost:3000
+POSTGRES_PASSWORD=YOUR_POSTGRES_PASSWORD
+DATABASE_URL=postgresql://postgres:YOUR_POSTGRES_PASSWORD@postgres:5432/postgres
+```
+
+The only thing you need to change here is `YOUR_POSTGRES_PASSWORD` and `VERY_SENSITIVE_SECRET`.
+
+The `NEXTAUTH_URL` should be changed to you're domain name _only if you are hosting it somewhere else_.
+
+#### 5. Run it!
+
+In the main folder (where you create the .env file) simply run `docker compose up`.
+
+After a few minutes (depending on your internet connection) you can access Linkwarden via [http://localhost:3000](http://localhost:3000).
+
+Enjoy!
+
+### Manual Installation
 
 :::note
 

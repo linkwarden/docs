@@ -58,21 +58,21 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: "img/linkwarden.png",
+      image: "img/logo.png",
       navbar: {
         logo: {
-          alt: "Linkwarden",
-          src: "img/linkwarden.png",
+          alt: "Linkwarden Logo",
+          src: "img/logo.png",
         },
         items: [
           {
             type: "docSidebar",
             sidebarId: "tutorialSidebar",
             position: "left",
-            label: "Docs",
+            label: "Docs for Linkwarden",
           },
           {
-            href: "https://github.com/linkwarden/docs",
+            href: "https://github.com/linkwarden/linkwarden",
             label: "GitHub",
             position: "right",
           },

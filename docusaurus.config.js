@@ -23,6 +23,15 @@ const config = {
   trailingSlash: false,
   deploymentBranch: "deployment",
 
+  scripts: [
+    {
+      src: "https://linkwarden-meta.xyz/js/script.js",
+      async: true,
+      defer: true,
+      "data-domain": "docs.linkwarden.app",
+    },
+  ],
+
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
 

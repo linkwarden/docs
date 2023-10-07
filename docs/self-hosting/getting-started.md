@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Self Hosting
+# Installation
 
 Here you can find everything you need to setup a fully fledged Linkwarden instance on your own server.
 

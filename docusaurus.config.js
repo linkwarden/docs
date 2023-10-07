@@ -78,10 +78,10 @@ const config = {
             type: "docSidebar",
             sidebarId: "tutorialSidebar",
             position: "left",
-            label: "Docs for Linkwarden",
+            label: "Linkwarden Docs",
           },
           {
-            href: "https://github.com/linkwarden/linkwarden",
+            href: "https://github.com/linkwarden/docs",
             label: "GitHub",
             position: "right",
           },

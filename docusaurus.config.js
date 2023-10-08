@@ -25,7 +25,7 @@ const config = {
 
   scripts: [
     {
-      src: "https://linkwarden-meta.xyz/js/script.js",
+      src: "https://metrics.direct/js/script.js",
       async: true,
       defer: true,
       "data-domain": "docs.linkwarden.app",

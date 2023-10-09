@@ -4,8 +4,6 @@ sidebar_position: 2
 
 # Dashboard
 
-Your dashboard is where you can get a quick look at what you have, it's also the initial view you'll see right after you create an account:
+Your Dashboard is your personal space to get a quick overview of all your Links, Collections, and Tags. You can also Pin your favorite Links for easier access.
 
-![Labeled dashboard](/img/labeled-dashboard.png)
-
-Here you'll see exactly how many Links, Tags and Collection you've created.
+![Dashboard](/img/dashboard.png)

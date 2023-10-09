@@ -6,6 +6,10 @@ sidebar_position: 1
 
 Here you'll find a quick overview of Linkwarden.
 
+This is the first screen you'll see right after you create an account:
+
+![Labeled dashboard](/img/labeled-dashboard.png)
+
 ## Links, Tags, and Collections
 
 At the core there's three types of data you're dealing with:

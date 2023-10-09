@@ -26,7 +26,11 @@ For Mozilla Firefox, you can get the extension from [Mozilla Addon Store](https:
 
 The first time you want to use the extension, you'll need to fill in three fields:
 
-- **Cloud instance address**: This is where your Linkwarden instance is located. If you're using our official cloud instance, set this as: https://cloud.linkwarden.app
+- **Cloud instance address**: This is where your Linkwarden instance is located. If you're using our official cloud instance, set this as:
+
+```
+https://cloud.linkwarden.app
+```
 
 - **Username or Email**: Your username or email you used to create a Linkwarden account.
 

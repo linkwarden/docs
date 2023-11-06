@@ -69,16 +69,16 @@ const config = {
       // Replace with your project's social card
       image: "img/logo.png",
       navbar: {
+        title: "Linkwarden",
         logo: {
           alt: "Linkwarden Logo",
           src: "img/logo.png",
         },
         items: [
           {
-            type: "docSidebar",
-            sidebarId: "tutorialSidebar",
+            href: "/",
+            label: "Documentation",
             position: "left",
-            label: "Linkwarden Docs",
           },
           {
             href: "https://github.com/linkwarden/docs",
@@ -88,8 +88,29 @@ const config = {
         ],
       },
       footer: {
-        style: "dark",
-        copyright: `Copyright © ${new Date().getFullYear()} Linkwarden. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Linkwarden.`,
+        links: [
+          {
+            label: "Website",
+            href: "https://linkwarden.app",
+          },
+          {
+            label: "GitHub",
+            href: "https://github.com/linkwarden",
+          },
+          {
+            label: "Twitter",
+            href: "https://twitter.com/LinkwardenHQ",
+          },
+          {
+            label: "Mastodon",
+            href: "https://fosstodon.org/@linkwarden",
+          },
+          {
+            label: "Discord",
+            href: "https://discord.gg/CtuYV47nuJ",
+          },
+        ],
       },
       prism: {
         theme: lightCodeTheme,

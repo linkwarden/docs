@@ -48,7 +48,7 @@ POSTGRES_PASSWORD=YOUR_POSTGRES_PASSWORD
 
 The only thing you **MUST** change here is `YOUR_POSTGRES_PASSWORD` and `VERY_SENSITIVE_SECRET`, they both should be different secret phrases.
 
-The `NEXTAUTH_URL` should be changed to you're domain name _only if you are hosting it somewhere else_.
+The `NEXTAUTH_URL` should be changed to your domain name _only if you are hosting it somewhere else_.
 
 #### 4. Run it!
 

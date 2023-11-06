@@ -10,7 +10,7 @@ Additionally, Linkwarden is designed with collaboration in mind, sharing links w
 
 This is the documentation for Linkwarden. Our documentation is a great place to find most answers.
 
-Something missing? Please [contact us](mailto:support@linkwarden.app) so we can update the documentation. Thanks and enjoy Linkwarden!
+Something missing? Please [Contact Us](mailto:support@linkwarden.app) so we can update the documentation. Thanks and enjoy Linkwarden!
 
 There's a "**Edit this page**" at the bottom of each page. If you come across any typos, issues, or unclear content, please feel free to submit a pull request to contribute and improve the page.
 

@@ -31,3 +31,7 @@
 [data-theme="dark"] .theme-doc-sidebar-container {
   background-color: #292929;
 }
+
+.footer__col {
+  text-align: center;
+}

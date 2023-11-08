@@ -12,6 +12,7 @@ Here are all the additional variables you can define in the `.env` file for sett
 | STORAGE_FOLDER                   | /data   | The folder to store your Screenshot's, PDF's, and profile photos.               |
 | AUTOSCROLL_TIMEOUT               | 30      | The amount of time to wait for the website to be archived (in seconds).         |
 | NEXT_PUBLIC_DISABLE_REGISTRATION | false   | If set to true, registration willl be disabled.                                 |
+| RE_ARCHIVE_LIMIT                 | 5       | Adjusts how often a user can trigger a new archive for each link (in minutes).  |
 
 ## Digital Ocean Spaces/AWS S3 Settings
 

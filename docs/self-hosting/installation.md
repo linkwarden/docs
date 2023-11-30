@@ -103,7 +103,7 @@ DATABASE_URL=postgresql://[USERNAME]:[PASSWORD]@localhost:[PORT]/[DATABASE]
 
 The only thing you **MUST** change here is `VERY_SENSITIVE_SECRET` and `DATABASE_URL`.
 
-The `NEXTAUTH_URL` should be changed to you're domain name _only if you are hosting it somewhere else_.
+The `NEXTAUTH_URL` should be changed to your domain name _only if you are hosting it somewhere else_.
 
 #### 4. Build and setup the database:
 

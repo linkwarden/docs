@@ -40,20 +40,20 @@ NEXTAUTH_URL=http://localhost:3000/api/v1/auth
 
 ### 2. Run the migration script
 
-What exactly does this [script](https://github.com/linkwarden/linkwarden/blob/main/lib/api/migration/migrateToV2.js) do? Basically it checks if a file (screenshot/pdf/profile photo) exists, it then stores it in the database. So there's no need to make unnecessary API calls to figure out if a file exists or not...
+What exactly does this [script](https://github.com/linkwarden/linkwarden/blob/main/scripts/migration/migrateToV2.js) do? Basically it checks if a file (screenshot/pdf/profile photo) exists, it then stores it in the database. So there's no need to make unnecessary API calls to figure out if a file exists or not...
 
 **How to run it?**
 
 If you took the [Manual installation](/self-hosting/installation#manual-installation), simply run the following:
 
 ```
-node lib/api/migration/migrateToV2.js
+node scripts/migration/migrateToV2.js
 ```
 
 For [Docker](/self-hosting/installation#docker-) users, replace `CONTAINER_ID` with your running Linkwarden container's ID and execute the following command:
 
 ```
-docker exec -it CONTAINER_ID /bin/bash -c 'node lib/api/migration/migrateToV2.js'
+docker exec -it CONTAINER_ID /bin/bash -c 'node scripts/migration/migrateToV2.js'
 ```
 
 Based on the amount of data you have this _may_ take a couple of minutes.

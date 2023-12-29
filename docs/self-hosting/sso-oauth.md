@@ -72,6 +72,8 @@ The variables you need to configure to enable support for Authentik (OIDC):
 | AUTHENTIK_CLIENT_ID           | -       | Client ID                                                                                |
 | AUTHENTIK_CLIENT_SECRET       | -       | Client Secret.                                                                           |
 
+Administrators are required to also set the environment variable `NEXTAUTH_URL=https://linkwarden.my-doma.in/api/v1/auth` and ensure a JWT signing key is selected in Authentik's Application settings.
+
 ## Battle.net
 
 The variables you need to configure to enable support for Battle.net (OIDC):

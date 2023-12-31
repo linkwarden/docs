@@ -8,7 +8,7 @@ Here are all the SSO/OAuth integrations Linkwarden has.
 
 :::warning
 
-Other than the [Keycloak](#keycloak) integration, 90% of the other integrations are **untested**. Please first backup your database _just in case_.
+Other than the [Authentik](#authentik) and [Keycloak](#keycloak) integrations, 90% of the other integrations are **untested**. Please first backup your database _just in case_.
 
 To get support from the community, please visit our **[Discord](https://discord.com/invite/CtuYV47nuJ)** server.
 

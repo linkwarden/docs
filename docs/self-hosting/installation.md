@@ -97,7 +97,7 @@ Inside the `/linkwarden` folder, create a file named `.env`, open it and paste t
 
 ```
 NEXTAUTH_SECRET=VERY_SENSITIVE_SECRET
-NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_URL=http://localhost:3000/api/v1/auth
 DATABASE_URL=postgresql://[USERNAME]:[PASSWORD]@localhost:[PORT]/[DATABASE]
 ```
 

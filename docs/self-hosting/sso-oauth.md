@@ -68,11 +68,11 @@ The variables you need to configure to enable support for Authentik (OIDC):
 | ----------------------------- | ------- | ---------------------------------------------------------------------------------------- |
 | NEXT_PUBLIC_AUTHENTIK_ENABLED | -       | If set to true, Authentik will be enabled and you'll need to define the variables below. |
 | AUTHENTIK_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                   |
-| AUTHENTIK_ISSUER              | -       | Issuer.                                                                                  |
-| AUTHENTIK_CLIENT_ID           | -       | Client ID                                                                                |
-| AUTHENTIK_CLIENT_SECRET       | -       | Client Secret.                                                                           |
+| AUTHENTIK_ISSUER              | -       | This is the "OpenID Configuration Issuer" shown in the Provider Overview. Note that you must delete the "/" at the end of the URL. Should look like: `https://linkwarden.my-doma.in/application/o/linkwarden`                                       |
+| AUTHENTIK_CLIENT_ID           | -       | Client ID copied from the Provider Overview screen in Authentik                          |
+| AUTHENTIK_CLIENT_SECRET       | -       | Client Secret copied from the Provider Overview screen in Authentik                      |
 
-Administrators are required to also set the environment variable `NEXTAUTH_URL=https://linkwarden.my-doma.in/api/v1/auth` and ensure a JWT signing key is selected in Authentik's Application settings.
+Administrators are required to also set the environment variable `NEXTAUTH_URL=https://linkwarden.my-doma.in/api/v1/auth` (during the linkwarden install process or docker ENV variables) and ensure a JWT signing key is selected in Authentik's Providers settings (this can be the default self-signed authentik certificate). Note that the Authentik Provider "Redirect URIs" section can be left blank, it will autofill with a URL after the first time it is used. The URL will look like: `https://linkwarden.my-doma.in/api/v1/auth/callback/authentik`
 
 ## Battle.net
 

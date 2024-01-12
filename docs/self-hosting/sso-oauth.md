@@ -74,6 +74,21 @@ The variables you need to configure to enable support for Authentik (OIDC):
 
 Administrators are required to also set the environment variable `NEXTAUTH_URL=https://linkwarden.my-doma.in/api/v1/auth` (during the linkwarden install process or docker ENV variables) and ensure a JWT signing key is selected in Authentik's Providers settings (this can be the default self-signed authentik certificate). Note that the Authentik Provider "Redirect URIs" section can be left blank, it will autofill with a URL after the first time it is used. The URL will look like: `https://linkwarden.my-doma.in/api/v1/auth/callback/authentik`
 
+Authentik Setup Example:
+
+Create a Provider on Authentik with the following settings:
+
+<img src="authentik-provider.PNG" width="500">
+
+Create an Application with the following settings:
+
+<img src="authentik-application.png" width="500">
+
+Finally Assign users or groups of users to the application so they have access (Select the linkwarden application in Authentik, select the "Policy/Group/User Bindings" tab, then `Bind existing Policy` -> `Group` or `users` -> select either a group or a user):
+
+<img src="authentik-user-access.PNG" width="500">
+
+
 ## Battle.net
 
 The variables you need to configure to enable support for Battle.net (OIDC):

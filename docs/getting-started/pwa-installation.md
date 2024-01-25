@@ -20,6 +20,12 @@ A PWA functions like a traditional app but is installed directly from the websit
 
 4. Tap **Add** in the upper-right corner.
 
+:::tip
+
+You can also get the iOS Shortcut to quickly add links to Linkwarden from the share sheet on iOS. [Click here](/getting-started/apple-shortcut) to learn more.
+
+:::
+
 <table>
   <tr>
     <td><img src="/img/ios-pwa-installation/1.jpg" width="100%" /></td>

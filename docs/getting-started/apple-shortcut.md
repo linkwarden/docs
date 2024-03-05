@@ -11,7 +11,7 @@ This shortcut allows you to quickly add a link to Linkwarden from the share shee
 ## Installation
 
 1. Get the shortcut from the link below:
-   https://www.icloud.com/shortcuts/2c537f3f4bb74019bc27fd7a4dde0ed8
+   https://www.icloud.com/shortcuts/e437f159b5e545e8af571ca7ebfc53ba
 
 2. Finalize the shortcut by setting up the following variables:
 

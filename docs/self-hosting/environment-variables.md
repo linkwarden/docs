@@ -44,3 +44,18 @@ The variables you need to configure to enable password recovery without admin in
 | NEXT_PUBLIC_EMAIL_PROVIDER | -       | If set to true, email will be enabled and you'll need to define the next two variables below. |
 | EMAIL_FROM                 | -       | The email that will send the verification emails.                                             |
 | EMAIL_SERVER               | -       | That sensitive string that starts with `smtp://...` .                                         |
+
+## Singlefile settings
+
+_Singlefile archive method is not functional without setting one of these variables._
+
+These env variables are mutually exclusive, you can only use one of them at a time.
+
+| Environment Variable         | Default | Description                                                                                                                                                 |
+|------------------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| SINGLEFILE_ARCHIVE_COMMAND   | -       | Create a singlefile archive using a cli command installed on the local filesystem. Example: `single-file "{{URL}}" --dump-content`                          |
+| SINGLEFILE_ARCHIVE_HTTP_API  | -       | Uses an HTTP service to retrieve the single page html (e.g. rutkai/single-file-web or screenbreak/singlefile-dockerized). Example: `http://localhost:3000/` |
+
+Recommended setup is to use the container in the `docker-compose.yml` file and the HTTP API with the value `http://singlefile:3000/`.
+
+Please note that either invoking the command or using the HTTP API need to give back the singlefile version and shouldn't dump the content to a file.

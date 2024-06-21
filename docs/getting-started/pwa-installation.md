@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# Install as PWA
+# Install as a PWA
 
 Install Linkwarden as a Progressive Web App (PWA) on your phone, tablet, or computer to use it like a native app without needing an app store download.
 
@@ -28,9 +28,9 @@ You can also get the iOS Shortcut to quickly add links to Linkwarden from the sh
 
 <table>
   <tr>
-    <td><img src="/img/ios-pwa-installation/1.jpg" width="100%" /></td>
-    <td><img src="/img/ios-pwa-installation/2.jpg" width="100%" /></td>
-    <td><img src="/img/ios-pwa-installation/3.jpg" width="100%" /></td>
+    <td><img src="/img/ios-pwa-installation/1.jpg" alt="iOS PWA Installation, step 1" width="100%" /></td>
+    <td><img src="/img/ios-pwa-installation/2.jpg" alt="iOS PWA Installation, step 2" width="100%" /></td>
+    <td><img src="/img/ios-pwa-installation/3.jpg" alt="iOS PWA Installation, step 3" width="100%" /></td>
   </tr>
 </table>
 
@@ -54,6 +54,6 @@ You can also get the iOS Shortcut to quickly add links to Linkwarden from the sh
 
 <table>
   <tr>
-    <td><img src="/img/chrome-pwa-installation/1.jpg" width="100%" /></td>
+    <td><img src="/img/chrome-pwa-installation/1.jpg" alt="Chrome PWA Installation" width="100%" /></td>
   </tr>
 </table>

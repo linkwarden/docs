@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Browser Extension
 
-Linkwarden offers a Browser Extension as well, which is also [opensource](https://github.com/linkwarden/browser-extension)! You can save your favorite webpages to Linkwarden without leaving your current tab.
+Linkwarden offers a Browser Extension, which is [opensource](https://github.com/linkwarden/browser-extension), just like Linkwarden itself! You can save your favorite webpages to Linkwarden without leaving your current tab.
 
 ![Linkwarden browser extension](/img/linkwarden-extension.png)
 
@@ -18,22 +18,22 @@ For Chrome, Brave, Edge and other Chromium based browsers you can get the extens
 
 ### Firefox
 
-For Mozilla Firefox, you can get the extension from [Mozilla Addon Store](https://addons.mozilla.org/en-US/firefox/addon/linkwarden):
+For Mozilla Firefox, you can get the extension from the [Mozilla Addon Store](https://addons.mozilla.org/en-US/firefox/addon/linkwarden):
 
 [![Linkwarden Firefox extension](/img/mozilla-addons.png)](https://addons.mozilla.org/en-US/firefox/addon/linkwarden)
 
 ## One Time Setup
 
-The first time you want to use the extension, you'll need to fill in three fields:
+The first time you use the extension, you'll need to fill in three fields:
 
-- **Cloud instance address**: This is where your Linkwarden instance is located. If you're using our official cloud instance, set this as:
+- **Cloud instance address**: This is where your Linkwarden instance is located. If you're using our official cloud instance, set this to:
 
-```
-https://cloud.linkwarden.app
-```
+  ```
+  https://cloud.linkwarden.app
+  ```
 
-- **Username or Email**: Your username or email you used to create a Linkwarden account.
+- **Username or Email**: The username or email you used to create a Linkwarden account.
 
-- **Password**: The password you've set when you created a Linkwarden account.
+- **Password**: The current password for your Linkwarden account.
 
 ![Linkwarden extension config](/img/extension-config.png)

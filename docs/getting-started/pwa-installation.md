@@ -12,7 +12,7 @@ A PWA functions like a traditional app but is installed directly from the websit
 
 ### iOS
 
-1. Open [cloud.linkwarden.app](https://app.linkwarden.app) in Safari. Or if you're self-hosting, open your instance's URL.
+1. Open [cloud.linkwarden.app](https://cloud.linkwarden.app) in Safari. Or if you're self-hosting, open your instance's URL.
 
 2. Tap the Share button at the bottom of the screen.
 
@@ -36,7 +36,7 @@ You can also get the iOS Shortcut to quickly add links to Linkwarden from the sh
 
 ### Android
 
-1. Open [cloud.linkwarden.app](https://app.linkwarden.app) in Chrome. Or if you're self-hosting, open your instance's URL.
+1. Open [cloud.linkwarden.app](https://cloud.linkwarden.app) in Chrome. Or if you're self-hosting, open your instance's URL.
 
 2. Press the three dots in the upper-right corner to open the menu.
 
@@ -46,7 +46,7 @@ You can also get the iOS Shortcut to quickly add links to Linkwarden from the sh
 
 ### Chrome (Desktop)
 
-1. Open [cloud.linkwarden.app](https://app.linkwarden.app) in Chrome. Or if you're self-hosting, open your instance's URL.
+1. Open [cloud.linkwarden.app](https://cloud.linkwarden.app) in Chrome. Or if you're self-hosting, open your instance's URL.
 
 2. Click the **Install** icon in the right side of the address bar.
 

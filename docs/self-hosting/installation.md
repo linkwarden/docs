@@ -20,7 +20,7 @@ Here you can find everything you need to setup a fully fledged Linkwarden instan
 
 ### Hardware Requirements
 
-Linkwarden has a pretty minimal hardware requirements - it was tested on a 2gb VPS and it ran pretty smoothly, the most intense part is when you build the app, but once it's running it's relatively lightweight.
+Linkwarden has pretty minimal hardware requirements - it was tested on a 2gb VPS and it ran pretty smoothly, the most intense part is when you build the app, but once it's running it's relatively lightweight.
 
 ### Docker 🐋
 
@@ -36,7 +36,7 @@ $ git clone https://github.com/linkwarden/linkwarden.git
 $ cd linkwarden
 ```
 
-#### 3. Configure the Environment Variables
+#### 2. Configure the Environment Variables
 
 Inside the `/linkwarden` folder, create a file named `.env`, open it and paste the following text inside it:
 
@@ -50,9 +50,9 @@ The only thing you **MUST** change here is `YOUR_POSTGRES_PASSWORD` and `VERY_SE
 
 The `NEXTAUTH_URL` should be changed to your domain name _only if you are hosting it somewhere else_.
 
-#### 4. Run it!
+#### 3. Run it!
 
-In the main folder (where you create the .env file) simply run the following:
+In the main folder (where you created the .env file) simply run the following:
 
 ```bash
 $ docker compose up
@@ -66,7 +66,7 @@ After a few minutes (depending on your internet connection) you can access Linkw
 
 :::note
 
-The Manual Installation is targeted towards a more technical audience, to take a easier path, go for installation using [Docker](/self-hosting/installation#docker-).
+The Manual Installation is targeted towards a more technical audience, to take an easier path, go for installation using [Docker](/self-hosting/installation#docker-).
 
 :::
 
@@ -112,7 +112,7 @@ $ yarn build
 $ yarn prisma migrate deploy
 ```
 
-#### 5. Start the app:
+    #### 5. Start the app:
 
 ```bash
 $ yarn start

@@ -4,13 +4,13 @@ sidebar_position: 3
 
 # SSO/OAuth Integrations
 
-Here are all the SSO/OAuth integrations Linkwarden has.
+Here are all the SSO/OAuth integrations Linkwarden currently has.
 
 :::warning
 
-Other than the [Authentik](#authentik) and [Keycloak](#keycloak) integrations, 90% of the other integrations are **untested**. Please first backup your database _just in case_.
+Other than the [Authentik](#authentik) and [Keycloak](#keycloak) integrations, most of the other integrations are **untested**. Please first backup your database, _just in case_.
 
-To get support from the community, please visit our **[Discord](https://discord.com/invite/CtuYV47nuJ)** server.
+To get support from the community, please visit our **[Discord server](https://discord.com/invite/CtuYV47nuJ)**.
 
 :::
 
@@ -78,15 +78,15 @@ Authentik Setup Example:
 
 Create a Provider on Authentik with the following settings:
 
-<img src="/img/authentik-setup/authentik-provider.png" width="500" />
+<img src="/img/authentik-setup/authentik-provider.png" alt="Authentik Provider Settings" width="500" />
 
 Create an Application with the following settings:
 
-<img src="/img/authentik-setup/authentik-application.png" width="500" />
+<img src="/img/authentik-setup/authentik-application.png" alt="Authentik Application Settings" width="500" />
 
-Finally Assign users or groups of users to the application so they have access (Select the linkwarden application in Authentik, select the "Policy/Group/User Bindings" tab, then `Bind existing Policy` -> `Group` or `users` -> select either a group or a user):
+Finally, Assign users or groups of users to the application so they have access (Select the linkwarden application in Authentik, select the "Policy/Group/User Bindings" tab, then `Bind existing Policy` -> `Group` or `users` -> select either a group or a user):
 
-<img src="/img/authentik-setup/authentik-user-access.png" width="500" />
+<img src="/img/authentik-setup/authentik-user-access.png" alt="Authentik User Access Settings" width="500" />
 
 ## Battle.net
 

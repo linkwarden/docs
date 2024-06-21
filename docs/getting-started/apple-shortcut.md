@@ -6,7 +6,7 @@ sidebar_position: 5
 
 This shortcut allows you to quickly add a link to Linkwarden from the share sheet on iOS.
 
-<img src="/img/ios_shortcut.jpg" height="500px" />
+<img src="/img/ios_shortcut.jpg" alt="iOS Shortcut" height="500px" />
 
 ## Installation
 
@@ -16,7 +16,7 @@ This shortcut allows you to quickly add a link to Linkwarden from the share shee
 2. Finalize the shortcut by setting up the following variables:
 
 - **Linkwarden Instance URL**: This is the link to your Linkwarden instance. If you're using our Cloud offering, leave this as is.
-- **Access Token**: You can create an Access Token in the settings page of your Linkwarden account.
+- **Access Token**: You can create an Access Token on the settings page of your Linkwarden account.
 
 :::tip
 

@@ -36,7 +36,7 @@ $ git clone https://github.com/linkwarden/linkwarden.git
 $ cd linkwarden
 ```
 
-#### 3. Configure the Environment Variables
+#### 2. Configure the Environment Variables
 
 Inside the `/linkwarden` folder, create a file named `.env`, open it and paste the following text inside it:
 
@@ -50,7 +50,7 @@ The only thing you **MUST** change here is `YOUR_POSTGRES_PASSWORD` and `VERY_SE
 
 The `NEXTAUTH_URL` should be changed to your domain name _only if you are hosting it somewhere else_.
 
-#### 4. Run it!
+#### 3. Run it!
 
 In the main folder (where you create the .env file) simply run the following:
 
@@ -76,6 +76,7 @@ The Manual Installation is targeted towards a more technical audience, to take a
 - Node.js
 - Yarn
 - Postgres
+- [Monolith](https://github.com/Y2Z/monolith)
 
 #### 1. Clone the Linkwarden repository
 

@@ -73,8 +73,8 @@ The Manual Installation is targeted towards a more technical audience, to take a
 **Requirements:**
 
 - Git
-- Node.js
-- Yarn
+- Node.js (node20)
+- Yarn (yarn-node20)
 - Postgres
 - [Monolith](https://github.com/Y2Z/monolith)
 

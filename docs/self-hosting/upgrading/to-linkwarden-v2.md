@@ -6,7 +6,7 @@ sidebar_label: To Linkwarden v2
 
 This documentation will help you upgrade your Linkwarden self-hosted instance from v1 to v2.
 
-Linkwarden v2 is a new **major** version including **breaking changes** requiring you to adjust your self-hosted instance accordingly. We will guide to during this process.
+Linkwarden v2 is a new **major** version including **breaking changes** requiring you to adjust your self-hosted instance accordingly. We will guide you during this process.
 
 ## How to upgrade
 
@@ -18,7 +18,7 @@ After pulling the latest changes, here are the steps to address the breaking cha
 
 :::info
 
-We tried to keep things as simple as possible but if you still had any questions, feel free to open up an [issue](https://github.com/linkwarden/linkwarden/issues/new/choose) in our main repository.
+We tried to keep things as simple as possible but if you still have any questions, feel free to open an [issue](https://github.com/linkwarden/linkwarden/issues/new/choose) in our main repository.
 
 :::
 
@@ -32,7 +32,7 @@ So for example this is probably what your current `NEXTAUTH_URL` looks like if y
 NEXTAUTH_URL=http://localhost:3000
 ```
 
-You just need to append a `/api/v1/auth` to it, so change it to this:
+You just need to append `/api/v1/auth` to it, so change it to this:
 
 ```
 NEXTAUTH_URL=http://localhost:3000/api/v1/auth
@@ -40,11 +40,11 @@ NEXTAUTH_URL=http://localhost:3000/api/v1/auth
 
 ### 2. Run the migration script
 
-What exactly does this [script](https://github.com/linkwarden/linkwarden/blob/main/scripts/migration/migrateToV2.js) do? Basically it checks if a file (screenshot/pdf/profile photo) exists, it then stores it in the database. So there's no need to make unnecessary API calls to figure out if a file exists or not...
+[This script](https://github.com/linkwarden/linkwarden/blob/main/scripts/migration/migrateToV2.js) checks if a file (screenshot/pdf/profile photo) exists, it then stores it in the database. So there's no need to make unnecessary API calls to figure out if a file exists or not...
 
 **How to run it?**
 
-If you took the [Manual installation](/self-hosting/installation#manual-installation), simply run the following:
+If you did the [Manual installation](/self-hosting/installation#manual-installation), simply run the following:
 
 ```
 node scripts/migration/migrateToV2.js
@@ -56,7 +56,7 @@ For [Docker](/self-hosting/installation#docker-) users, replace `CONTAINER_ID` w
 docker exec -it CONTAINER_ID /bin/bash -c 'node scripts/migration/migrateToV2.js'
 ```
 
-Based on the amount of data you have this _may_ take a couple of minutes.
+Based on the amount of data you have, this _may_ take a few minutes.
 
 **How to know if it's running properly?**
 
@@ -68,7 +68,7 @@ Whether you built the extension from source or downloaded it from the browser, m
 
 :::note
 
-As of the time we're writing this post, the extension hasn't been verified by the [Chrome Web Store](https://chrome.google.com/webstore/detail/linkwarden/pnidmkljnhbjfffciajlcpeldoljnidn) yet.
+At the time of writing, the extension hasn't been verified by the [Chrome Web Store](https://chrome.google.com/webstore/detail/linkwarden/pnidmkljnhbjfffciajlcpeldoljnidn) yet.
 
 But Firefox is [ready](https://addons.mozilla.org/en-CA/firefox/addon/linkwarden/).
 

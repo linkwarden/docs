@@ -20,7 +20,7 @@ Here you can find everything you need to setup a fully fledged Linkwarden instan
 
 ### Hardware Requirements
 
-Linkwarden has a pretty minimal hardware requirements - it was tested on a 2gb VPS and it ran pretty smoothly, the most intense part is when you build the app, but once it's running it's relatively lightweight.
+Linkwarden has pretty minimal hardware requirements - it was tested on a 2gb VPS and it ran pretty smoothly, the most intense part is when you build the app, but once it's running it's relatively lightweight.
 
 ### Docker 🐋
 
@@ -52,7 +52,7 @@ The `NEXTAUTH_URL` should be changed to your domain name _only if you are hostin
 
 #### 3. Run it!
 
-In the main folder (where you create the .env file) simply run the following:
+In the main folder (where you created the .env file) simply run the following:
 
 ```bash
 $ docker compose up
@@ -113,7 +113,7 @@ $ yarn build
 $ yarn prisma migrate deploy
 ```
 
-#### 5. Start the app:
+    #### 5. Start the app:
 
 ```bash
 $ yarn start

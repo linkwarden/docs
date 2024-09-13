@@ -67,7 +67,7 @@ The variables you need to configure to enable support for Authelia (OIDC).
 | Environment Variable          | Default | Description                                                                             |
 | ----------------------------- | ------- | --------------------------------------------------------------------------------------- |
 | NEXT_PUBLIC_AUTHELIA_ENABLED  | -       | If set to true, Authelia will be enabled and you'll need to define the variables below. |
-| AUTHELIA_WELLKNOWN_URL        | -       | https://{{authelia.domain.com}}/.well-known/openid-configuration                          |
+| AUTHELIA_WELLKNOWN_URL        | -       | https://\{\{authelia.domain.com\}\}/.well-known/openid-configuration                          |
 | AUTHELIA_CLIENT_ID            | -       | Client ID                                                                               |
 | AUTHELIA_CLIENT_SECRET        | -       | Client Secret. (Random Password from command below)                                                                         |
 

@@ -60,6 +60,42 @@ The variables you need to configure to enable support for Auth0 (OIDC):
 | AUTH0_CLIENT_ID           | -       | Client ID                                                                            |
 | AUTH0_CLIENT_SECRET       | -       | Client Secret.                                                                       |
 
+## Authelia
+
+The variables you need to configure to enable support for Authelia (OIDC).
+
+| Environment Variable          | Default | Description                                                                             |
+| ----------------------------- | ------- | --------------------------------------------------------------------------------------- |
+| NEXT_PUBLIC_AUTHELIA_ENABLED  | -       | If set to true, Authelia will be enabled and you'll need to define the variables below. |
+| AUTHELIA_WELLKNOWN_URL        | -       | https://{{authelia.domain.com}}/.well-known/openid-configuration                          |
+| AUTHELIA_CLIENT_ID            | -       | Client ID                                                                               |
+| AUTHELIA_CLIENT_SECRET        | -       | Client Secret. (Random Password from command below)                                                                         |
+
+Generate the client secret with 
+```bash
+docker exec -it authelia authelia crypto hash generate pbkdf2 --variant sha512 --random --random.length 72 --random.charset rfc3986
+```
+The `Random Password` should be used for the `AUTHELIA_CLIENT_SECRET` variable in linkwarden & the `Digest` should be used for `client_secret` in th Authelia config below.
+
+Authelia config should be as follows:
+
+```yaml
+      - client_id: linkwarden
+        client_name: Linkwarden
+        client_secret: {{Digest from command above}}
+        public: false
+        authorization_policy: one_factor
+        consent_mode: implicit
+        scopes:
+          - openid
+          - groups
+          - email
+          - profile
+        redirect_uris:
+          - https://{{linkwarden.domain.com}}/api/v1/auth/callback/authelia
+        userinfo_signed_response_alg: none
+```
+
 ## Authentik
 
 The variables you need to configure to enable support for Authentik (OIDC):

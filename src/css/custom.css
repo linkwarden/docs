@@ -35,3 +35,25 @@
 .footer__col {
   text-align: center;
 }
+
+.menu__list-item-collapsible:hover {
+  background-color: initial;
+}
+
+.menu__link {
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  border-right: 1px solid var(--ifm-menu-color-active);
+  background-color: rgba(2, 132, 199, 0.1);
+}
+
+.navbar {
+  box-shadow: none;
+  border-bottom: 1px solid var(--ifm-toc-border-color);
+}
+
+.theme-doc-sidebar-container {
+  font-size: 0.9rem;
+}

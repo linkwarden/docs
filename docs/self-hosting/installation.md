@@ -39,7 +39,7 @@ $ git clone https://github.com/linkwarden/linkwarden.git
 
 ```bash
 $ cd linkwarden
-$ cp .env.example .env
+$ cp .env.sample .env
 $ nano .env
 ```
 
@@ -101,7 +101,7 @@ $ npx playwright install --with-deps chromium
 
 ```bash
 $ cd linkwarden
-$ cp .env.example .env
+$ cp .env.sample .env
 $ nano .env
 ```
 

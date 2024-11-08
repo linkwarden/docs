@@ -64,49 +64,51 @@ The variables you need to configure to enable support for Auth0 (OIDC):
 
 The variables you need to configure to enable support for Authelia (OIDC).
 
-| Environment Variable          | Default | Description                                                                             |
-| ----------------------------- | ------- | --------------------------------------------------------------------------------------- |
-| NEXT_PUBLIC_AUTHELIA_ENABLED  | -       | If set to true, Authelia will be enabled and you'll need to define the variables below. |
-| AUTHELIA_WELLKNOWN_URL        | -       | https://\{\{authelia.domain.com\}\}/.well-known/openid-configuration                          |
-| AUTHELIA_CLIENT_ID            | -       | Client ID                                                                               |
-| AUTHELIA_CLIENT_SECRET        | -       | Client Secret. (Random Password from command below)                                                                         |
+| Environment Variable         | Default | Description                                                                             |
+| ---------------------------- | ------- | --------------------------------------------------------------------------------------- |
+| NEXT_PUBLIC_AUTHELIA_ENABLED | -       | If set to true, Authelia will be enabled and you'll need to define the variables below. |
+| AUTHELIA_WELLKNOWN_URL       | -       | https://\{\{authelia.domain.com\}\}/.well-known/openid-configuration                    |
+| AUTHELIA_CLIENT_ID           | -       | Client ID                                                                               |
+| AUTHELIA_CLIENT_SECRET       | -       | Client Secret. (Random Password from command below)                                     |
 
-Generate the client secret with 
+Generate the client secret with
+
 ```bash
 docker exec -it authelia authelia crypto hash generate pbkdf2 --variant sha512 --random --random.length 72 --random.charset rfc3986
 ```
+
 The `Random Password` should be used for the `AUTHELIA_CLIENT_SECRET` variable in linkwarden & the `Digest` should be used for `client_secret` in th Authelia config below.
 
 Authelia config should be as follows:
 
 ```yaml
-      - client_id: linkwarden
-        client_name: Linkwarden
-        client_secret: {{Digest from command above}}
-        public: false
-        authorization_policy: one_factor
-        consent_mode: implicit
-        scopes:
-          - openid
-          - groups
-          - email
-          - profile
-        redirect_uris:
-          - https://{{linkwarden.domain.com}}/api/v1/auth/callback/authelia
-        userinfo_signed_response_alg: none
+- client_id: linkwarden
+  client_name: Linkwarden
+  client_secret: { { Digest from command above } }
+  public: false
+  authorization_policy: one_factor
+  consent_mode: implicit
+  scopes:
+    - openid
+    - groups
+    - email
+    - profile
+  redirect_uris:
+    - https://{{linkwarden.domain.com}}/api/v1/auth/callback/authelia
+  userinfo_signed_response_alg: none
 ```
 
 ## Authentik
 
 The variables you need to configure to enable support for Authentik (OIDC):
 
-| Environment Variable          | Default | Description                                                                                                                                                                                                   |
-| ----------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| NEXT_PUBLIC_AUTHENTIK_ENABLED | -       | If set to true, Authentik will be enabled and you'll need to define the variables below.                                                                                                                      |
-| AUTHENTIK_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                                                                                                                                        |
-| AUTHENTIK_ISSUER              | -       | This is the "OpenID Configuration Issuer" shown in the Provider Overview. Note that you must delete the "/" at the end of the URL. Should look like: `https://authentik.my-doma.in/application/o/linkwarden`  |
-| AUTHENTIK_CLIENT_ID           | -       | Client ID copied from the Provider Overview screen in Authentik                                                                                                                                               |
-| AUTHENTIK_CLIENT_SECRET       | -       | Client Secret copied from the Provider Overview screen in Authentik                                                                                                                                           |
+| Environment Variable          | Default | Description                                                                                                                                                                                                  |
+| ----------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| NEXT_PUBLIC_AUTHENTIK_ENABLED | -       | If set to true, Authentik will be enabled and you'll need to define the variables below.                                                                                                                     |
+| AUTHENTIK_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                                                                                                                                       |
+| AUTHENTIK_ISSUER              | -       | This is the "OpenID Configuration Issuer" shown in the Provider Overview. Note that you must delete the "/" at the end of the URL. Should look like: `https://authentik.my-doma.in/application/o/linkwarden` |
+| AUTHENTIK_CLIENT_ID           | -       | Client ID copied from the Provider Overview screen in Authentik                                                                                                                                              |
+| AUTHENTIK_CLIENT_SECRET       | -       | Client Secret copied from the Provider Overview screen in Authentik                                                                                                                                          |
 
 Administrators are required to also set the environment variable `NEXTAUTH_URL=https://linkwarden.my-doma.in/api/v1/auth` (during the linkwarden install process or docker ENV variables) and ensure a JWT signing key is selected in Authentik's Providers settings (this can be the default self-signed authentik certificate). Note that the Authentik Provider "Redirect URIs" section can be left blank, it will autofill with a URL after the first time it is used. The URL will look like: `https://linkwarden.my-doma.in/api/v1/auth/callback/authentik`
 
@@ -294,8 +296,8 @@ The variables you need to configure to enable support for Github (OIDC):
 | -------------------------- | ------- | ------------------------------------------------------------------------------------- |
 | NEXT_PUBLIC_GITHUB_ENABLED | -       | If set to true, Github will be enabled and you'll need to define the variables below. |
 | GITHUB_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                |
-| GITHUB_CLIENT_ID           | -       | Client ID                                                                             |
-| GITHUB_CLIENT_SECRET       | -       | Client Secret.                                                                        |
+| GITHUB_ID                  | -       | Client ID                                                                             |
+| GITHUB_SECRET              | -       | Client Secret.                                                                        |
 
 ## Gitlab
 

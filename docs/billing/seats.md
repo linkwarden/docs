@@ -8,6 +8,12 @@ sidebar_position: 1
 
 In Linkwarden, you can increase the number of seats in your subscription to invite/add more users and also save additional links. Each new user can independently manage their own links, collections, and tags. You can also add these users to your collections to collaborate on gathering articles and resources, depending on their collection permissions.
 
+## What is a Seat?
+
+A seat is a user slot in your subscription. Each seat allows you to invite one user to use Linkwarden. You can add as many seats as you need to accommodate all the users who will be using Linkwarden under your subscription. Each seat increases the number of links you can save under your subscription by 30,000. For example, if you have 3 seats, the sum of all links saved by all users under your subscription can be up to 90,000 links.
+
+Each subscription comes with a default seat for the account owner. You can add more seats to invite additional users to use Linkwarden.
+
 ## How Seats affect Billing
 
 The following explains how adding seats works in different scenarios. If you have any additional questions or need assistance managing seats, please don’t hesitate to reach out at [support@linkwarden.app](mailto:support@linkwarden.app).
@@ -25,6 +31,10 @@ If you are already an active subscriber, you will be charged for the total numbe
 If you're an active subscriber, as soon as you update your subscription, the billing cycle will reset and you will be charged for the new number of seats **immediately**. The next billing cycle will be based on the new number of seats.
 
 :::
+
+## Seat Pricing
+
+Each seat costs **$4 per month** or **$3 per month if billed annually** (+ applicable taxes).
 
 ## How to Add a User
 

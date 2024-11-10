@@ -10,7 +10,7 @@ In Linkwarden, you can increase the number of seats in your subscription to invi
 
 ## How Seats affect Billing
 
-Here’s how adding seats works in different scenarios, if you still had any questions or need help with managing seats, feel free to contact us at [support@linkwarden.app](mailto:support@linkwarden.app).
+The following explains how adding seats works in different scenarios. If you have any additional questions or need assistance managing seats, please don’t hesitate to reach out at [support@linkwarden.app](mailto:support@linkwarden.app).
 
 ### During the 14-day Free Trial
 

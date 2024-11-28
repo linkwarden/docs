@@ -4,11 +4,15 @@ sidebar_position: 1
 
 # Overview
 
-:::info
+We are working on improving the documentation and adding more details.
 
-This page is under development and needs more clarification.
+## Bruno Collection
 
-:::
+We have a Bruno[^1] collection so developers can get a better understanding of the API. Find it [here](https://github.com/linkwarden/bruno-collection).
+
+## API Endpoints
+
+(Work in progress)
 
 | Method               | Route                                   | Description                                                    |
 | -------------------- | --------------------------------------- | -------------------------------------------------------------- |
@@ -29,3 +33,5 @@ This page is under development and needs more clarification.
 | GET \| POST          | /api/v1/collections                     | Get/post collections for a specific user.                      |
 | PUT \| DELETE        | /api/v1/collections/:id                 | Manage a single collection.                                    |
 | GET                  | /api/v1/avatar/:id                      | Get profile photo.                                             |
+
+[^1]: [Bruno](https://github.com/usebruno/bruno) is a lightweight, open-source alternative to Postman.

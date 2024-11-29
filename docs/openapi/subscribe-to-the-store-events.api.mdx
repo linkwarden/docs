@@ -1,0 +1,215 @@
+---
+id: subscribe-to-the-store-events
+title: "Subscribe to the Store events"
+description: "Add subscription for a store events"
+sidebar_label: "Subscribe to the Store events"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "post api-method"
+info_path: openapi/swagger-petstore-yaml
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Subscribe to the Store events"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/store/subscribe"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Add subscription for a store events
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"type":"object","properties":{"callbackUrl":{"type":"string","format":"uri","description":"This URL will be called by the server when the desired event will occur","example":"https://myserver.com/send/callback/here"},"eventName":{"type":"string","description":"Event name for the subscription","enum":["orderInProgress","orderShipped","orderDelivered"],"example":"orderInProgress"}},"required":["callbackUrl","eventName"]}}}}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"201":{"description":"Subscription added","content":{"application/json":{"schema":{"type":"object","properties":{"subscriptionId":{"type":"string","example":"AAA-123-BBB-456"}}}}}}}}
+>
+  
+</StatusCodes>
+
+<div>
+  <div
+    className={"openapi__divider"}
+  >
+    
+  </div><Heading
+    id={"callbacks"}
+    as={"h2"}
+    className={"openapi-tabs__heading"}
+    children={"Callbacks"}
+  >
+  </Heading><OperationTabs
+    className={"openapi-tabs__operation"}
+  >
+    <TabItem
+      label={"POST orderInProgress"}
+      value={"post-orderInProgress"}
+    >
+      <MethodEndpoint
+        method={"post"}
+        path={"{$request.body#/callbackUrl}?event={$request.body#/eventName}"}
+        context={"callback"}
+      >
+        
+      </MethodEndpoint>
+      
+      
+      
+      A callback triggered every time an Order is updated status to "inProgress" (Description)
+      
+      <RequestSchema
+        title={"Body"}
+        body={{"content":{"application/json":{"schema":{"type":"object","properties":{"orderId":{"type":"string","example":"123"},"timestamp":{"type":"string","format":"date-time","example":"2018-10-19T16:46:45Z"},"status":{"type":"string","example":"inProgress"}}}},"application/xml":{"schema":{"type":"object","properties":{"orderId":{"type":"string","example":"123"}}},"example":"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\n  <orderId>123</orderId>\n  <status>inProgress</status>\n  <timestamp>2018-10-19T16:46:45Z</timestamp>\n"}}}}
+      >
+        
+      </RequestSchema>
+      
+      <StatusCodes
+        id={"callbacks-responses"}
+        label={"Callbacks Responses"}
+        responses={{"200":{"description":"Callback successfully processed and no retries will be performed","content":{"application/json":{"schema":{"type":"object","properties":{"someProp":{"type":"string","example":"123"}}}}}},"299":{"description":"Response for cancelling subscription"},"500":{"description":"Callback processing failed and retries will be performed"}}}
+      >
+        
+      </StatusCodes>
+      
+      
+    </TabItem><TabItem
+      label={"PUT orderInProgress"}
+      value={"put-orderInProgress"}
+    >
+      <MethodEndpoint
+        method={"put"}
+        path={"{$request.body#/callbackUrl}?event={$request.body#/eventName}"}
+        context={"callback"}
+      >
+        
+      </MethodEndpoint>
+      
+      
+      
+      Order in Progress (Only Description)
+      
+      <RequestSchema
+        title={"Body"}
+        body={{"content":{"application/json":{"schema":{"type":"object","properties":{"orderId":{"type":"string","example":"123"},"timestamp":{"type":"string","format":"date-time","example":"2018-10-19T16:46:45Z"},"status":{"type":"string","example":"inProgress"}}}},"application/xml":{"schema":{"type":"object","properties":{"orderId":{"type":"string","example":"123"}}},"example":"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\n  <orderId>123</orderId>\n  <status>inProgress</status>\n  <timestamp>2018-10-19T16:46:45Z</timestamp>\n"}}}}
+      >
+        
+      </RequestSchema>
+      
+      <StatusCodes
+        id={"callbacks-responses"}
+        label={"Callbacks Responses"}
+        responses={{"200":{"description":"Callback successfully processed and no retries will be performed","content":{"application/json":{"schema":{"type":"object","properties":{"someProp":{"type":"string","example":"123"}}}}}}}}
+      >
+        
+      </StatusCodes>
+      
+      
+    </TabItem><TabItem
+      label={"POST orderShipped"}
+      value={"post-orderShipped"}
+    >
+      <MethodEndpoint
+        method={"post"}
+        path={"{$request.body#/callbackUrl}?event={$request.body#/eventName}"}
+        context={"callback"}
+      >
+        
+      </MethodEndpoint>
+      
+      
+      
+      A callback triggered every time an Order is shipped to the recipient
+      
+      <RequestSchema
+        title={"Body"}
+        body={{"content":{"application/json":{"schema":{"type":"object","properties":{"orderId":{"type":"string","example":"123"},"timestamp":{"type":"string","format":"date-time","example":"2018-10-19T16:46:45Z"},"estimatedDeliveryDate":{"type":"string","format":"date-time","example":"2018-11-11T16:00:00Z"}}}}}}}
+      >
+        
+      </RequestSchema>
+      
+      <StatusCodes
+        id={"callbacks-responses"}
+        label={"Callbacks Responses"}
+        responses={{"200":{"description":"Callback successfully processed and no retries will be performed"}}}
+      >
+        
+      </StatusCodes>
+      
+      
+    </TabItem><TabItem
+      label={"POST orderDelivered"}
+      value={"post-orderDelivered"}
+    >
+      <MethodEndpoint
+        method={"post"}
+        path={"http://notificationServer.com?url={$request.body#/callbackUrl}&event={$request.body#/eventName}"}
+        context={"callback"}
+      >
+        
+      </MethodEndpoint>
+      
+      
+      
+      A callback triggered every time an Order is delivered to the recipient
+      
+      <RequestSchema
+        title={"Body"}
+        body={{"content":{"application/json":{"schema":{"type":"object","properties":{"orderId":{"type":"string","example":"123"},"timestamp":{"type":"string","format":"date-time","example":"2018-10-19T16:46:45Z"}}}}}}}
+      >
+        
+      </RequestSchema>
+      
+      <StatusCodes
+        id={"callbacks-responses"}
+        label={"Callbacks Responses"}
+        responses={{"200":{"description":"Callback successfully processed and no retries will be performed"}}}
+      >
+        
+      </StatusCodes>
+      
+      
+    </TabItem>
+  </OperationTabs>
+</div>
+      

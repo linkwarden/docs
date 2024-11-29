@@ -30,7 +30,7 @@ This command generates static content into the `build` directory and can be serv
 yarn docusaurus gen-api-docs all
 ```
 
-This command generates OpenAPI pages for the OpenAPI YAML file in the `openapi` directory. The generated pages are placed in the `docs/openapi` directory.
+This command generates API docs for the OpenAPI YAML file in the `openapi` directory. The generated pages are placed in the `docs/openapi` directory.
 
 ### Deployment
 

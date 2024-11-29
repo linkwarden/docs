@@ -21,6 +21,8 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+      - name: Generate OpenAPI docs
+        run: yarn docusaurus gen-api-docs all
       - name: Build website
         run: yarn build
       - name: Deploy to GitHub Pages

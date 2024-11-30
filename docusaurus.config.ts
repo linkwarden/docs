@@ -162,13 +162,14 @@ const config: Config = {
         id: "api",
         docsPluginId: "classic",
         config: {
-          server: {
+          linkwarden: {
+            hideSendButton: true,
             specPath: "openapi/linkwarden.yaml",
             outputDir: "docs/openapi",
             sidebarOptions: {
               groupPathsBy: "tag"
             },
-            showSchemas: true,
+            showSchemas: false,
           } satisfies OpenApiPlugin.Options,
         }
       },

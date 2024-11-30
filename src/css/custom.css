@@ -5,59 +5,137 @@
  */
 
 :root {
-  --ifm-color-primary: #0284c7;
-  --ifm-color-primary-dark: #0277b3;
-  --ifm-color-primary-darker: #0270a9;
-  --ifm-color-primary-darkest: #015c8b;
-  --ifm-color-primary-light: #0291db;
-  --ifm-color-primary-lighter: #0298e5;
-  --ifm-color-primary-lightest: #09aafd;
+	--ifm-color-primary: #0284c7;
+	--ifm-color-primary-dark: #0277b3;
+	--ifm-color-primary-darker: #0270a9;
+	--ifm-color-primary-darkest: #015c8b;
+	--ifm-color-primary-light: #0291db;
+	--ifm-color-primary-lighter: #0298e5;
+	--ifm-color-primary-lightest: #09aafd;
 }
 
 [data-theme="dark"] {
-  --ifm-color-primary: #0ea5e9;
-  --ifm-color-primary-dark: #0d95d2;
-  --ifm-color-primary-darker: #0c8cc6;
-  --ifm-color-primary-darkest: #0a74a3;
-  --ifm-color-primary-light: #1eb0f1;
-  --ifm-color-primary-lighter: #2ab4f2;
-  --ifm-color-primary-lightest: #4dc0f4;
+	--ifm-color-primary: #0ea5e9;
+	--ifm-color-primary-dark: #0d95d2;
+	--ifm-color-primary-darker: #0c8cc6;
+	--ifm-color-primary-darkest: #0a74a3;
+	--ifm-color-primary-light: #1eb0f1;
+	--ifm-color-primary-lighter: #2ab4f2;
+	--ifm-color-primary-lightest: #4dc0f4;
 }
 
 .theme-doc-sidebar-container {
-  background-color: #f7f7f7;
+	background-color: #f7f7f7;
 }
 
 [data-theme="dark"] .theme-doc-sidebar-container {
-  background-color: #292929;
+	background-color: #292929;
 }
 
 .footer__col {
-  text-align: center;
+	text-align: center;
 }
 
 .menu__list-item-collapsible:hover {
-  background-color: initial;
+	background-color: initial;
 }
 
 .menu__link {
-  border-radius: 0.25rem 0 0 0.25rem;
+	border-radius: 0.25rem 0 0 0.25rem;
 }
 
 .menu__link--active:not(.menu__link--sublist) {
-  border-right: 1px solid var(--ifm-menu-color-active);
-  background-color: rgba(2, 132, 199, 0.1);
+	border-right: 1px solid var(--ifm-menu-color-active);
+	background-color: rgba(2, 132, 199, 0.1);
 }
 
 .navbar {
-  box-shadow: none;
-  border-bottom: 1px solid var(--ifm-toc-border-color);
+	box-shadow: none;
+	border-bottom: 1px solid var(--ifm-toc-border-color);
 }
 
 .theme-doc-sidebar-container {
-  font-size: 0.9rem;
+	font-size: 0.9rem;
 }
 
 .thin-scrollbar {
-  padding: 0rem !important;
+	padding: 0rem !important;
+}
+
+.api-method > .menu__link,
+.schema > .menu__link {
+	align-items: center;
+	justify-content: start;
+}
+
+.api-method > .menu__link::before,
+.schema > .menu__link::before {
+	width: 55px;
+	height: 20px;
+	font-size: 12px;
+	line-height: 20px;
+	text-transform: uppercase;
+	font-weight: 600;
+	border-radius: 0.25rem;
+	border: 1px solid;
+	border-inline-start-width: 5px;
+	margin-right: var(--ifm-spacing-horizontal);
+	text-align: center;
+	flex-shrink: 0;
+}
+
+.get > .menu__link::before {
+	content: "get";
+	background-color: var(--ifm-color-info-contrast-background);
+	color: var(--ifm-color-info-contrast-foreground);
+	border-color: var(--ifm-color-info-dark);
+}
+
+.post > .menu__link::before {
+	content: "post";
+	background-color: var(--ifm-color-success-contrast-background);
+	color: var(--ifm-color-success-contrast-foreground);
+	border-color: var(--ifm-color-success-dark);
+}
+
+.delete > .menu__link::before {
+	content: "del";
+	background-color: var(--ifm-color-danger-contrast-background);
+	color: var(--ifm-color-danger-contrast-foreground);
+	border-color: var(--ifm-color-danger-dark);
+}
+
+.put > .menu__link::before {
+	content: "put";
+	background-color: var(--ifm-color-warning-contrast-background);
+	color: var(--ifm-color-warning-contrast-foreground);
+	border-color: var(--ifm-color-warning-dark);
+}
+
+.patch > .menu__link::before {
+	content: "patch";
+	background-color: var(--ifm-color-success-contrast-background);
+	color: var(--ifm-color-success-contrast-foreground);
+	border-color: var(--ifm-color-success-dark);
+}
+
+.head > .menu__link::before {
+	content: "head";
+	background-color: var(--ifm-color-secondary-contrast-background);
+	color: var(--ifm-color-secondary-contrast-foreground);
+	border-color: var(--ifm-color-secondary-dark);
+}
+
+.event > .menu__link::before {
+	content: "event";
+	background-color: var(--ifm-color-secondary-contrast-background);
+	color: var(--ifm-color-secondary-contrast-foreground);
+	border-color: var(--ifm-color-secondary-dark);
+}
+
+.schema > .menu__link::before {
+	content: "schema";
+	background-color: var(--ifm-color-secondary-contrast-background);
+	color: var(--ifm-color-secondary-contrast-foreground);
+	border-color: var(--ifm-color-secondary-dark);
 }

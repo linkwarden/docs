@@ -20,10 +20,8 @@ tags:
   - name: Tags
   - name: Tokens
   - name: Users
-servers:
-  - url: https://cloud.linkwarden.app/api
 paths:
-  /v1/archives/{linkId}:
+  /api/v1/archives/{linkId}:
     post:
       tags:
         - Archives
@@ -138,7 +136,7 @@ paths:
       security:
         - bearerAuth: []
       description: Updates an archive file by replacing the existing file. Supports PDF, PNG, and JPEG formats.
-  /v1/auth/forgot-password:
+  /api/v1/auth/forgot-password:
     post:
       tags:
         - Auth
@@ -180,8 +178,7 @@ paths:
                   response:
                     type: string
                     example: "No user found with that email."
-
-  /v1/auth/reset-password:
+  /api/v1/auth/reset-password:
     post:
       tags:
         - Auth
@@ -213,8 +210,7 @@ paths:
                   response:
                     type: string
                     example: "Invalid token."
-
-  /v1/auth/verify-email:
+  /api/v1/auth/verify-email:
     post:
       tags:
         - Auth
@@ -247,6 +243,44 @@ paths:
                   response:
                     type: string
                     example: "Invalid token."
+  /api/v1/avatar/{id}:
+    get:
+      tags:
+        - Avatar
+      summary: Retrieves the avatar of a user by their ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the user whose avatar is to be retrieved.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Avatar image successfully retrieved
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+        "400":
+          description: File inaccessible or invalid parameters
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "File inaccessible."
+        "401":
+          description: Invalid parameters
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Invalid parameters."
+      security:
+        - bearerAuth: []
+      description: Retrieves the avatar for a user identified by their ID.
+
 components:
   parameters:
     LinkIdParameter:
@@ -266,36 +300,6 @@ components:
           description: The file to upload (PNG, JPEG, or PDF).
       required:
         - file
-    ReadabilityArchive:
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the content.
-        byline:
-          type: string
-          description: The byline or author attribution.
-        dir:
-          type: string
-          nullable: true
-          description: The text direction (e.g., "ltr" or "rtl").
-        lang:
-          type: string
-          nullable: true
-          description: The language of the content.
-        content:
-          type: string
-          description: The main content of the archive.
-        length:
-          type: integer
-          description: The length of the content.
-        excerpt:
-          type: string
-          description: A brief excerpt of the content.
-        siteName:
-          type: string
-          nullable: true
-          description: The name of the site hosting the content.
     ForgotPasswordSchema:
       type: object
       properties:
@@ -318,14 +322,6 @@ components:
       required:
         - token
         - password
-    VerifyEmailSchema:
-      type: object
-      properties:
-        token:
-          type: string
-          description: The verification token.
-      required:
-        - token
   responses:
     UploadSuccess:
       description: File successfully uploaded and processed.
@@ -348,32 +344,17 @@ components:
                 type: string
                 description: The error message describing why the request failed.
     GetArchiveSuccess:
-      description: Successful response with the requested archive format.
+      description: Archive file retrieved successfully.
       content:
-        application/pdf:
-          schema:
-            type: string
-            format: binary
-            description: The archive as a PDF file.
-        image/png:
-          schema:
-            type: string
-            format: binary
-            description: The archive as a PNG image.
-        image/jpeg:
-          schema:
-            type: string
-            format: binary
-            description: The archive as a JPEG image.
         application/json:
           schema:
-            $ref: "#/components/schemas/ReadabilityArchive"
-        text/html:
-          schema:
-            type: string
-            description: The archive in "monolith" HTML format.
+            type: object
+            properties:
+              response:
+                type: object
+                description: The archive file.
     FileNotFound:
-      description: File not found.
+      description: The requested archive file was not found.
       content:
         application/json:
           schema:
@@ -382,9 +363,3 @@ components:
               response:
                 type: string
                 example: "File not found."
-
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT

@@ -1479,6 +1479,142 @@ paths:
                         description: The token generated for the session.
         "400":
           $ref: "#/components/responses/BadRequest"
+  /api/v1/tags:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Tags
+      summary: Get a list of tags
+      description: Retrieves a list of tags and their associated metadata.
+      operationId: getTags
+      responses:
+        "200":
+          description: Successfully retrieved the list of tags.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        ownerId:
+                          type: integer
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+                        _count:
+                          type: object
+                          properties:
+                            links:
+                              type: integer
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /api/v1/tags/{id}:
+    put:
+      tags:
+        - Tags
+      summary: Update a tag by ID
+      description: Updates the name of a specific tag by its ID. This is an authenticated route.
+      operationId: updateTag
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the tag to be updated.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Test2"
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successfully updated the tag.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      ownerId:
+                        type: integer
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    delete:
+      tags:
+        - Tags
+      summary: Delete a tag by ID
+      description: Deletes a specific tag by its ID.
+      operationId: deleteTag
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the tag to be deleted.
+          schema:
+            type: integer
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successfully deleted the tag.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      ownerId:
+                        type: integer
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
   /api/v1/tokens:
     post:
       security:
@@ -1634,6 +1770,362 @@ paths:
                       updatedAt:
                         type: string
                         format: date-time
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /api/v1/users:
+    post:
+      tags:
+        - Users
+      summary: Create a new user
+      description: Registers a new user.
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The user's name.
+                  maxLength: 50
+                password:
+                  type: string
+                  description: The user's password, must be at least 8 characters long.
+                  minLength: 8
+                  maxLength: 2048
+                email:
+                  type: string
+                  format: email
+                  description: The user's email address, optional based on environment variables.
+                username:
+                  type: string
+                  description: The user's username, optional if email is provided.
+                  pattern: "^[a-z0-9_-]{3,50}$"
+                  minLength: 3
+                  maxLength: 50
+                invite:
+                  type: boolean
+                  description: Optional flag for invitations.
+      responses:
+        "200":
+          description: Successfully created the user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      username:
+                        type: string
+                      email:
+                        type: string
+                        nullable: true
+                      emailVerified:
+                        type: string
+                        nullable: true
+                      unverifiedNewEmail:
+                        type: string
+                        nullable: true
+                      image:
+                        type: string
+                        nullable: true
+                      locale:
+                        type: string
+                      parentSubscriptionId:
+                        type: string
+                        nullable: true
+                      collectionOrder:
+                        type: array
+                        items:
+                          type: integer
+                      linksRouteTo:
+                        type: string
+                      preventDuplicateLinks:
+                        type: boolean
+                      archiveAsScreenshot:
+                        type: boolean
+                      archiveAsMonolith:
+                        type: boolean
+                      archiveAsPDF:
+                        type: boolean
+                      archiveAsWaybackMachine:
+                        type: boolean
+                      isPrivate:
+                        type: boolean
+                      referredBy:
+                        type: string
+                        nullable: true
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Users
+      summary: Get a list of users
+      description: Retrieves a list of users.
+      operationId: getUsers
+      responses:
+        "200":
+          description: Successfully retrieved a list of users.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        username:
+                          type: string
+                        email:
+                          type: string
+                          nullable: true
+                        emailVerified:
+                          type: string
+                          nullable: true
+                        subscriptions:
+                          type: string
+                          nullable: true
+                        createdAt:
+                          type: string
+                          format: date-time
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /api/v1/users/{id}:
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - Users
+      summary: Delete a user account
+      description: Deletes a user account and all related data.
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the user to be deleted.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successfully deleted the user account and all related data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    example: "User account and all related data deleted successfully."
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    put:
+      security:
+        - bearerAuth: []
+      tags:
+        - Users
+      summary: Update a user's account details
+      description: Updates the details of an existing user account.
+      operationId: updateUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the user to be updated.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  maxLength: 50
+                  example: "John Doe"
+                email:
+                  type: string
+                  format: email
+                  nullable: true
+                  example: "john.doe@example.com"
+                username:
+                  type: string
+                  minLength: 3
+                  maxLength: 30
+                  pattern: "^[a-z0-9_-]{3,30}$"
+                  example: "user1"
+                image:
+                  type: string
+                  nullable: true
+                  example: "path/to/image.jpg"
+                password:
+                  type: string
+                  minLength: 8
+                  maxLength: 2048
+                  nullable: true
+                newPassword:
+                  type: string
+                  minLength: 8
+                  maxLength: 2048
+                  nullable: true
+                oldPassword:
+                  type: string
+                  minLength: 8
+                  maxLength: 2048
+                  nullable: true
+                archiveAsScreenshot:
+                  type: boolean
+                  nullable: true
+                archiveAsPDF:
+                  type: boolean
+                  nullable: true
+                archiveAsMonolith:
+                  type: boolean
+                  nullable: true
+                archiveAsWaybackMachine:
+                  type: boolean
+                  nullable: true
+                locale:
+                  type: string
+                  maxLength: 20
+                  nullable: true
+                isPrivate:
+                  type: boolean
+                  nullable: true
+                preventDuplicateLinks:
+                  type: boolean
+                  nullable: true
+                collectionOrder:
+                  type: array
+                  items:
+                    type: integer
+                  nullable: true
+                linksRouteTo:
+                  type: string
+                  enum:
+                    - ORIGINAL
+                    - CUSTOM
+                  nullable: true
+                whitelistedUsers:
+                  type: array
+                  items:
+                    type: string
+                    maxLength: 50
+                  nullable: true
+                referredBy:
+                  type: string
+                  maxLength: 100
+                  nullable: true
+      responses:
+        "200":
+          description: Successfully updated the user's account details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: "John Doe"
+                      username:
+                        type: string
+                        example: "user1"
+                      email:
+                        type: string
+                        nullable: true
+                      emailVerified:
+                        type: string
+                        nullable: true
+                      image:
+                        type: string
+                        example: ""
+                      locale:
+                        type: string
+                        example: "en"
+                      collectionOrder:
+                        type: array
+                        items:
+                          type: integer
+                        example: []
+                      linksRouteTo:
+                        type: string
+                        example: "ORIGINAL"
+                      preventDuplicateLinks:
+                        type: boolean
+                        example: false
+                      archiveAsScreenshot:
+                        type: boolean
+                        example: true
+                      archiveAsMonolith:
+                        type: boolean
+                        example: true
+                      archiveAsPDF:
+                        type: boolean
+                        example: true
+                      archiveAsWaybackMachine:
+                        type: boolean
+                        example: false
+                      isPrivate:
+                        type: boolean
+                        example: false
+                      referredBy:
+                        type: string
+                        nullable: true
+                      whitelistedUsers:
+                        type: array
+                        items:
+                          type: string
+                        example: []
+                      createdAt:
+                        type: string
+                        format: date-time
+                        example: "2024-12-01T22:04:16.492Z"
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        example: "2024-12-01T22:14:05.742Z"
+                      subscription:
+                        type: object
+                        properties: {}
+                      parentSubscription:
+                        type: object
+                        properties:
+                          user:
+                            type: object
+                            properties: {}
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":

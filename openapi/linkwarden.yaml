@@ -70,7 +70,7 @@ paths:
                     type: object
                     description: Details about the uploaded file.
         "400":
-          description: Bad Request - Invalid file type, file too large, or permission issues.
+          description: Bad request, invalid input.
           content:
             application/json:
               schema:
@@ -194,7 +194,7 @@ paths:
                     type: object
                     description: Updated details of the archive.
         "400":
-          description: Bad Request - Invalid file type, file too large, or permission issues.
+          description: Bad request, invalid input.
           content:
             application/json:
               schema:
@@ -839,9 +839,10 @@ paths:
           $ref: "#/components/responses/Forbidden"
 components:
   securitySchemes:
-    BearerAuth:
+    bearerAuth:
       type: http
       scheme: bearer
+      bearerFormat: JWT
   schemas:
     ErrorResponse:
       type: object

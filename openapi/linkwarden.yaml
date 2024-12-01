@@ -27,7 +27,12 @@ paths:
         - Archives
       summary: Uploads a file to an archive by link ID
       parameters:
-        - $ref: "#/components/parameters/LinkIdParameter"
+        - name: linkId
+          in: path
+          required: true
+          description: The ID of the desired link
+          schema:
+            type: string
         - name: format
           in: query
           required: true
@@ -43,12 +48,39 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/UploadFile"
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to upload (PNG, JPEG, or PDF).
+              required:
+                - file
       responses:
         "200":
-          $ref: "#/components/responses/UploadSuccess"
+          description: File successfully uploaded and processed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    description: Details about the uploaded file.
         "400":
-          $ref: "#/components/responses/BadRequest"
+          description: Bad Request - Invalid file type, file too large, or permission issues.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    description: The error message describing why the request failed.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
       security:
         - bearerAuth: []
       description: Uploads a file to the specified archive. Supports PDF, PNG, and JPEG formats.
@@ -57,7 +89,12 @@ paths:
         - Archives
       summary: Retrieves an archive file by link ID
       parameters:
-        - $ref: "#/components/parameters/LinkIdParameter"
+        - name: linkId
+          in: path
+          required: true
+          description: The ID of the desired link
+          schema:
+            type: string
         - name: format
           in: query
           required: false
@@ -80,9 +117,28 @@ paths:
             type: boolean
       responses:
         "200":
-          $ref: "#/components/responses/GetArchiveSuccess"
+          description: Archive file retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    description: The archive file.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
         "404":
-          $ref: "#/components/responses/FileNotFound"
+          description: The requested archive file was not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
       security:
         - bearerAuth: []
       description: Retrieves an archive file in the specified format.
@@ -91,7 +147,12 @@ paths:
         - Archives
       summary: Updates an archive file by link ID
       parameters:
-        - $ref: "#/components/parameters/LinkIdParameter"
+        - name: linkId
+          in: path
+          required: true
+          description: The ID of the desired link
+          schema:
+            type: string
         - name: format
           in: query
           required: false
@@ -111,7 +172,14 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/UploadFile"
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to upload (PNG, JPEG, or PDF).
+              required:
+                - file
       responses:
         "200":
           description: Archive file successfully updated.
@@ -133,6 +201,10 @@ paths:
                   response:
                     type: string
                     description: The error message describing why the request failed.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
       security:
         - bearerAuth: []
       description: Updates an archive file by replacing the existing file. Supports PDF, PNG, and JPEG formats.
@@ -146,7 +218,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ForgotPasswordSchema"
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: The email of the user requesting the password reset.
+              required:
+                - email
       responses:
         "200":
           description: Password reset email sent successfully.
@@ -157,7 +236,6 @@ paths:
                 properties:
                   response:
                     type: string
-                    example: "Password reset email sent."
         "400":
           description: Invalid request or too many password reset requests.
           content:
@@ -167,7 +245,6 @@ paths:
                 properties:
                   response:
                     type: string
-                    example: "Too many requests. Please try again later."
         "404":
           description: User not found.
           content:
@@ -177,7 +254,6 @@ paths:
                 properties:
                   response:
                     type: string
-                    example: "No user found with that email."
   /api/v1/auth/reset-password:
     post:
       tags:
@@ -188,7 +264,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ResetPasswordSchema"
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: The password reset token.
+                password:
+                  type: string
+                  minLength: 8
+                  description: The new password to set.
+              required:
+                - token
+                - password
       responses:
         "200":
           description: Password has been reset successfully.
@@ -199,7 +286,6 @@ paths:
                 properties:
                   response:
                     type: string
-                    example: "Password has been reset successfully."
         "400":
           description: Invalid token or error during password reset.
           content:
@@ -209,7 +295,6 @@ paths:
                 properties:
                   response:
                     type: string
-                    example: "Invalid token."
   /api/v1/auth/verify-email:
     post:
       tags:
@@ -232,7 +317,6 @@ paths:
                 properties:
                   response:
                     type: string
-                    example: "Email verified successfully."
         "400":
           description: Invalid token or email already in use.
           content:
@@ -242,7 +326,6 @@ paths:
                 properties:
                   response:
                     type: string
-                    example: "Invalid token."
   /api/v1/avatar/{id}:
     get:
       tags:
@@ -269,97 +352,514 @@ paths:
             text/plain:
               schema:
                 type: string
-                example: "File inaccessible."
         "401":
-          description: Invalid parameters
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: "Invalid parameters."
+          $ref: "#/components/responses/Unauthorized"
       security:
         - bearerAuth: []
       description: Retrieves the avatar for a user identified by their ID.
+  /api/v1/collections:
+    get:
+      summary: Get all collections
+      operationId: getAllCollections
+      tags:
+        - Collections
+      responses:
+        "200":
+          description: List of collections successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: The ID of the collection.
+                        name:
+                          type: string
+                          description: The name of the collection.
+                        description:
+                          type: string
+                          description: The description of the collection.
+                        icon:
+                          type: string
+                          description: The icon of the collection.
+                          nullable: true
+                        iconWeight:
+                          type: string
+                          description: The weight of the collection's icon.
+                          nullable: true
+                        color:
+                          type: string
+                          description: The color of the collection.
+                        parentId:
+                          type: integer
+                          description: The ID of the parent collection, if applicable.
+                          nullable: true
+                        isPublic:
+                          type: boolean
+                          description: Whether the collection is public.
+                        ownerId:
+                          type: integer
+                          description: The ID of the owner of the collection.
+                        createdById:
+                          type: integer
+                          description: The ID of the user who created the collection.
+                        createdAt:
+                          type: string
+                          format: date-time
+                          description: The creation timestamp of the collection.
+                        updatedAt:
+                          type: string
+                          format: date-time
+                          description: The last updated timestamp of the collection.
+                        _count:
+                          type: object
+                          description: Count of related resources (e.g., links).
+                          properties:
+                            links:
+                              type: integer
+                              description: The count of associated links.
+                        parent:
+                          type: object
+                          description: The parent collection, if applicable.
+                          nullable: true
+                        members:
+                          type: array
+                          items:
+                            type: object
+                          description: List of members associated with the collection.
+                          default: []
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      security:
+        - bearerAuth: []
+    post:
+      summary: Create a new collection
+      operationId: createCollection
+      tags:
+        - Collections
+      requestBody:
+        description: The details of the collection to create.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of the collection.
+                description:
+                  type: string
+                  description: The description of the collection.
+                color:
+                  type: string
+                  description: The color of the collection.
+                icon:
+                  type: string
+                  description: The icon of the collection.
+                iconWeight:
+                  type: string
+                  description: The weight of the collection's icon.
+                parentId:
+                  type: integer
+                  description: The ID of the parent collection, if applicable.
+      responses:
+        "200":
+          description: Collection successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    description: The created collection details.
+                    properties:
+                      id:
+                        type: integer
+                        description: The ID of the collection.
+                      name:
+                        type: string
+                        description: The name of the collection.
+                      description:
+                        type: string
+                        description: The description of the collection.
+                      icon:
+                        type: string
+                        description: The icon of the collection.
+                        nullable: true
+                      iconWeight:
+                        type: string
+                        description: The weight of the collection's icon.
+                        nullable: true
+                      color:
+                        type: string
+                        description: The color of the collection.
+                      parentId:
+                        type: integer
+                        description: The ID of the parent collection, if applicable.
+                        nullable: true
+                      isPublic:
+                        type: boolean
+                        description: Indicates if the collection is public.
+                      ownerId:
+                        type: integer
+                        description: The ID of the owner of the collection.
+                      createdById:
+                        type: integer
+                        description: The ID of the user who created the collection.
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: The creation timestamp of the collection.
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: The last updated timestamp of the collection.
+                      _count:
+                        type: object
+                        description: Count of related resources.
+                        properties:
+                          links:
+                            type: integer
+                            description: The count of associated links.
+                      members:
+                        type: array
+                        items:
+                          type: object
+                        description: List of members associated with the collection.
+                        default: []
+        "400":
+          description: Bad request, invalid input.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      security:
+        - bearerAuth: []
+  /api/v1/collections/{id}:
+    get:
+      summary: Get a collection by ID
+      operationId: getCollectionById
+      tags:
+        - Collections
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the collection to retrieve.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Collection successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    description: The collection details.
+                    properties:
+                      id:
+                        type: integer
+                        description: The ID of the collection.
+                      name:
+                        type: string
+                        description: The name of the collection.
+                      description:
+                        type: string
+                        description: The description of the collection.
+                      icon:
+                        type: string
+                        description: The icon of the collection.
+                        nullable: true
+                      iconWeight:
+                        type: string
+                        description: The weight of the collection's icon.
+                        nullable: true
+                      color:
+                        type: string
+                        description: The color of the collection.
+                      parentId:
+                        type: integer
+                        description: The ID of the parent collection, if applicable.
+                        nullable: true
+                      isPublic:
+                        type: boolean
+                        description: Whether the collection is public.
+                      ownerId:
+                        type: integer
+                        description: The ID of the owner of the collection.
+                      createdById:
+                        type: integer
+                        description: The ID of the user who created the collection.
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: The creation timestamp of the collection.
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: The last updated timestamp of the collection.
+                      _count:
+                        type: object
+                        description: Count of related resources (e.g., links).
+                        properties:
+                          links:
+                            type: integer
+                            description: The count of associated links.
+                      members:
+                        type: array
+                        items:
+                          type: object
+                        description: List of members associated with the collection.
+                        default: []
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+      security:
+        - bearerAuth: []
+    delete:
+      summary: Delete a collection by ID
+      operationId: deleteCollectionById
+      tags:
+        - Collections
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the collection to delete.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Collection successfully deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    description: The deleted collection details.
+                    properties:
+                      id:
+                        type: integer
+                        description: The ID of the collection.
+                      name:
+                        type: string
+                        description: The name of the collection.
+                      description:
+                        type: string
+                        description: The description of the  collection.
+                      icon:
+                        type: string
+                        description: The icon of the collection.
+                        nullable: true
+                      iconWeight:
+                        type: string
+                        description: The weight of the collection's icon.
+                        nullable: true
+                      color:
+                        type: string
+                        description: The color of the collection.
+                      parentId:
+                        type: integer
+                        description: The ID of the parent collection, if applicable.
+                        nullable: true
+                      isPublic:
+                        type: boolean
+                        description: Whether the collection was public.
+                      ownerId:
+                        type: integer
+                        description: The ID of the owner of the collection.
+                      createdById:
+                        type: integer
+                        description: The ID of the user who created the collection.
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: The creation timestamp of the collection.
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: The last updated timestamp of the collection.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+      security:
+        - bearerAuth: []
+    put:
+      summary: Update an existing collection by ID
+      operationId: updateCollection
+      tags:
+        - Collections
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the collection to update.
+          schema:
+            type: integer
+      requestBody:
+        description: The updated collection data.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of the collection.
+                description:
+                  type: string
+                  description: The description of the collection.
+                color:
+                  type: string
+                  description: The color of the collection.
+                icon:
+                  type: string
+                  description: The icon of the collection.
+                iconWeight:
+                  type: string
+                  description: The weight of the collection's icon.
+                parentId:
+                  type: integer
+                  description: The ID of the parent collection, if applicable.
+                isPublic:
+                  type: boolean
+                  description: Whether the collection is public.
+                members:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      userId:
+                        type: integer
+                      canCreate:
+                        type: boolean
+                      canUpdate:
+                        type: boolean
+                      canDelete:
+                        type: boolean
+      responses:
+        "200":
+          description: Collection successfully updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    description: The updated collection details.
+                    properties:
+                      id:
+                        type: integer
+                        description: The ID of the collection.
+                      name:
+                        type: string
+                        description: The name of the collection.
+                      description:
+                        type: string
+                        description: The description of the collection.
+                      icon:
+                        type: string
+                        description: The icon of the collection.
+                        nullable: true
+                      iconWeight:
+                        type: string
+                        description: The weight of the collection's icon.
+                        nullable: true
+                      color:
+                        type: string
+                        description: The color of the collection.
+                      parentId:
+                        type: integer
+                        description: The ID of the parent collection, if applicable.
+                        nullable: true
+                      isPublic:
+                        type: boolean
+                        description: Whether the collection is public.
+                      ownerId:
+                        type: integer
+                        description: The ID of the owner of the collection.
+                      createdById:
+                        type: integer
+                        description: The ID of the user who created the collection.
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: The creation timestamp of the collection.
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: The last updated timestamp of the collection.
+                      _count:
+                        type: object
+                        description: Count of related resources (e.g., links).
+                        properties:
+                          links:
+                            type: integer
+                            description: The count of associated links.
+                      members:
+                        type: array
+                        items:
+                          type: object
+                        description: List of members associated with the collection.
+                        default: []
+        "400":
+          description: Bad request, invalid input.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
 
 components:
-  parameters:
-    LinkIdParameter:
-      name: linkId
-      in: path
-      required: true
-      description: The ID of the desired link
-      schema:
-        type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
-    UploadFile:
+    ErrorResponse:
       type: object
       properties:
-        file:
+        response:
           type: string
-          format: binary
-          description: The file to upload (PNG, JPEG, or PDF).
-      required:
-        - file
-    ForgotPasswordSchema:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-          description: The email of the user requesting the password reset.
-      required:
-        - email
-    ResetPasswordSchema:
-      type: object
-      properties:
-        token:
-          type: string
-          description: The password reset token.
-        password:
-          type: string
-          minLength: 8
-          description: The new password to set.
-      required:
-        - token
-        - password
   responses:
-    UploadSuccess:
-      description: File successfully uploaded and processed.
+    Unauthorized:
+      description: Unauthorized
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              response:
-                type: object
-                description: Details about the uploaded file.
-    BadRequest:
-      description: Bad Request - Invalid file type, file too large, or permission issues.
+            $ref: "#/components/schemas/ErrorResponse"
+    Forbidden:
+      description: Forbidden
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              response:
-                type: string
-                description: The error message describing why the request failed.
-    GetArchiveSuccess:
-      description: Archive file retrieved successfully.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              response:
-                type: object
-                description: The archive file.
-    FileNotFound:
-      description: The requested archive file was not found.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              response:
-                type: string
-                example: "File not found."
+            $ref: "#/components/schemas/ErrorResponse"
+security:
+  - BearerAuth: []

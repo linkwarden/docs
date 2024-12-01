@@ -23,6 +23,8 @@ tags:
 paths:
   /api/v1/archives/{linkId}:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - Archives
       summary: Uploads a file to an archive by link ID
@@ -81,10 +83,10 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "403":
           $ref: "#/components/responses/Forbidden"
-      security:
-        - bearerAuth: []
       description: Uploads a file to the specified archive. Supports PDF, PNG, and JPEG formats.
     get:
+      security:
+        - bearerAuth: []
       tags:
         - Archives
       summary: Retrieves an archive file by link ID
@@ -139,10 +141,10 @@ paths:
                 properties:
                   response:
                     type: string
-      security:
-        - bearerAuth: []
       description: Retrieves an archive file in the specified format.
     put:
+      security:
+        - bearerAuth: []
       tags:
         - Archives
       summary: Updates an archive file by link ID
@@ -205,8 +207,6 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "403":
           $ref: "#/components/responses/Forbidden"
-      security:
-        - bearerAuth: []
       description: Updates an archive file by replacing the existing file. Supports PDF, PNG, and JPEG formats.
   /api/v1/auth/forgot-password:
     post:
@@ -328,6 +328,8 @@ paths:
                     type: string
   /api/v1/avatar/{id}:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - Avatar
       summary: Retrieves the avatar of a user by their ID
@@ -354,11 +356,11 @@ paths:
                 type: string
         "401":
           $ref: "#/components/responses/Unauthorized"
-      security:
-        - bearerAuth: []
       description: Retrieves the avatar for a user identified by their ID.
   /api/v1/collections:
     get:
+      security:
+        - bearerAuth: []
       summary: Get all collections
       operationId: getAllCollections
       tags:
@@ -436,9 +438,9 @@ paths:
                           default: []
         "401":
           $ref: "#/components/responses/Unauthorized"
+    post:
       security:
         - bearerAuth: []
-    post:
       summary: Create a new collection
       operationId: createCollection
       tags:
@@ -545,10 +547,10 @@ paths:
                     type: string
         "401":
           $ref: "#/components/responses/Unauthorized"
-      security:
-        - bearerAuth: []
   /api/v1/collections/{id}:
     get:
+      security:
+        - bearerAuth: []
       summary: Get a collection by ID
       operationId: getCollectionById
       tags:
@@ -630,9 +632,9 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "403":
           $ref: "#/components/responses/Forbidden"
+    delete:
       security:
         - bearerAuth: []
-    delete:
       summary: Delete a collection by ID
       operationId: deleteCollectionById
       tags:
@@ -701,9 +703,9 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "403":
           $ref: "#/components/responses/Forbidden"
+    put:
       security:
         - bearerAuth: []
-    put:
       summary: Update an existing collection by ID
       operationId: updateCollection
       tags:
@@ -835,13 +837,11 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "403":
           $ref: "#/components/responses/Forbidden"
-
 components:
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT
   schemas:
     ErrorResponse:
       type: object
@@ -861,5 +861,3 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ErrorResponse"
-security:
-  - BearerAuth: []

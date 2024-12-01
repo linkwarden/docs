@@ -837,6 +837,364 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "403":
           $ref: "#/components/responses/Forbidden"
+  /api/v1/dashboard:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get dashboard data (v1)
+      description: Retrieves the dashboard data for the authenticated user.
+      operationId: getDashboard
+      tags:
+        - Dashboard
+      responses:
+        "200":
+          description: Dashboard data successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    description: List of resources with associated collections.
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: The ID of the resource.
+                        name:
+                          type: string
+                          description: The name of the resource.
+                        type:
+                          type: string
+                          description: The type of resource (e.g., image, url).
+                        description:
+                          type: string
+                          description: A brief description of the resource.
+                        createdById:
+                          type: integer
+                          description: The ID of the user who created the resource.
+                        collectionId:
+                          type: integer
+                          description: The ID of the associated collection.
+                        icon:
+                          type: string
+                          nullable: true
+                          description: The icon representing the resource.
+                        iconWeight:
+                          type: string
+                          nullable: true
+                          description: The weight of the icon.
+                        color:
+                          type: string
+                          nullable: true
+                          description: The color assigned to the resource.
+                        url:
+                          type: string
+                          nullable: true
+                          description: The URL associated with the resource (if applicable).
+                        textContent:
+                          type: string
+                          nullable: true
+                          description: The text content of the resource (if applicable).
+                        preview:
+                          type: string
+                          nullable: true
+                          description: The path to the resource's preview.
+                        image:
+                          type: string
+                          nullable: true
+                          description: The path to the resource's image.
+                        pdf:
+                          type: string
+                          nullable: true
+                          description: The path to the resource's PDF.
+                        readable:
+                          type: string
+                          nullable: true
+                          description: The path to the resource's readable JSON data.
+                        monolith:
+                          type: string
+                          nullable: true
+                          description: The monolith status or path of the resource.
+                        lastPreserved:
+                          type: string
+                          format: date-time
+                          description: The timestamp of the last preservation.
+                        importDate:
+                          type: string
+                          format: date-time
+                          nullable: true
+                          description: The import date of the resource.
+                        createdAt:
+                          type: string
+                          format: date-time
+                          description: The creation timestamp of the resource.
+                        updatedAt:
+                          type: string
+                          format: date-time
+                          description: The last updated timestamp of the resource.
+                        tags:
+                          type: array
+                          description: Tags associated with the resource.
+                          items:
+                            type: string
+                        collection:
+                          type: object
+                          description: The collection to which the resource belongs.
+                          properties:
+                            id:
+                              type: integer
+                              description: The ID of the collection.
+                            name:
+                              type: string
+                              description: The name of the collection.
+                            description:
+                              type: string
+                              description: A brief description of the collection.
+                            icon:
+                              type: string
+                              nullable: true
+                              description: The icon representing the collection.
+                            iconWeight:
+                              type: string
+                              nullable: true
+                              description: The weight of the collection's icon.
+                            color:
+                              type: string
+                              description: The color assigned to the collection.
+                            parentId:
+                              type: integer
+                              nullable: true
+                              description: The ID of the parent collection (if applicable).
+                            isPublic:
+                              type: boolean
+                              description: Whether the collection is public.
+                            ownerId:
+                              type: integer
+                              description: The ID of the user who owns the collection.
+                            createdById:
+                              type: integer
+                              description: The ID of the user who created the collection.
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: The creation timestamp of the collection.
+                            updatedAt:
+                              type: string
+                              format: date-time
+                              description: The last updated timestamp of the collection.
+                        pinnedBy:
+                          type: array
+                          description: A list of users who have pinned the resource.
+                          items:
+                            type: string
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /api/v2/dashboard:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get dashboard data (v2)
+      description: Retrieves the dashboard data for the authenticated user.
+      operationId: getDashboardV2
+      tags:
+        - Dashboard
+      responses:
+        "200":
+          description: Dashboard data successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      links:
+                        type: array
+                        description: List of links with detailed metadata.
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              description: The ID of the link.
+                            name:
+                              type: string
+                              description: The name of the link.
+                            type:
+                              type: string
+                              description: The type of the link (e.g., image, url).
+                            description:
+                              type: string
+                              description: A brief description of the link.
+                            createdById:
+                              type: integer
+                              description: The ID of the user who created the link.
+                            collectionId:
+                              type: integer
+                              description: The ID of the associated collection.
+                            icon:
+                              type: string
+                              nullable: true
+                              description: The icon for the link.
+                            iconWeight:
+                              type: string
+                              nullable: true
+                              description: The weight of the icon.
+                            color:
+                              type: string
+                              nullable: true
+                              description: The color associated with the link.
+                            url:
+                              type: string
+                              nullable: true
+                              description: The URL for the link, if applicable.
+                            textContent:
+                              type: string
+                              nullable: true
+                              description: The text content of the link, if applicable.
+                            preview:
+                              type: string
+                              nullable: true
+                              description: The path to the link's preview.
+                            image:
+                              type: string
+                              nullable: true
+                              description: The path to the link's image.
+                            pdf:
+                              type: string
+                              nullable: true
+                              description: The path to the link's PDF.
+                            readable:
+                              type: string
+                              nullable: true
+                              description: The path to the link's readable content.
+                            monolith:
+                              type: string
+                              nullable: true
+                              description: The monolith status or path of the link.
+                            lastPreserved:
+                              type: string
+                              format: date-time
+                              description: The timestamp of the last preservation.
+                            importDate:
+                              type: string
+                              format: date-time
+                              nullable: true
+                              description: The import date of the link.
+                            createdAt:
+                              type: string
+                              format: date-time
+                              description: The timestamp when the link was created.
+                            updatedAt:
+                              type: string
+                              format: date-time
+                              description: The timestamp when the link was last updated.
+                            tags:
+                              type: array
+                              description: Tags associated with the link.
+                              items:
+                                type: string
+                            collection:
+                              type: object
+                              description: The collection to which the link belongs.
+                              properties:
+                                id:
+                                  type: integer
+                                  description: The ID of the collection.
+                                name:
+                                  type: string
+                                  description: The name of the collection.
+                                description:
+                                  type: string
+                                  description: A brief description of the collection.
+                                icon:
+                                  type: string
+                                  nullable: true
+                                  description: The icon representing the collection.
+                                iconWeight:
+                                  type: string
+                                  nullable: true
+                                  description: The weight of the collection's icon.
+                                color:
+                                  type: string
+                                  description: The color assigned to the collection.
+                                parentId:
+                                  type: integer
+                                  nullable: true
+                                  description: The ID of the parent collection, if applicable.
+                                isPublic:
+                                  type: boolean
+                                  description: Whether the collection is public.
+                                ownerId:
+                                  type: integer
+                                  description: The ID of the user who owns the collection.
+                                createdById:
+                                  type: integer
+                                  description: The ID of the user who created the collection.
+                                createdAt:
+                                  type: string
+                                  format: date-time
+                                  description: The creation timestamp of the collection.
+                                updatedAt:
+                                  type: string
+                                  format: date-time
+                                  description: The last updated timestamp of the collection.
+                            pinnedBy:
+                              type: array
+                              description: A list of users who have pinned the link.
+                              items:
+                                type: string
+                      numberOfPinnedLinks:
+                        type: integer
+                        description: The total number of pinned links.
+                  message:
+                    type: string
+                    description: A message describing the result.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /api/v1/logins:
+    get:
+      summary: Get login configuration
+      description: Retrieves the login configuration for the application.
+      operationId: getLoginConfiguration
+      tags:
+        - Logins
+      responses:
+        "200":
+          description: Login configuration successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  credentialsEnabled:
+                    type: string
+                    nullable: true
+                    description: Indicates if credentials-based login is enabled.
+                  emailEnabled:
+                    type: string
+                    nullable: true
+                    description: Indicates if email-based login is enabled.
+                  registrationDisabled:
+                    type: string
+                    nullable: true
+                    description: Indicates if registration is disabled.
+                  buttonAuths:
+                    type: array
+                    description: List of available button-based authentication methods.
+                    items:
+                      type: object
+                      properties:
+                        method:
+                          type: string
+                          description: The method used for authentication.
+                        name:
+                          type: string
+                          description: The name of the authentication method.
 components:
   securitySchemes:
     bearerAuth:

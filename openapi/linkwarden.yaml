@@ -74,15 +74,7 @@ paths:
                     type: object
                     description: Details about the uploaded file.
         "400":
-          description: Bad request, invalid input.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  response:
-                    type: string
-                    description: The error message describing why the request failed.
+          $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -206,15 +198,7 @@ paths:
                     type: object
                     description: Updated details of the archive.
         "400":
-          description: Bad request, invalid input.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  response:
-                    type: string
-                    description: The error message describing why the request failed.
+          $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -249,14 +233,7 @@ paths:
                   response:
                     type: string
         "400":
-          description: Invalid request or too many password reset requests.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  response:
-                    type: string
+          $ref: "#/components/responses/BadRequest"
         "404":
           description: User not found.
           content:
@@ -299,14 +276,7 @@ paths:
                   response:
                     type: string
         "400":
-          description: Invalid token or error during password reset.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  response:
-                    type: string
+          $ref: "#/components/responses/BadRequest"
   /api/v1/auth/verify-email:
     post:
       tags:
@@ -330,14 +300,7 @@ paths:
                   response:
                     type: string
         "400":
-          description: Invalid token or email already in use.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  response:
-                    type: string
+          $ref: "#/components/responses/BadRequest"
   /api/v1/avatar/{id}:
     get:
       security:
@@ -361,11 +324,7 @@ paths:
                 type: string
                 format: binary
         "400":
-          description: File inaccessible or invalid parameters
-          content:
-            text/plain:
-              schema:
-                type: string
+          $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
       description: Retrieves the avatar for a user identified by their ID.
@@ -549,14 +508,7 @@ paths:
                         description: List of members associated with the collection.
                         default: []
         "400":
-          description: Bad request, invalid input.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  response:
-                    type: string
+          $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
   /api/v1/collections/{id}:
@@ -837,14 +789,7 @@ paths:
                         description: List of members associated with the collection.
                         default: []
         "400":
-          description: Bad request, invalid input.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  response:
-                    type: string
+          $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -1488,15 +1433,209 @@ paths:
                     type: string
                     description: The response message for the import.
         "400":
-          description: Request failed.
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /api/v1/session:
+    post:
+      summary: Create a new session
+      description: Authenticates a user and creates a new session.
+      tags:
+        - Session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+                - sessionName
+              properties:
+                username:
+                  type: string
+                  description: The username of the user.
+                password:
+                  type: string
+                  format: password
+                  description: The password of the user.
+                sessionName:
+                  type: string
+                  description: A name for the session.
+      responses:
+        "200":
+          description: Session created successfully.
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   response:
-                    type: string
-                    description: The error message.
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                        description: The token generated for the session.
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /api/v1/tokens:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Tokens
+      summary: Create a new token
+      description: Creates a new token with the specified name and expiry.
+      operationId: createToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - expires
+              properties:
+                name:
+                  type: string
+                  description: Name of the token.
+                expires:
+                  type: integer
+                  description: Expiry duration in seconds. Use 0 for no expiry.
+      responses:
+        "200":
+          description: Token successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      secretKey:
+                        type: string
+                        description: The secret key for the token.
+                      token:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          userId:
+                            type: integer
+                          token:
+                            type: string
+                          revoked:
+                            type: boolean
+                          isSession:
+                            type: boolean
+                          expires:
+                            type: string
+                            format: date-time
+                          lastUsedAt:
+                            type: string
+                            format: date-time
+                            nullable: true
+                          createdAt:
+                            type: string
+                            format: date-time
+                          updatedAt:
+                            type: string
+                            format: date-time
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Tokens
+      summary: Get a list of tokens
+      description: Retrieves a list of all tokens associated with the authenticated user. Requires bearer authentication.
+      operationId: getTokens
+      responses:
+        "200":
+          description: Successfully retrieved list of tokens.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        isSession:
+                          type: boolean
+                        expires:
+                          type: string
+                          format: date-time
+                        createdAt:
+                          type: string
+                          format: date-time
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /api/v1/tokens/{id}:
+    delete:
+      tags:
+        - Tokens
+      summary: Revoke a token
+      description: Revokes a token by its ID.
+      operationId: revokeToken
+      parameters:
+        - name: id
+          in: path
+          description: ID of the token to revoke
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successfully revoked the token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      userId:
+                        type: integer
+                      token:
+                        type: string
+                      revoked:
+                        type: boolean
+                      isSession:
+                        type: boolean
+                      expires:
+                        type: string
+                        format: date-time
+                      lastUsedAt:
+                        type: string
+                        format: date-time
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+        "400":
+          $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
 components:
@@ -1512,6 +1651,12 @@ components:
         response:
           type: string
   responses:
+    BadRequest:
+      description: Bad request error.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
     Unauthorized:
       description: Unauthorized
       content:

@@ -38,7 +38,11 @@ paths:
         - name: format
           in: query
           required: true
-          description: "The numeric value corresponding to the format of the file being uploaded: 0 = PNG, 1 = JPEG, 2 = PDF."
+          description: |
+            The numeric value corresponding to the format of the file being uploaded:
+            - `0`: PNG
+            - `1`: JPEG
+            - `2`: PDF
           schema:
             type: integer
             enum:
@@ -100,9 +104,13 @@ paths:
         - name: format
           in: query
           required: false
-          description: >
-            The numeric value corresponding to the desired archive format:
-            0 = PNG, 1 = JPEG, 2 = PDF, 3 = Readability JSON, 4 = Monolith HTML.
+          description: |
+            The numeric value corresponding to the format of the file being uploaded:
+            - `0`: PNG
+            - `1`: JPEG
+            - `2`: PDF
+            - `3`: Readability JSON
+            - `4` Monolith HTML
           schema:
             type: integer
             enum:
@@ -158,9 +166,13 @@ paths:
         - name: format
           in: query
           required: false
-          description: >
-            The numeric value corresponding to the desired archive format:
-            0 = PNG, 1 = JPEG, 2 = PDF, 3 = Readability JSON, 4 = Monolith HTML.
+          description: |
+            The numeric value corresponding to the format of the file being uploaded:
+            - `0`: PNG
+            - `1`: JPEG
+            - `2`: PDF
+            - `3`: Readability JSON
+            - `4` Monolith HTML
           schema:
             type: integer
             enum:
@@ -1195,6 +1207,298 @@ paths:
                         name:
                           type: string
                           description: The name of the authentication method.
+  /api/v1/migration:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Retrieve migration data
+      description: Fetches migration data, including user information, collections, and links.
+      tags:
+        - Migration
+      responses:
+        "200":
+          description: Migration data successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: The name of the user.
+                  username:
+                    type: string
+                    description: The username of the user.
+                  email:
+                    type: string
+                    nullable: true
+                    description: The user's email.
+                  emailVerified:
+                    type: boolean
+                    nullable: true
+                    description: Whether the user's email is verified.
+                  unverifiedNewEmail:
+                    type: string
+                    nullable: true
+                    description: Any unverified new email for the user.
+                  image:
+                    type: string
+                    description: URL to the user's image.
+                  locale:
+                    type: string
+                    description: The locale of the user.
+                  parentSubscriptionId:
+                    type: string
+                    nullable: true
+                    description: The ID of the parent subscription.
+                  collectionOrder:
+                    type: array
+                    items:
+                      type: integer
+                    description: The order of the user's collections by ID.
+                  linksRouteTo:
+                    type: string
+                    description: Specifies the link routing preference.
+                  preventDuplicateLinks:
+                    type: boolean
+                    description: Whether duplicate links are prevented.
+                  archiveAsScreenshot:
+                    type: boolean
+                    description: Whether links are archived as screenshots.
+                  archiveAsMonolith:
+                    type: boolean
+                    description: Whether links are archived as monoliths.
+                  archiveAsPDF:
+                    type: boolean
+                    description: Whether links are archived as PDFs.
+                  archiveAsWaybackMachine:
+                    type: boolean
+                    description: Whether links are archived as Wayback Machine snapshots.
+                  isPrivate:
+                    type: boolean
+                    description: Whether the user's data is private.
+                  referredBy:
+                    type: string
+                    nullable: true
+                    description: Who referred the user.
+                  createdAt:
+                    type: string
+                    format: date-time
+                    description: The timestamp when the user was created.
+                  updatedAt:
+                    type: string
+                    format: date-time
+                    description: The timestamp when the user was last updated.
+                  collections:
+                    type: array
+                    description: List of collections associated with the user.
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: The collection ID.
+                        name:
+                          type: string
+                          description: The collection name.
+                        description:
+                          type: string
+                          description: The collection description.
+                        icon:
+                          type: string
+                          nullable: true
+                          description: The icon of the collection.
+                        iconWeight:
+                          type: string
+                          nullable: true
+                          description: The weight of the icon.
+                        color:
+                          type: string
+                          description: The color of the collection.
+                        parentId:
+                          type: integer
+                          nullable: true
+                          description: The parent ID of the collection.
+                        isPublic:
+                          type: boolean
+                          description: Whether the collection is public.
+                        ownerId:
+                          type: integer
+                          description: The ID of the collection owner.
+                        createdById:
+                          type: integer
+                          description: The ID of the collection creator.
+                        createdAt:
+                          type: string
+                          format: date-time
+                          description: When the collection was created.
+                        updatedAt:
+                          type: string
+                          format: date-time
+                          description: When the collection was last updated.
+                        links:
+                          type: array
+                          description: Links within the collection.
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                description: The ID of the link.
+                              name:
+                                type: string
+                                description: The name of the link.
+                              type:
+                                type: string
+                                description: The type of the link (e.g., image, url).
+                              description:
+                                type: string
+                                description: A brief description of the link.
+                              createdById:
+                                type: integer
+                                description: The ID of the user who created the link.
+                              collectionId:
+                                type: integer
+                                description: The ID of the collection containing the link.
+                              icon:
+                                type: string
+                                nullable: true
+                                description: The icon for the link.
+                              iconWeight:
+                                type: string
+                                nullable: true
+                                description: The weight of the icon.
+                              color:
+                                type: string
+                                nullable: true
+                                description: The color associated with the link.
+                              url:
+                                type: string
+                                nullable: true
+                                description: The URL for the link, if applicable.
+                              textContent:
+                                type: string
+                                nullable: true
+                                description: The text content of the link, if applicable.
+                              preview:
+                                type: string
+                                nullable: true
+                                description: The path to the link's preview.
+                              image:
+                                type: string
+                                nullable: true
+                                description: The path to the link's image.
+                              pdf:
+                                type: string
+                                nullable: true
+                                description: The path to the link's PDF.
+                              readable:
+                                type: string
+                                nullable: true
+                                description: The path to the link's readable content.
+                              monolith:
+                                type: string
+                                nullable: true
+                                description: The monolith status or path of the link.
+                              lastPreserved:
+                                type: string
+                                format: date-time
+                                description: The timestamp of the last preservation.
+                              importDate:
+                                type: string
+                                format: date-time
+                                nullable: true
+                                description: The import date of the link.
+                              createdAt:
+                                type: string
+                                format: date-time
+                                description: When the link was created.
+                              updatedAt:
+                                type: string
+                                format: date-time
+                                description: When the link was last updated.
+                              tags:
+                                type: array
+                                description: Tags associated with the link.
+                                items:
+                                  type: string
+                  pinnedLinks:
+                    type: array
+                    description: A list of pinned links.
+                    items:
+                      type: object
+                  whitelistedUsers:
+                    type: array
+                    description: A list of whitelisted users.
+                    items:
+                      type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    example: User not found.
+    post:
+      security:
+        - bearerAuth: []
+      summary: Import data for migration
+      description: Imports data into the system using one of the supported formats.
+      tags:
+        - Migration
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - format
+                - data
+              properties:
+                format:
+                  type: integer
+                  enum:
+                    - 0 # Linkwarden JSON
+                    - 1 # Bookmarks HTML
+                    - 2 # Wallabag JSON
+                  description: |
+                    The format of the data to import.
+                    - `0`: Linkwarden JSON format.
+                    - `1`: HTML file format.
+                    - `2`: Wallabag JSON format.
+                data:
+                  type: string
+                  format: binary
+                  description: The file to import. Should be in the specified format.
+      responses:
+        "200":
+          description: Data imported successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    description: The response message for the import.
+        "400":
+          description: Request failed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    description: The error message.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 components:
   securitySchemes:
     bearerAuth:

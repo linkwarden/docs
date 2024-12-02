@@ -351,62 +351,110 @@ paths:
                       properties:
                         id:
                           type: integer
-                          description: The ID of the collection.
+                          example: 3
                         name:
                           type: string
-                          description: The name of the collection.
+                          example: Health and Wellness
                         description:
                           type: string
-                          description: The description of the collection.
+                          example: Latest articles on health and wellness.
                         icon:
                           type: string
-                          description: The icon of the collection.
+                          description: Acorn
                           nullable: true
                         iconWeight:
                           type: string
-                          description: The weight of the collection's icon.
+                          example: fill
                           nullable: true
+                          enum:
+                            - fill
+                            - bold
+                            - light
+                            - regular
+                            - duotone
+                            - thin
                         color:
                           type: string
-                          description: The color of the collection.
+                          example: "#0ea5e9"
                         parentId:
                           type: integer
-                          description: The ID of the parent collection, if applicable.
+                          example: null
                           nullable: true
                         isPublic:
                           type: boolean
-                          description: Whether the collection is public.
+                          example: false
                         ownerId:
                           type: integer
-                          description: The ID of the owner of the collection.
+                          example: 1
                         createdById:
                           type: integer
-                          description: The ID of the user who created the collection.
+                          example: 2
                         createdAt:
                           type: string
                           format: date-time
-                          description: The creation timestamp of the collection.
+                          example: "2024-12-02T00:40:22.295Z"
                         updatedAt:
                           type: string
                           format: date-time
-                          description: The last updated timestamp of the collection.
+                          example: "2024-12-02T00:40:22.295Z"
                         _count:
                           type: object
-                          description: Count of related resources (e.g., links).
                           properties:
                             links:
                               type: integer
-                              description: The count of associated links.
+                              example: 3
                         parent:
                           type: object
-                          description: The parent collection, if applicable.
                           nullable: true
+                          properties:
+                            id:
+                              type: integer
+                              example: 6
+                            name:
+                              type: string
+                              example: New Collection
                         members:
                           type: array
                           items:
                             type: object
-                          description: List of members associated with the collection.
-                          default: []
+                            properties:
+                              userId:
+                                type: integer
+                                example: 3
+                              collectionId:
+                                type: integer
+                                example: 4
+                              canCreate:
+                                type: boolean
+                                example: true
+                              canUpdate:
+                                type: boolean
+                                example: true
+                              canDelete:
+                                type: boolean
+                                example: true
+                              createdAt:
+                                type: string
+                                format: date-time
+                                example: "2024-12-02T05:50:22.680Z"
+                              updatedAt:
+                                type: string
+                                format: date-time
+                                example: "2024-12-02T05:50:22.680Z"
+                              user:
+                                type: object
+                                properties:
+                                  username:
+                                    type: string
+                                    example: user1
+                                  name:
+                                    type: string
+                                    example: John Doe
+                                  image:
+                                    type: string
+                                    example: null
+                                    nullable: true
+
         "401":
           $ref: "#/components/responses/Unauthorized"
     post:
@@ -450,63 +498,7 @@ paths:
                 type: object
                 properties:
                   response:
-                    type: object
-                    description: The created collection details.
-                    properties:
-                      id:
-                        type: integer
-                        description: The ID of the collection.
-                      name:
-                        type: string
-                        description: The name of the collection.
-                      description:
-                        type: string
-                        description: The description of the collection.
-                      icon:
-                        type: string
-                        description: The icon of the collection.
-                        nullable: true
-                      iconWeight:
-                        type: string
-                        description: The weight of the collection's icon.
-                        nullable: true
-                      color:
-                        type: string
-                        description: The color of the collection.
-                      parentId:
-                        type: integer
-                        description: The ID of the parent collection, if applicable.
-                        nullable: true
-                      isPublic:
-                        type: boolean
-                        description: Indicates if the collection is public.
-                      ownerId:
-                        type: integer
-                        description: The ID of the owner of the collection.
-                      createdById:
-                        type: integer
-                        description: The ID of the user who created the collection.
-                      createdAt:
-                        type: string
-                        format: date-time
-                        description: The creation timestamp of the collection.
-                      updatedAt:
-                        type: string
-                        format: date-time
-                        description: The last updated timestamp of the collection.
-                      _count:
-                        type: object
-                        description: Count of related resources.
-                        properties:
-                          links:
-                            type: integer
-                            description: The count of associated links.
-                      members:
-                        type: array
-                        items:
-                          type: object
-                        description: List of members associated with the collection.
-                        default: []
+                    $ref: "#/components/schemas/Collection"
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -535,63 +527,7 @@ paths:
                 type: object
                 properties:
                   response:
-                    type: object
-                    description: The collection details.
-                    properties:
-                      id:
-                        type: integer
-                        description: The ID of the collection.
-                      name:
-                        type: string
-                        description: The name of the collection.
-                      description:
-                        type: string
-                        description: The description of the collection.
-                      icon:
-                        type: string
-                        description: The icon of the collection.
-                        nullable: true
-                      iconWeight:
-                        type: string
-                        description: The weight of the collection's icon.
-                        nullable: true
-                      color:
-                        type: string
-                        description: The color of the collection.
-                      parentId:
-                        type: integer
-                        description: The ID of the parent collection, if applicable.
-                        nullable: true
-                      isPublic:
-                        type: boolean
-                        description: Whether the collection is public.
-                      ownerId:
-                        type: integer
-                        description: The ID of the owner of the collection.
-                      createdById:
-                        type: integer
-                        description: The ID of the user who created the collection.
-                      createdAt:
-                        type: string
-                        format: date-time
-                        description: The creation timestamp of the collection.
-                      updatedAt:
-                        type: string
-                        format: date-time
-                        description: The last updated timestamp of the collection.
-                      _count:
-                        type: object
-                        description: Count of related resources (e.g., links).
-                        properties:
-                          links:
-                            type: integer
-                            description: The count of associated links.
-                      members:
-                        type: array
-                        items:
-                          type: object
-                        description: List of members associated with the collection.
-                        default: []
+                    $ref: "#/components/schemas/Collection"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -624,45 +560,33 @@ paths:
                     properties:
                       id:
                         type: integer
-                        description: The ID of the collection.
                       name:
                         type: string
-                        description: The name of the collection.
                       description:
                         type: string
-                        description: The description of the  collection.
                       icon:
                         type: string
-                        description: The icon of the collection.
                         nullable: true
                       iconWeight:
                         type: string
-                        description: The weight of the collection's icon.
                         nullable: true
                       color:
                         type: string
-                        description: The color of the collection.
                       parentId:
                         type: integer
-                        description: The ID of the parent collection, if applicable.
                         nullable: true
                       isPublic:
                         type: boolean
-                        description: Whether the collection was public.
                       ownerId:
                         type: integer
-                        description: The ID of the owner of the collection.
                       createdById:
                         type: integer
-                        description: The ID of the user who created the collection.
                       createdAt:
                         type: string
                         format: date-time
-                        description: The creation timestamp of the collection.
                       updatedAt:
                         type: string
                         format: date-time
-                        description: The last updated timestamp of the collection.
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -690,25 +614,18 @@ paths:
               properties:
                 name:
                   type: string
-                  description: The name of the collection.
                 description:
                   type: string
-                  description: The description of the collection.
                 color:
                   type: string
-                  description: The color of the collection.
                 icon:
                   type: string
-                  description: The icon of the collection.
                 iconWeight:
                   type: string
-                  description: The weight of the collection's icon.
                 parentId:
                   type: integer
-                  description: The ID of the parent collection, if applicable.
                 isPublic:
                   type: boolean
-                  description: Whether the collection is public.
                 members:
                   type: array
                   items:
@@ -731,63 +648,7 @@ paths:
                 type: object
                 properties:
                   response:
-                    type: object
-                    description: The updated collection details.
-                    properties:
-                      id:
-                        type: integer
-                        description: The ID of the collection.
-                      name:
-                        type: string
-                        description: The name of the collection.
-                      description:
-                        type: string
-                        description: The description of the collection.
-                      icon:
-                        type: string
-                        description: The icon of the collection.
-                        nullable: true
-                      iconWeight:
-                        type: string
-                        description: The weight of the collection's icon.
-                        nullable: true
-                      color:
-                        type: string
-                        description: The color of the collection.
-                      parentId:
-                        type: integer
-                        description: The ID of the parent collection, if applicable.
-                        nullable: true
-                      isPublic:
-                        type: boolean
-                        description: Whether the collection is public.
-                      ownerId:
-                        type: integer
-                        description: The ID of the owner of the collection.
-                      createdById:
-                        type: integer
-                        description: The ID of the user who created the collection.
-                      createdAt:
-                        type: string
-                        format: date-time
-                        description: The creation timestamp of the collection.
-                      updatedAt:
-                        type: string
-                        format: date-time
-                        description: The last updated timestamp of the collection.
-                      _count:
-                        type: object
-                        description: Count of related resources (e.g., links).
-                        properties:
-                          links:
-                            type: integer
-                            description: The count of associated links.
-                      members:
-                        type: array
-                        items:
-                          type: object
-                        description: List of members associated with the collection.
-                        default: []
+                    $ref: "#/components/schemas/Collection"
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -1002,108 +863,7 @@ paths:
                 type: object
                 properties:
                   response:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                      name:
-                        type: string
-                      type:
-                        type: string
-                      description:
-                        type: string
-                      createdById:
-                        type: integer
-                      collectionId:
-                        type: integer
-                      icon:
-                        type: string
-                        nullable: true
-                      iconWeight:
-                        type: string
-                        nullable: true
-                      color:
-                        type: string
-                        nullable: true
-                      url:
-                        type: string
-                      textContent:
-                        type: string
-                        nullable: true
-                      preview:
-                        type: string
-                        nullable: true
-                      image:
-                        type: string
-                        nullable: true
-                      pdf:
-                        type: string
-                        nullable: true
-                      readable:
-                        type: string
-                        nullable: true
-                      monolith:
-                        type: string
-                        nullable: true
-                      lastPreserved:
-                        type: string
-                        format: date-time
-                        nullable: true
-                      createdAt:
-                        type: string
-                        format: date-time
-                      updatedAt:
-                        type: string
-                        format: date-time
-                      tags:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            id:
-                              type: integer
-                            name:
-                              type: string
-                            ownerId:
-                              type: integer
-                            createdAt:
-                              type: string
-                              format: date-time
-                            updatedAt:
-                              type: string
-                              format: date-time
-                      collection:
-                        type: object
-                        properties:
-                          id:
-                            type: integer
-                          name:
-                            type: string
-                          description:
-                            type: string
-                          icon:
-                            type: string
-                            nullable: true
-                          iconWeight:
-                            type: string
-                            nullable: true
-                          color:
-                            type: string
-                          parentId:
-                            type: integer
-                            nullable: true
-                          isPublic:
-                            type: boolean
-                          ownerId:
-                            type: integer
-                          createdByUd:
-                            type: integer
-                          createdAt:
-                            type: string
-                            format: date-time
-                          updatedAt:
-                            type: string
-                            format: date-time
+                    $ref: "#/components/schemas/Link"
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -1201,6 +961,13 @@ paths:
       tags:
         - Links
       summary: Get a link by ID
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the link to be deleted.
+          required: true
+          schema:
+            type: integer
       operationId: getLink
       responses:
         "200":
@@ -1695,6 +1462,340 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
+  /api/v1/public/collections/links:
+    get:
+      summary: Retrieve links from a specific collection.
+      tags:
+        - Public
+      parameters:
+        - name: collectionId
+          in: query
+          required: true
+          schema:
+            type: integer
+            example: 4
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: integer
+            example: 1
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: integer
+            example: 10
+        - name: pinnedOnly
+          in: query
+          required: false
+          schema:
+            type: boolean
+            example: true
+        - name: searchQueryString
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "example search query"
+        - name: searchByName
+          in: query
+          required: false
+          schema:
+            type: boolean
+            example: true
+        - name: searchByUrl
+          in: query
+          required: false
+          schema:
+            type: boolean
+            example: true
+        - name: searchByDescription
+          in: query
+          required: false
+          schema:
+            type: boolean
+            example: true
+        - name: searchByTextContent
+          in: query
+          required: false
+          schema:
+            type: boolean
+            example: true
+        - name: searchByTags
+          in: query
+          required: false
+          schema:
+            type: boolean
+            example: true
+      responses:
+        "200":
+          description: Successfully retrieved the list of links.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 4
+                        name:
+                          type: string
+                          example: Example link
+                        type:
+                          type: string
+                          example: url
+                        description:
+                          type: string
+                          example: Some additional thoughts...
+                        createdById:
+                          type: integer
+                          example: 1
+                        collectionId:
+                          type: integer
+                          example: 3
+                        icon:
+                          type: string
+                          example: Airplane
+                          nullable: true
+                        iconWeight:
+                          type: string
+                          example: fill
+                          nullable: true
+                          enum:
+                            - fill
+                            - bold
+                            - light
+                            - regular
+                            - duotone
+                            - thin
+                        color:
+                          example: "#0ea5e9"
+                          type: string
+                        url:
+                          type: string
+                          example: https://example.com
+                        textContent:
+                          type: string
+                          example: Example Domain  This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission. More information...
+                          nullable: true
+                        preview:
+                          type: string
+                          example: archives/preview/3/4.jpeg
+                          nullable: true
+                        image:
+                          type: string
+                          example: archives/preview/3/4.jpeg
+                          nullable: true
+                        pdf:
+                          type: string
+                          example: archives/preview/3/4.pdf
+                          nullable: true
+                        readable:
+                          type: string
+                          example: archives/3/4_readability.json
+                          nullable: true
+                        monolith:
+                          type: string
+                          example: "unavailable"
+                          nullable: true
+                        lastPreserved:
+                          type: string
+                          format: date-time
+                          example: "2024-12-02T00:40:22.295Z"
+                          nullable: true
+                        importDate:
+                          type: string
+                          example: "2024-12-02T00:40:22.295Z"
+                          nullable: true
+                        createdAt:
+                          type: string
+                          example: "2024-12-02T00:40:22.295Z"
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          example: "2024-12-02T00:40:22.295Z"
+                          format: date-time
+                        tags:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 2
+                              name:
+                                type: string
+                                example: Technology
+                              ownerId:
+                                type: integer
+                                example: 1
+                              createdAt:
+                                type: string
+                                example: "2024-12-02T00:40:22.295Z"
+                                format: date-time
+                              updatedAt:
+                                type: string
+                                example: "2024-12-02T00:40:22.295Z"
+                                format: date-time
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /api/v1/public/collections/tags:
+    get:
+      summary: Get tags for a collection
+      tags:
+        - Public
+      parameters:
+        - name: collectionId
+          in: query
+          description: The ID of the collection to retrieve tags for
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A list of tags for the collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 2
+                        name:
+                          type: string
+                          example: Technology
+                        ownerId:
+                          type: integer
+                          example: 1
+                        createdAt:
+                          type: string
+                          format: date-time
+                          example: "2024-12-02T00:40:22.295Z"
+                        updatedAt:
+                          type: string
+                          format: date-time
+                          example: "2024-12-02T00:40:22.295Z"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          description: Collection not found or no tags available
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    example: "Collection not found"
+  /api/v1/public/users/{id}:
+    get:
+      summary: Get user by ID
+      tags:
+        - Public
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the user to retrieve
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A user object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: John Doe
+                      username:
+                        type: string
+                        example: user1
+                      email:
+                        type: string
+                        nullable: true
+                      image:
+                        type: string
+                      archiveAsScreenshot:
+                        type: boolean
+                        example: false
+                      archiveAsMonolith:
+                        type: boolean
+                        example: false
+                      archiveAsPDF:
+                        type: boolean
+                        example: true
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/v1/public/links/{id}:
+    get:
+      summary: Get a link by ID
+      tags:
+        - Public
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the link to retrieve
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successfully retrieved the link.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    $ref: "#/components/schemas/Link"
+  /api/v1/public/collections/{id}:
+    get:
+      summary: Get a collection by its ID
+      tags:
+        - Public
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the collection
+      responses:
+        "200":
+          description: Successfully retrieved the collection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    $ref: "#/components/schemas/Collection"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
   /api/v1/session:
     post:
       summary: Create a new session
@@ -2405,7 +2506,7 @@ components:
       properties:
         id:
           type: integer
-          example: 0
+          example: 4
         name:
           type: string
           example: Example link
@@ -2420,7 +2521,7 @@ components:
           example: 1
         collectionId:
           type: integer
-          example: 1
+          example: 3
         icon:
           type: string
           example: Airplane
@@ -2448,19 +2549,19 @@ components:
           nullable: true
         preview:
           type: string
-          example: archives/preview/3/9.jpeg
+          example: archives/preview/3/4.jpeg
           nullable: true
         image:
           type: string
-          example: archives/preview/3/9.jpeg
+          example: archives/preview/3/4.jpeg
           nullable: true
         pdf:
           type: string
-          example: archives/preview/3/9.pdf
+          example: archives/preview/3/4.pdf
           nullable: true
         readable:
           type: string
-          example: archives/3/9_readability.json
+          example: archives/3/4_readability.json
           nullable: true
         monolith:
           type: string
@@ -2537,11 +2638,11 @@ components:
               type: string
             parentId:
               type: integer
-              example: 3
+              example: null
               nullable: true
             isPublic:
               type: boolean
-              example: true
+              example: false
             ownerId:
               type: integer
               example: 1
@@ -2561,6 +2662,104 @@ components:
           items:
             type: integer
           example: [1, 2, 3]
+    Collection:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 3
+        name:
+          type: string
+          example: Health and Wellness
+        description:
+          type: string
+          example: Latest articles on health and wellness.
+        icon:
+          type: string
+          description: Acorn
+          nullable: true
+        iconWeight:
+          type: string
+          example: fill
+          nullable: true
+          enum:
+            - fill
+            - bold
+            - light
+            - regular
+            - duotone
+            - thin
+        color:
+          example: "#0ea5e9"
+          type: string
+        parentId:
+          type: integer
+          example: null
+          nullable: true
+        isPublic:
+          type: boolean
+          example: false
+        ownerId:
+          type: integer
+          example: 1
+        createdById:
+          type: integer
+          example: 2
+        createdAt:
+          type: string
+          example: "2024-12-02T00:40:22.295Z"
+          format: date-time
+        updatedAt:
+          type: string
+          example: "2024-12-02T00:40:22.295Z"
+          format: date-time
+        _count:
+          type: object
+          properties:
+            links:
+              type: integer
+              example: 3
+        members:
+          type: array
+          items:
+            type: object
+            properties:
+              userId:
+                type: integer
+                example: 3
+              collectionId:
+                type: integer
+                example: 4
+              canCreate:
+                type: boolean
+                example: true
+              canUpdate:
+                type: boolean
+                example: true
+              canDelete:
+                type: boolean
+                example: true
+              createdAt:
+                type: string
+                format: date-time
+                example: "2024-12-02T05:50:22.680Z"
+              updatedAt:
+                type: string
+                format: date-time
+                example: "2024-12-02T05:50:22.680Z"
+              user:
+                type: object
+                properties:
+                  username:
+                    type: string
+                    example: user1
+                  name:
+                    type: string
+                    example: John Doe
+                  image:
+                    type: string
+                    example: null
+                    nullable: true
   responses:
     BadRequest:
       description: Bad request error.

@@ -1113,6 +1113,647 @@ paths:
                     description: A message describing the result.
         "401":
           $ref: "#/components/responses/Unauthorized"
+  /api/v1/links:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Links
+      summary: Retrieve a list of links
+      description: Fetches a paginated list of links, with optional filtering and sorting options.
+      operationId: getLinks
+      parameters:
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: collectionId
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: tagId
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: pinnedOnly
+          in: query
+          required: false
+          schema:
+            type: boolean
+        - name: searchQueryString
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: searchByName
+          in: query
+          required: false
+          schema:
+            type: boolean
+        - name: searchByUrl
+          in: query
+          required: false
+          schema:
+            type: boolean
+        - name: searchByDescription
+          in: query
+          required: false
+          schema:
+            type: boolean
+        - name: searchByTextContent
+          in: query
+          required: false
+          schema:
+            type: boolean
+        - name: searchByTags
+          in: query
+          required: false
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Successfully retrieved the list of links.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        type:
+                          type: string
+                        description:
+                          type: string
+                        createdById:
+                          type: integer
+                        collectionId:
+                          type: integer
+                        icon:
+                          type: string
+                          nullable: true
+                        iconWeight:
+                          type: string
+                          nullable: true
+                        color:
+                          type: string
+                          nullable: true
+                        url:
+                          type: string
+                        textContent:
+                          type: string
+                          nullable: true
+                        preview:
+                          type: string
+                          nullable: true
+                        image:
+                          type: string
+                          nullable: true
+                        pdf:
+                          type: string
+                          nullable: true
+                        readable:
+                          type: string
+                          nullable: true
+                        monolith:
+                          type: string
+                          nullable: true
+                        lastPreserved:
+                          type: string
+                          format: date-time
+                          nullable: true
+                        importDate:
+                          type: string
+                          nullable: true
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+                        tags:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              name:
+                                type: string
+                              ownerId:
+                                type: integer
+                              createdAt:
+                                type: string
+                                format: date-time
+                              updatedAt:
+                                type: string
+                                format: date-time
+                        collection:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            description:
+                              type: string
+                            icon:
+                              type: string
+                              nullable: true
+                            iconWeight:
+                              type: string
+                              nullable: true
+                            color:
+                              type: string
+                            parentId:
+                              type: integer
+                              nullable: true
+                            isPublic:
+                              type: boolean
+                            ownerId:
+                              type: integer
+                            createdByUd:
+                              type: integer
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+                        pinnedBy:
+                          type: array
+                          items:
+                            type: integer
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Links
+      summary: Create a new link
+      description: Creates a new link with optional tags and collection information.
+      operationId: createLink
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  nullable: true
+                url:
+                  type: string
+                  example: "https://example.com"
+                type:
+                  type: string
+                  enum:
+                    - url
+                    - pdf
+                    - image
+                  example: "url"
+                  nullable: true
+                description:
+                  type: string
+                  example: "Some additional thoughts..."
+                  nullable: true
+                tags:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: "test"
+                  example: [{ "id": 1, "name": "test" }]
+                  nullable: true
+                collection:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: "Unorganized"
+                  example:
+                    id: 1
+                    name: "Unorganized"
+                  nullable: true
+      responses:
+        "200":
+          description: Successfully created the link.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      type:
+                        type: string
+                      description:
+                        type: string
+                      createdById:
+                        type: integer
+                      collectionId:
+                        type: integer
+                      icon:
+                        type: string
+                        nullable: true
+                      iconWeight:
+                        type: string
+                        nullable: true
+                      color:
+                        type: string
+                        nullable: true
+                      url:
+                        type: string
+                      textContent:
+                        type: string
+                        nullable: true
+                      preview:
+                        type: string
+                        nullable: true
+                      image:
+                        type: string
+                        nullable: true
+                      pdf:
+                        type: string
+                        nullable: true
+                      readable:
+                        type: string
+                        nullable: true
+                      monolith:
+                        type: string
+                        nullable: true
+                      lastPreserved:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+                      tags:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            ownerId:
+                              type: integer
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+                      collection:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          description:
+                            type: string
+                          icon:
+                            type: string
+                            nullable: true
+                          iconWeight:
+                            type: string
+                            nullable: true
+                          color:
+                            type: string
+                          parentId:
+                            type: integer
+                            nullable: true
+                          isPublic:
+                            type: boolean
+                          ownerId:
+                            type: integer
+                          createdByUd:
+                            type: integer
+                          createdAt:
+                            type: string
+                            format: date-time
+                          updatedAt:
+                            type: string
+                            format: date-time
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - Links
+      summary: Delete a list of links
+      description: Deletes multiple links based on the provided list of link IDs.
+      operationId: deleteLinks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                linkIds:
+                  type: array
+                  items:
+                    type: integer
+                  description: List of link IDs to be deleted.
+      responses:
+        "200":
+          description: Successfully deleted the links.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      count:
+                        type: integer
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /api/v1/links/{id}:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Links
+      summary: Get a link by ID
+      operationId: getLink
+      responses:
+        "200":
+          description: Successfully retrieved the link.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      type:
+                        type: string
+                      description:
+                        type: string
+                      createdById:
+                        type: integer
+                      collectionId:
+                        type: integer
+                      icon:
+                        type: string
+                        nullable: true
+                      iconWeight:
+                        type: string
+                        nullable: true
+                      color:
+                        type: string
+                        nullable: true
+                      url:
+                        type: string
+                      textContent:
+                        type: string
+                        nullable: true
+                      preview:
+                        type: string
+                        nullable: true
+                      image:
+                        type: string
+                        nullable: true
+                      pdf:
+                        type: string
+                        nullable: true
+                      readable:
+                        type: string
+                        nullable: true
+                      monolith:
+                        type: string
+                        nullable: true
+                      lastPreserved:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      importDate:
+                        type: string
+                        nullable: true
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+                      tags:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            ownerId:
+                              type: integer
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+                      collection:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          description:
+                            type: string
+                          icon:
+                            type: string
+                            nullable: true
+                          iconWeight:
+                            type: string
+                            nullable: true
+                          color:
+                            type: string
+                          parentId:
+                            type: integer
+                            nullable: true
+                          isPublic:
+                            type: boolean
+                          ownerId:
+                            type: integer
+                          createdByUd:
+                            type: integer
+                          createdAt:
+                            type: string
+                            format: date-time
+                          updatedAt:
+                            type: string
+                            format: date-time
+                      pinnedBy:
+                        type: array
+                        items:
+                          type: integer
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - Links
+      summary: Delete a link
+      description: Deletes the specified link from the system.
+      operationId: deleteLink
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the link to be deleted.
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successfully deleted the link.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      type:
+                        type: string
+                      description:
+                        type: string
+                      createdById:
+                        type: number
+                      collectionId:
+                        type: number
+                      icon:
+                        type: string
+                        nullable: true
+                      iconWeight:
+                        type: string
+                        nullable: true
+                      color:
+                        type: string
+                        nullable: true
+                      url:
+                        type: string
+                      textContent:
+                        type: string
+                        nullable: true
+                      preview:
+                        type: string
+                        nullable: true
+                      image:
+                        type: string
+                        nullable: true
+                      pdf:
+                        type: string
+                        nullable: true
+                      readable:
+                        type: string
+                        nullable: true
+                      monolith:
+                        type: string
+                        nullable: true
+                      lastPreserved:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      importDate:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /api/v1/links/{id}/archive:
+    put:
+      security:
+        - bearerAuth: []
+      tags:
+        - Links
+      summary: Archive a link
+      description: Updates a links archive files
+      operationId: archiveLink
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the link to be archived.
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successfully archived the link.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
   /api/v1/logins:
     get:
       summary: Get login configuration
@@ -1170,211 +1811,167 @@ paths:
                 properties:
                   name:
                     type: string
-                    description: The name of the user.
                   username:
                     type: string
-                    description: The username of the user.
                   email:
                     type: string
                     nullable: true
-                    description: The user's email.
                   emailVerified:
                     type: boolean
                     nullable: true
-                    description: Whether the user's email is verified.
                   unverifiedNewEmail:
                     type: string
                     nullable: true
-                    description: Any unverified new email for the user.
                   image:
                     type: string
-                    description: URL to the user's image.
                   locale:
                     type: string
-                    description: The locale of the user.
                   parentSubscriptionId:
                     type: string
                     nullable: true
-                    description: The ID of the parent subscription.
                   collectionOrder:
                     type: array
                     items:
                       type: integer
-                    description: The order of the user's collections by ID.
                   linksRouteTo:
                     type: string
-                    description: Specifies the link routing preference.
                   preventDuplicateLinks:
                     type: boolean
-                    description: Whether duplicate links are prevented.
                   archiveAsScreenshot:
                     type: boolean
-                    description: Whether links are archived as screenshots.
                   archiveAsMonolith:
                     type: boolean
-                    description: Whether links are archived as monoliths.
                   archiveAsPDF:
                     type: boolean
-                    description: Whether links are archived as PDFs.
                   archiveAsWaybackMachine:
                     type: boolean
-                    description: Whether links are archived as Wayback Machine snapshots.
                   isPrivate:
                     type: boolean
-                    description: Whether the user's data is private.
                   referredBy:
                     type: string
                     nullable: true
-                    description: Who referred the user.
                   createdAt:
                     type: string
                     format: date-time
-                    description: The timestamp when the user was created.
                   updatedAt:
                     type: string
                     format: date-time
-                    description: The timestamp when the user was last updated.
                   collections:
                     type: array
-                    description: List of collections associated with the user.
                     items:
                       type: object
                       properties:
                         id:
                           type: integer
-                          description: The collection ID.
                         name:
                           type: string
-                          description: The collection name.
                         description:
                           type: string
-                          description: The collection description.
                         icon:
                           type: string
                           nullable: true
-                          description: The icon of the collection.
                         iconWeight:
                           type: string
                           nullable: true
-                          description: The weight of the icon.
                         color:
                           type: string
-                          description: The color of the collection.
                         parentId:
                           type: integer
                           nullable: true
-                          description: The parent ID of the collection.
                         isPublic:
                           type: boolean
-                          description: Whether the collection is public.
                         ownerId:
                           type: integer
-                          description: The ID of the collection owner.
                         createdById:
                           type: integer
-                          description: The ID of the collection creator.
                         createdAt:
                           type: string
                           format: date-time
-                          description: When the collection was created.
                         updatedAt:
                           type: string
                           format: date-time
-                          description: When the collection was last updated.
                         links:
                           type: array
-                          description: Links within the collection.
                           items:
                             type: object
                             properties:
                               id:
                                 type: integer
-                                description: The ID of the link.
                               name:
                                 type: string
-                                description: The name of the link.
                               type:
                                 type: string
-                                description: The type of the link (e.g., image, url).
                               description:
                                 type: string
-                                description: A brief description of the link.
                               createdById:
                                 type: integer
-                                description: The ID of the user who created the link.
                               collectionId:
                                 type: integer
-                                description: The ID of the collection containing the link.
                               icon:
                                 type: string
                                 nullable: true
-                                description: The icon for the link.
                               iconWeight:
                                 type: string
                                 nullable: true
-                                description: The weight of the icon.
                               color:
                                 type: string
                                 nullable: true
-                                description: The color associated with the link.
                               url:
                                 type: string
-                                nullable: true
-                                description: The URL for the link, if applicable.
                               textContent:
                                 type: string
                                 nullable: true
-                                description: The text content of the link, if applicable.
                               preview:
                                 type: string
                                 nullable: true
-                                description: The path to the link's preview.
                               image:
                                 type: string
                                 nullable: true
-                                description: The path to the link's image.
                               pdf:
                                 type: string
                                 nullable: true
-                                description: The path to the link's PDF.
                               readable:
                                 type: string
                                 nullable: true
-                                description: The path to the link's readable content.
                               monolith:
                                 type: string
                                 nullable: true
-                                description: The monolith status or path of the link.
                               lastPreserved:
                                 type: string
                                 format: date-time
-                                description: The timestamp of the last preservation.
                               importDate:
                                 type: string
                                 format: date-time
                                 nullable: true
-                                description: The import date of the link.
                               createdAt:
                                 type: string
                                 format: date-time
-                                description: When the link was created.
                               updatedAt:
                                 type: string
                                 format: date-time
-                                description: When the link was last updated.
                               tags:
                                 type: array
-                                description: Tags associated with the link.
                                 items:
-                                  type: string
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    name:
+                                      type: string
+                                    ownerId:
+                                      type: integer
+                                    createdAt:
+                                      type: string
+                                      format: date-time
+                                    updatedAt:
+                                      type: string
+                                      format: date-time
                   pinnedLinks:
                     type: array
-                    description: A list of pinned links.
                     items:
                       type: object
                   whitelistedUsers:
                     type: array
-                    description: A list of whitelisted users.
                     items:
                       type: object
         "401":
@@ -1388,7 +1985,6 @@ paths:
                 properties:
                   response:
                     type: string
-                    example: User not found.
     post:
       security:
         - bearerAuth: []
@@ -1543,7 +2139,6 @@ paths:
               properties:
                 name:
                   type: string
-                  example: "Test2"
       security:
         - bearerAuth: []
       responses:
@@ -2104,11 +2699,6 @@ paths:
                       referredBy:
                         type: string
                         nullable: true
-                      whitelistedUsers:
-                        type: array
-                        items:
-                          type: string
-                        example: []
                       createdAt:
                         type: string
                         format: date-time
@@ -2117,6 +2707,11 @@ paths:
                         type: string
                         format: date-time
                         example: "2024-12-01T22:14:05.742Z"
+                      whitelistedUsers:
+                        type: array
+                        items:
+                          type: string
+                        example: []
                       subscription:
                         type: object
                         properties: {}
@@ -2145,6 +2740,12 @@ components:
   responses:
     BadRequest:
       description: Bad request error.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

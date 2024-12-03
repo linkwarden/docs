@@ -22,64 +22,6 @@ tags:
   - name: Users
 paths:
   /api/v1/archives/{linkId}:
-    post:
-      security:
-        - bearerAuth: []
-      tags:
-        - Archives
-      summary: Uploads a file to an archive by link ID
-      parameters:
-        - name: linkId
-          in: path
-          required: true
-          description: The ID of the desired link
-          schema:
-            type: string
-        - name: format
-          in: query
-          required: true
-          description: |
-            The numeric value corresponding to the format of the file being uploaded:
-            - `0`: PNG
-            - `1`: JPEG
-            - `2`: PDF
-          schema:
-            type: integer
-            enum:
-              - 0 # PNG
-              - 1 # JPEG
-              - 2 # PDF
-      requestBody:
-        required: true
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                file:
-                  type: string
-                  format: binary
-                  description: The file to upload (PNG, JPEG, or PDF).
-              required:
-                - file
-      responses:
-        "200":
-          description: File successfully uploaded and processed.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  response:
-                    type: object
-                    description: Details about the uploaded file.
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-      description: Uploads a file to the specified archive. Supports PDF, PNG, and JPEG formats.
     get:
       security:
         - bearerAuth: []
@@ -142,6 +84,64 @@ paths:
                   response:
                     type: string
       description: Retrieves an archive file in the specified format.
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Archives
+      summary: Uploads a file to an archive by link ID
+      parameters:
+        - name: linkId
+          in: path
+          required: true
+          description: The ID of the desired link
+          schema:
+            type: string
+        - name: format
+          in: query
+          required: true
+          description: |
+            The numeric value corresponding to the format of the file being uploaded:
+            - `0`: PNG
+            - `1`: JPEG
+            - `2`: PDF
+          schema:
+            type: integer
+            enum:
+              - 0 # PNG
+              - 1 # JPEG
+              - 2 # PDF
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to upload (PNG, JPEG, or PDF).
+              required:
+                - file
+      responses:
+        "200":
+          description: File successfully uploaded and processed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    description: Details about the uploaded file.
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+      description: Uploads a file to the specified archive. Supports PDF, PNG, and JPEG formats.
     put:
       security:
         - bearerAuth: []
@@ -327,7 +327,6 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
-      description: Retrieves the avatar for a user identified by their ID.
   /api/v1/collections:
     get:
       security:
@@ -457,6 +456,35 @@ paths:
 
         "401":
           $ref: "#/components/responses/Unauthorized"
+  /api/v1/collections/{id}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get a collection by ID
+      operationId: getCollectionById
+      tags:
+        - Collections
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the collection to retrieve.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Collection successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    $ref: "#/components/schemas/Collection"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
     post:
       security:
         - bearerAuth: []
@@ -503,94 +531,6 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
-  /api/v1/collections/{id}:
-    get:
-      security:
-        - bearerAuth: []
-      summary: Get a collection by ID
-      operationId: getCollectionById
-      tags:
-        - Collections
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The ID of the collection to retrieve.
-          schema:
-            type: integer
-      responses:
-        "200":
-          description: Collection successfully retrieved.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  response:
-                    $ref: "#/components/schemas/Collection"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-    delete:
-      security:
-        - bearerAuth: []
-      summary: Delete a collection by ID
-      operationId: deleteCollectionById
-      tags:
-        - Collections
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The ID of the collection to delete.
-          schema:
-            type: integer
-      responses:
-        "200":
-          description: Collection successfully deleted.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  response:
-                    type: object
-                    description: The deleted collection details.
-                    properties:
-                      id:
-                        type: integer
-                      name:
-                        type: string
-                      description:
-                        type: string
-                      icon:
-                        type: string
-                        nullable: true
-                      iconWeight:
-                        type: string
-                        nullable: true
-                      color:
-                        type: string
-                      parentId:
-                        type: integer
-                        nullable: true
-                      isPublic:
-                        type: boolean
-                      ownerId:
-                        type: integer
-                      createdById:
-                        type: integer
-                      createdAt:
-                        type: string
-                        format: date-time
-                      updatedAt:
-                        type: string
-                        format: date-time
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
     put:
       security:
         - bearerAuth: []
@@ -651,6 +591,65 @@ paths:
                     $ref: "#/components/schemas/Collection"
         "400":
           $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+    delete:
+      security:
+        - bearerAuth: []
+      summary: Delete a collection by ID
+      operationId: deleteCollectionById
+      tags:
+        - Collections
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the collection to delete.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Collection successfully deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    description: The deleted collection details.
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      description:
+                        type: string
+                      icon:
+                        type: string
+                        nullable: true
+                      iconWeight:
+                        type: string
+                        nullable: true
+                      color:
+                        type: string
+                      parentId:
+                        type: integer
+                        nullable: true
+                      isPublic:
+                        type: boolean
+                      ownerId:
+                        type: integer
+                      createdById:
+                        type: integer
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -1975,6 +1974,41 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
   /api/v1/tokens:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Tokens
+      summary: Get a list of tokens
+      description: Retrieves a list of all tokens associated with the authenticated user.
+      operationId: getTokens
+      responses:
+        "200":
+          description: Successfully retrieved list of tokens.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        isSession:
+                          type: boolean
+                        expires:
+                          type: string
+                          format: date-time
+                        createdAt:
+                          type: string
+                          format: date-time
+        "401":
+          $ref: "#/components/responses/Unauthorized"
     post:
       security:
         - bearerAuth: []
@@ -2045,41 +2079,6 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
-    get:
-      security:
-        - bearerAuth: []
-      tags:
-        - Tokens
-      summary: Get a list of tokens
-      description: Retrieves a list of all tokens associated with the authenticated user. Requires bearer authentication.
-      operationId: getTokens
-      responses:
-        "200":
-          description: Successfully retrieved list of tokens.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  response:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        name:
-                          type: string
-                        isSession:
-                          type: boolean
-                        expires:
-                          type: string
-                          format: date-time
-                        createdAt:
-                          type: string
-                          format: date-time
-        "401":
-          $ref: "#/components/responses/Unauthorized"
   /api/v1/tokens/{id}:
     delete:
       tags:
@@ -2134,6 +2133,45 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
   /api/v1/users:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Users
+      summary: Get a list of users
+      description: Retrieves a list of users.
+      operationId: getUsers
+      responses:
+        "200":
+          description: Successfully retrieved a list of users.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        username:
+                          type: string
+                        email:
+                          type: string
+                          nullable: true
+                        emailVerified:
+                          type: string
+                          nullable: true
+                        subscriptions:
+                          type: string
+                          nullable: true
+                        createdAt:
+                          type: string
+                          format: date-time
+        "401":
+          $ref: "#/components/responses/Unauthorized"
     post:
       tags:
         - Users
@@ -2233,76 +2271,7 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
-    get:
-      security:
-        - bearerAuth: []
-      tags:
-        - Users
-      summary: Get a list of users
-      description: Retrieves a list of users.
-      operationId: getUsers
-      responses:
-        "200":
-          description: Successfully retrieved a list of users.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  response:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        username:
-                          type: string
-                        email:
-                          type: string
-                          nullable: true
-                        emailVerified:
-                          type: string
-                          nullable: true
-                        subscriptions:
-                          type: string
-                          nullable: true
-                        createdAt:
-                          type: string
-                          format: date-time
-        "401":
-          $ref: "#/components/responses/Unauthorized"
   /api/v1/users/{id}:
-    delete:
-      security:
-        - bearerAuth: []
-      tags:
-        - Users
-      summary: Delete a user account
-      description: Deletes a user account and all related data.
-      operationId: deleteUser
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The ID of the user to be deleted.
-          schema:
-            type: integer
-      responses:
-        "200":
-          description: Successfully deleted the user account and all related data.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  response:
-                    type: string
-                    example: "User account and all related data deleted successfully."
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
     put:
       security:
         - bearerAuth: []
@@ -2485,6 +2454,36 @@ paths:
                           user:
                             type: object
                             properties: {}
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - Users
+      summary: Delete a user account
+      description: Deletes a user account and all related data.
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the user to be deleted.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successfully deleted the user account and all related data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    example: "User account and all related data deleted successfully."
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":

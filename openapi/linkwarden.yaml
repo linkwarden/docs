@@ -1,8 +1,8 @@
 openapi: 3.0.2
 info:
-  description: Linkwarden API Documentation
+  description: Linkwarden OpenAPI Documentation.
   version: 1.0.0
-  title: Linkwarden API
+  title: API Introduction
   license:
     name: GNU Affero General Public License v3.0
     url: "https://www.gnu.org/licenses/agpl-3.0.html"

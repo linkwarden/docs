@@ -1,7 +1,7 @@
-import type { Config } from '@docusaurus/types';
-import { themes } from 'prism-react-renderer';
+import type { Config } from "@docusaurus/types";
+import { themes } from "prism-react-renderer";
 import type * as OpenApiPlugin from "docusaurus-plugin-openapi-docs";
-import customSidebarItemsGenerator from './docs/sidebar';
+import customSidebarItemsGenerator from "./docs/sidebar";
 
 const lightCodeTheme = themes.github;
 const darkCodeTheme = themes.dracula;
@@ -47,9 +47,9 @@ const config: Config = {
   presets: [
     [
       "classic",
-      ({
+      {
         docs: {
-          sidebarPath: './sidebars.ts',
+          sidebarPath: "./sidebars.ts",
           sidebarItemsGenerator: customSidebarItemsGenerator,
           docItemComponent: "@theme/ApiItem", // Derived from docusaurus-theme-openapi
           routeBasePath: "/",
@@ -61,11 +61,11 @@ const config: Config = {
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
-      }),
-    ]
+      },
+    ],
   ],
 
-  themeConfig: ({
+  themeConfig: {
     // Replace with your project's social card
     image: "img/logo.png",
     navbar: {
@@ -153,11 +153,11 @@ const config: Config = {
       theme: lightCodeTheme,
       darkTheme: darkCodeTheme,
     },
-  }),
+  },
 
   plugins: [
     [
-      'docusaurus-plugin-openapi-docs',
+      "docusaurus-plugin-openapi-docs",
       {
         id: "api",
         docsPluginId: "classic",
@@ -165,15 +165,15 @@ const config: Config = {
           linkwarden: {
             hideSendButton: true,
             specPath: "openapi/linkwarden.yaml",
-            outputDir: "docs/openapi",
+            outputDir: "docs/api",
             sidebarOptions: {
-              groupPathsBy: "tag"
+              groupPathsBy: "tag",
             },
             showSchemas: false,
           } satisfies OpenApiPlugin.Options,
-        }
+        },
       },
-    ]
+    ],
   ],
 
   themes: ["docusaurus-theme-openapi-docs"],

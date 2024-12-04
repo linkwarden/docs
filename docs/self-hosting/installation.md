@@ -71,7 +71,7 @@ After a few minutes (depending on your internet connection) you can access Linkw
 
 :::note
 
-The Manual Installation is targeted towards a more technical audience, to take an easier path, go for installation using [Docker](/self-hosting/installation#docker-).
+The Manual Installation is targeted towards a more technical audience, to take an easier path, go for installation using [Docker](/self-hosting/installation#docker-compose).
 
 :::
 

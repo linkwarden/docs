@@ -50,7 +50,7 @@ If you did the [Manual installation](/self-hosting/installation#manual-installat
 node scripts/migration/migrateToV2.js
 ```
 
-For [Docker](/self-hosting/installation#docker-) users, replace `CONTAINER_ID` with your running Linkwarden container's ID and execute the following command:
+For [Docker](/self-hosting/installation#docker-compose) users, replace `CONTAINER_ID` with your running Linkwarden container's ID and execute the following command:
 
 ```
 docker exec -it CONTAINER_ID /bin/bash -c 'node scripts/migration/migrateToV2.js'

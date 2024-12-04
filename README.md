@@ -24,6 +24,14 @@ $ yarn build
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.
 
+### Generate OpenAPI pages
+
+```
+yarn docusaurus gen-api-docs all
+```
+
+This command generates API docs for the OpenAPI YAML file in the `openapi` directory. The generated pages are placed in the `docs/openapi` directory.
+
 ### Deployment
 
 Using SSH:

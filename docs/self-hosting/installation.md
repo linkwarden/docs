@@ -132,12 +132,22 @@ $ yarn start
 
 ### Troubleshooting
 
-<!-- There are a few common issues that you might encounter when setting up Linkwarden, here are some of them: -->
+There are a few common issues that you might encounter when setting up Linkwarden, here are some of them:
 
-#### `Type error: Module '"@prisma/client"' has no exported member...`
+<details>
+    <summary>`[0] upstream image response failed for https://t2.gstatic.com/faviconV2...`</summary>
 
-This error is caused by the `@prisma/client` package not being installed correctly, to fix it, simply run:
+    This error is caused by the favicon (the website's logo) not being found, it's really not a big deal, but if you want to fix it, you can set an icon to the links that don't have a favicon, or you can just hide the icons. The favicon is the only part that isn't actually stored and is being fetched from the internet every time you load the page.
 
-```bash
-$ yarn prisma generate
-```
+</details>
+
+<details>
+    <summary>`Type error: Module '"@prisma/client"' has no exported member...`</summary>
+
+    This error is caused by the `@prisma/client` package not being installed correctly, to fix it, simply run:
+
+    ```bash
+    $ yarn prisma generate
+    ```
+
+</details>

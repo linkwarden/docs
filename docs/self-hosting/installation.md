@@ -20,51 +20,27 @@ Here you can find everything you need to setup a fully fledged Linkwarden instan
 
 ### Hardware Requirements
 
-Linkwarden has pretty minimal hardware requirements - it was tested on a 2gb VPS and it ran pretty smoothly, the most intense part is when you build the app, but once it's running it's relatively lightweight.
+Linkwarden has pretty minimal hardware requirements - it was tested on a VPS with 4gb of memory and it ran pretty smoothly, the most intense part is when you build the app, but once it's running it's relatively lightweight.
 
 ### Docker 🐋
 
 **Requirements:**
 
-- curl
 - Docker
-- Git
-- curl
+- Curl
 
-#### Docker Composer 
 ##### 1. Download the required files
+
 ```bash
-$ mkdir linkwarden && cd linkwarden
-$ curl -O https://raw.githubusercontent.com/linkwarden/linkwarden/refs/tags/v2.9.2/docker-compose.yml
-$ curl -L https://raw.githubusercontent.com/linkwarden/linkwarden/refs/tags/v2.9.2/.env.sample -o ".env"
+mkdir linkwarden && cd linkwarden
+curl -O https://raw.githubusercontent.com/linkwarden/linkwarden/refs/heads/main/docker-compose.yml
+curl -L https://raw.githubusercontent.com/linkwarden/linkwarden/refs/heads/main/.env.sample -o ".env"
 ```
 
 ##### 2. Configure the Environment Variables
 
 ```bash
-$ cd linkwarden
-$ cp .env.sample .env
-$ nano .env
-```
-
-##### 3. Run it!
-```bash
-$ docker compose up
-```
-
-#### Build from repository
-##### 1. Clone the Linkwarden repository
-
-```bash
-$ git clone https://github.com/linkwarden/linkwarden.git
-```
-
-##### 2. Configure the Environment Variables
-
-```bash
-$ cd linkwarden
-$ cp .env.sample .env
-$ nano .env
+nano .env
 ```
 
 The required environment variables are:
@@ -84,7 +60,7 @@ The `NEXTAUTH_URL` should be changed to your domain name _only if you are hostin
 In the main folder (where you created the .env file) simply run the following:
 
 ```bash
-$ docker compose up
+docker compose up
 ```
 
 After a few minutes (depending on your internet connection) you can access Linkwarden via [http://localhost:3000](http://localhost:3000) (or whichever hostname you deployed Linkwarden on).
@@ -110,23 +86,23 @@ The Manual Installation is targeted towards a more technical audience, to take a
 #### 1. Clone the Linkwarden repository
 
 ```bash
-$ git clone https://github.com/linkwarden/linkwarden.git
-$ cd linkwarden
+git clone https://github.com/linkwarden/linkwarden.git
+cd linkwarden
 ```
 
 #### 2. Install the necessary dependancies
 
 ```bash
-$ yarn
-$ npx playwright install --with-deps chromium
+yarn
+npx playwright install --with-deps chromium
 ```
 
 #### 3. Configure the Environment Variables
 
 ```bash
-$ cd linkwarden
-$ cp .env.sample .env
-$ nano .env
+cd linkwarden
+cp .env.sample .env
+nano .env
 ```
 
 The required environment variables are:
@@ -144,14 +120,14 @@ The `NEXTAUTH_URL` should be changed to your domain name _only if you are hostin
 #### 4. Build and setup the database:
 
 ```bash
-$ yarn build
-$ yarn prisma migrate deploy
+yarn build
+yarn prisma migrate deploy
 ```
 
 #### 5. Start the app:
 
 ```bash
-$ yarn start
+yarn start
 ```
 
 ### Troubleshooting
@@ -171,7 +147,7 @@ There are a few common issues that you might encounter when setting up Linkwarde
     This error is caused by the `@prisma/client` package not being installed correctly, to fix it, simply run:
 
     ```bash
-    $ yarn prisma generate
+    yarn prisma generate
     ```
 
 </details>

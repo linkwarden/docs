@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.6.3">
 <title data-rh="true">Installation | Linkwarden</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://linkwarden.github.io/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://linkwarden.github.io/img/logo.png"><meta data-rh="true" property="og:url" content="https://linkwarden.github.io/self-hosting/installation"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Installation | Linkwarden"><meta data-rh="true" name="description" content="Our official Cloud offering is the easiest way to start using Linkwarden and is typically more affordable than renting a VPS."><meta data-rh="true" property="og:description" content="Our official Cloud offering is the easiest way to start using Linkwarden and is typically more affordable than renting a VPS."><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://linkwarden.github.io/self-hosting/installation"><link data-rh="true" rel="alternate" href="https://linkwarden.github.io/self-hosting/installation" hreflang="en"><link data-rh="true" rel="alternate" href="https://linkwarden.github.io/self-hosting/installation" hreflang="x-default"><script src="https://linkwarden-meta.xyz/js/script.js" async defer="defer" data-domain="docs.linkwarden.app"></script><link rel="stylesheet" href="/assets/css/styles.e59fcdb7.css">
-<script src="/assets/js/runtime~main.67c0e412.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.af725575.js" defer="defer"></script>
 <script src="/assets/js/main.4e78fd70.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -19,6 +19,7 @@
 <ul>
 <li>Docker</li>
 <li>Curl</li>
+<li>Nano</li>
 </ul>
 <h5 class="anchor anchorWithStickyNavbar_LWe7" id="1-download-the-required-files">1. Download the required files<a href="#1-download-the-required-files" class="hash-link" aria-label="Direct link to 1. Download the required files" title="Direct link to 1. Download the required files">​</a></h5>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">mkdir linkwarden &amp;&amp; cd linkwarden</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">curl -O https://raw.githubusercontent.com/linkwarden/linkwarden/refs/heads/main/docker-compose.yml</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">curl -L https://raw.githubusercontent.com/linkwarden/linkwarden/refs/heads/main/.env.sample -o &quot;.env&quot;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
@@ -41,6 +42,7 @@
 <li>Node.js</li>
 <li>Yarn</li>
 <li>Postgres</li>
+<li>Nano</li>
 <li><a href="https://github.com/Y2Z/monolith" target="_blank" rel="noopener noreferrer">Monolith</a></li>
 </ul>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="1-clone-the-linkwarden-repository">1. Clone the Linkwarden repository<a href="#1-clone-the-linkwarden-repository" class="hash-link" aria-label="Direct link to 1. Clone the Linkwarden repository" title="Direct link to 1. Clone the Linkwarden repository">​</a></h4>

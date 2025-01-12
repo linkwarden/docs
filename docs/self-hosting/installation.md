@@ -22,20 +22,44 @@ Here you can find everything you need to setup a fully fledged Linkwarden instan
 
 Linkwarden has pretty minimal hardware requirements - it was tested on a 2gb VPS and it ran pretty smoothly, the most intense part is when you build the app, but once it's running it's relatively lightweight.
 
-### Docker Compose 🐋
+### Docker 🐋
 
 **Requirements:**
 
+- curl
 - Docker
 - Git
+- curl
 
-#### 1. Clone the Linkwarden repository
+#### Docker Composer 
+##### 1. Download the required files
+```bash
+$ mkdir linkwarden && cd linkwarden
+$ curl -O https://raw.githubusercontent.com/linkwarden/linkwarden/refs/tags/v2.9.2/docker-compose.yml
+$ curl -L https://raw.githubusercontent.com/linkwarden/linkwarden/refs/tags/v2.9.2/.env.sample -o ".env"
+```
+
+##### 2. Configure the Environment Variables
+
+```bash
+$ cd linkwarden
+$ cp .env.sample .env
+$ nano .env
+```
+
+##### 3. Run it!
+```bash
+$ docker compose up
+```
+
+#### Build from repository
+##### 1. Clone the Linkwarden repository
 
 ```bash
 $ git clone https://github.com/linkwarden/linkwarden.git
 ```
 
-#### 2. Configure the Environment Variables
+##### 2. Configure the Environment Variables
 
 ```bash
 $ cd linkwarden
@@ -55,7 +79,7 @@ The only thing you MUST change here is `NEXTAUTH_SECRET` and `POSTGRES_PASSWORD`
 
 The `NEXTAUTH_URL` should be changed to your domain name _only if you are hosting it somewhere else_.
 
-#### 3. Run it!
+##### 3. Run it!
 
 In the main folder (where you created the .env file) simply run the following:
 

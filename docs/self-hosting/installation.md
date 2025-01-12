@@ -28,6 +28,7 @@ Linkwarden has pretty minimal hardware requirements - it was tested on a VPS wit
 
 - Docker
 - Curl
+- Nano
 
 ##### 1. Download the required files
 
@@ -81,6 +82,7 @@ The Manual Installation is targeted towards a more technical audience, to take a
 - Node.js
 - Yarn
 - Postgres
+- Nano
 - [Monolith](https://github.com/Y2Z/monolith)
 
 #### 1. Clone the Linkwarden repository

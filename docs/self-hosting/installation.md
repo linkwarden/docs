@@ -52,7 +52,7 @@ NEXTAUTH_SECRET=VERY_SENSITIVE_SECRET
 POSTGRES_PASSWORD=CUSTOM_POSTGRES_PASSWORD
 ```
 
-The only thing you MUST change here is `NEXTAUTH_SECRET` and `POSTGRES_PASSWORD`, they both should be different secret phrases.
+The only thing you MUST change here is `NEXTAUTH_SECRET` and `POSTGRES_PASSWORD`, they both should be different secret phrases.  The phrase can be wrapped in single or double quotes if any special characters are used such as a dollar sign.  Alternatively the characters can be escaped.  See (https://docs.docker.com/reference/compose-file/interpolation/).
 
 The `NEXTAUTH_URL` should be changed to your domain name _only if you are hosting it somewhere else_.
 

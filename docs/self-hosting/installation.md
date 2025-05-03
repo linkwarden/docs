@@ -96,7 +96,6 @@ cd linkwarden
 
 ```bash
 yarn
-npx playwright install --with-deps chromium
 ```
 
 #### 3. Configure the Environment Variables
@@ -119,17 +118,18 @@ The only thing you MUST change here is `NEXTAUTH_SECRET` and `DATABASE_URL`.
 
 The `NEXTAUTH_URL` should be changed to your domain name _only if you are hosting it somewhere else_.
 
-#### 4. Build and setup the database:
+#### 4. Build the app and setup the database:
 
 ```bash
-yarn build
-yarn prisma migrate deploy
+yarn prisma:generate
+yarn web:build
+yarn prisma:deploy
 ```
 
 #### 5. Start the app:
 
 ```bash
-yarn start
+yarn concurrently:start
 ```
 
 ### Troubleshooting
@@ -149,7 +149,7 @@ There are a few common issues that you might encounter when setting up Linkwarde
     This error is caused by the `@prisma/client` package not being installed correctly, to fix it, simply run:
 
     ```bash
-    yarn prisma generate
+    yarn prisma:generate
     ```
 
 </details>

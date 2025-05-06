@@ -19,7 +19,6 @@ Linkwarden provides a powerful search feature that allows you to find links quic
 - `after:` - Search for links created after a specific date.
 - `collection:` - Search for links in a specific collection.
 - `public:true` - Search for public links.
-- `name:` - Search for links with a specific name.
 - `description:` - Search for links with a specific description.
 - `type:` - Search for links of a specific type (image, url, pdf, etc.).
 - `pinned:true` - Search for pinned links.

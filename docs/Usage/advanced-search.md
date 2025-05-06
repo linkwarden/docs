@@ -12,7 +12,7 @@ This feature is only available if you are using [Linkwarden Cloud](https://linkw
 
 Linkwarden provides a powerful search feature that allows you to find links quickly and efficiently. You can use various operators to refine your search results. Here are all the advanced search operators you can use:
 
-- `title:` - Search for links with a specific title.
+- `name:` - Search for links with a specific title.
 - `url:` - Search for links with a specific URL.
 - `tag:` - Search for links with a specific tag.
 - `before:` - Search for links created before a specific date.
@@ -28,9 +28,13 @@ Linkwarden provides a powerful search feature that allows you to find links quic
 
 ### Examples
 
-- `title:example` - Find links with "example" in the title.
-- `title:"example link"` - Find links with "example link" in the title.
-- `url:example.com` - Find links with "example.com" in the URL.
+- `name:example` - Only links whose title is exactly "example" will be matched.
+- `name:"example link"` - Only links whose title is exactly "example link" will be matched.
+- `url:https://example.com` - Only links whose URL is exactly "https://example.com" will be matched.
 - `before:2023-01-01` - Find links created before January 1, 2023.
 - `!tag:news` - Find links that do not have the tag "news".
 - `type:pdf` - Find links that are PDFs.
+
+You can also combine these operators to create more complex queries. For example:
+
+- `tag:"ai tools" before:2020-01-01 !collection:unorganized` - Find links that are tagged with "ai tools", created before January 1, 2020, and not in the "unorganized" collection.

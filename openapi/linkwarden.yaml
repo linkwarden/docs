@@ -1795,6 +1795,52 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "404":
           $ref: "#/components/responses/NotFound"
+  /api/v1/search:
+    get:
+      summary: Search links
+      description: Searches for links based on query parameters.
+      tags:
+        - Search
+      parameters:
+        - name: searchQueryString
+          in: query
+          description: A string to filter search results.
+          required: true
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: A numeric value to sort the search results.
+          required: false
+          schema:
+            type: number
+        - name: cursor
+          in: query
+          description: A numeric value for pagination.
+          required: false
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Successfully retrieved search results.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      nextCursor:
+                        type: number
+                      links:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Link"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /api/v1/session:
     post:
       summary: Create a new session

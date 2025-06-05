@@ -53,7 +53,6 @@ const config: Config = {
           sidebarItemsGenerator: customSidebarItemsGenerator,
           docItemComponent: "@theme/ApiItem", // Derived from docusaurus-theme-openapi
           routeBasePath: "/",
-          // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl: "https://github.com/linkwarden/docs/blob/main/",
         },

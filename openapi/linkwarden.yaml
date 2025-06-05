@@ -1828,10 +1828,17 @@ paths:
               schema:
                 type: object
                 properties:
-                  response:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/Link"
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      nextCursor:
+                        type: number
+                      links:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Link"
         "400":
           $ref: "#/components/responses/BadRequest"
   /api/v1/session:

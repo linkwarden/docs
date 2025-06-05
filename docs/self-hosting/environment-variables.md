@@ -4,7 +4,13 @@ sidebar_position: 3
 
 # Environment Variables
 
-Here are all the additional variables you can define in the `.env` file for setting up a self-hosted instance:
+Here are all the additional variables you can define in the `.env` file for setting up a self-hosted instance.
+
+:::note For Docker Users
+
+After changing your .env file, a `$ docker compose restart` won't suffice, you'll need to do a `$ docker compose down` and `$ docker compose up -d` to have the new .env variables propagate.
+
+:::
 
 | Environment Variable  | Default | Description                                                                    |
 | --------------------- | ------- | ------------------------------------------------------------------------------ |
@@ -36,10 +42,15 @@ Digital Ocean Spaces uses AWS S3 behind the scenes, so you can also choose to st
 
 ## SMTP Settings
 
-The variables you need to configure to enable password recovery without the admin interfering, email verification, etc...
+The variables you need to configure to enable password recovery without the admin interfering, email verification, etc.
 
-| Environment Variable       | Default | Description                                                                                   |
-| -------------------------- | ------- | --------------------------------------------------------------------------------------------- |
-| NEXT_PUBLIC_EMAIL_PROVIDER | -       | If set to true, email will be enabled and you'll need to define the next two variables below. |
-| EMAIL_FROM                 | -       | The email that will send the verification emails.                                             |
-| EMAIL_SERVER               | -       | That sensitive string that starts with `smtp://...` .                                         |
+Make sure to define the correct protocol depending on the port you want to use:
+
+- `smtp://` with port 587 (STARTTLS)
+- `smtps://` with port 465 (Implicit SSL/TLS)
+
+| Environment Variable       | Default | Description                                                                                        |
+| -------------------------- | ------- | -------------------------------------------------------------------------------------------------- |
+| NEXT_PUBLIC_EMAIL_PROVIDER | -       | If set to true, email will be enabled and you'll need to define the next two variables below.      |
+| EMAIL_FROM                 | -       | The email that will send the verification emails.                                                  |
+| EMAIL_SERVER               | -       | A url-encoded string with your credentials and the smtp server. (`smtp://user:password@host:port`) |

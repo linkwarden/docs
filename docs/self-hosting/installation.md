@@ -52,7 +52,7 @@ NEXTAUTH_SECRET=VERY_SENSITIVE_SECRET
 POSTGRES_PASSWORD=CUSTOM_POSTGRES_PASSWORD
 ```
 
-The only thing you MUST change here is `NEXTAUTH_SECRET` and `POSTGRES_PASSWORD`, they both should be different secret phrases.
+The only thing you MUST change here is `NEXTAUTH_SECRET` and `POSTGRES_PASSWORD`, they both should be different secret phrases. The phrase should be wrapped in single or double quotes if any special characters are used.
 
 The `NEXTAUTH_URL` should be changed to your domain name _only if you are hosting it somewhere else_.
 
@@ -72,7 +72,7 @@ After a few minutes (depending on your internet connection) you can access Linkw
 
 :::note
 
-The Manual Installation is targeted towards a more technical audience, to take an easier path, go for installation using [Docker](/self-hosting/installation#docker-compose).
+The Manual Installation is targeted towards a more technical audience, to take an easier path, go for installation using [Docker](/self-hosting/installation#docker-).
 
 :::
 

@@ -1839,8 +1839,6 @@ paths:
                         type: array
                         items:
                           $ref: "#/components/schemas/Link"
-        "400":
-          $ref: "#/components/responses/BadRequest"
   /api/v1/session:
     post:
       summary: Create a new session

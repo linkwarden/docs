@@ -129,7 +129,7 @@ yarn prisma:deploy
 
 #### 5. Setup Meilisearch (optional):
 
-If you want to take advantage of the [advanced search options](https://docs.linkwarden.app/Usage/advanced-search), you can install it by following the [Meilisearch installation guide](https://docs.meilisearch.com/learn/getting_started/installation.html).
+If you want to take advantage of the [advanced search options](https://docs.linkwarden.app/Usage/advanced-search), you need to first follow the [Meilisearch installation guide](https://docs.meilisearch.com/learn/getting_started/installation.html) to install Meilisearch.
 
 And then add the following environment variable to your `.env` file:
 

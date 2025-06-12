@@ -49,10 +49,11 @@ The required environment variables are:
 ```bash
 NEXTAUTH_URL=http://localhost:3000/api/v1/auth
 NEXTAUTH_SECRET=VERY_SENSITIVE_SECRET
+MEILI_MASTER_KEY=VERY_SENSITIVE_MEILI_MASTER_KEY
 POSTGRES_PASSWORD=CUSTOM_POSTGRES_PASSWORD
 ```
 
-The only thing you MUST change here is `NEXTAUTH_SECRET` and `POSTGRES_PASSWORD`, they both should be different secret phrases. The phrase should be wrapped in single or double quotes if any special characters are used.
+The only thing you MUST change here is `NEXTAUTH_SECRET`, `POSTGRES_PASSWORD`, and `MEILI_MASTER_KEY`, they all should be different secret phrases. The phrase should be wrapped in single or double quotes if any special characters are used.
 
 The `NEXTAUTH_URL` should be changed to your domain name _only if you are hosting it somewhere else_.
 
@@ -126,7 +127,20 @@ yarn web:build
 yarn prisma:deploy
 ```
 
-#### 5. Start the app:
+#### 5. Setup Meilisearch (optional):
+
+If you want to take advantage of the [advanced search options](https://docs.linkwarden.app/Usage/advanced-search), you can install it by following the [Meilisearch installation guide](https://docs.meilisearch.com/learn/getting_started/installation.html).
+
+And then add the following environment variable to your `.env` file:
+
+```
+MEILI_HOST=http://localhost:7700
+MEILI_MASTER_KEY=VERY_SENSITIVE_MEILI_MASTER_KEY
+```
+
+Keep in mind that you need to have Meilisearch running in the background before you start Linkwarden.
+
+#### 6. Start the app:
 
 ```bash
 yarn concurrently:start

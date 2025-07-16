@@ -8,9 +8,18 @@ Here are all the SSO/OAuth integrations Linkwarden currently has.
 
 :::warning
 
-Other than the [Authentik](#authentik) and [Keycloak](#keycloak) integrations, most of the other integrations are **untested**. Please first backup your database, _just in case_.
+Other than the [Authentik](#authentik) and [Keycloak](#keycloak) integrations, most of the other integrations are *
+*untested**. Please first backup your database, _just in case_.
 
 To get support from the community, please visit our **[Discord server](https://discord.com/invite/CtuYV47nuJ)**.
+
+:::
+
+:::note
+
+When creating a new OAuth application, make sure to set the **Redirect URI** to
+`https://<your-domain>/api/v1/auth/callback/<provider>` where `<provider>` is the name of the provider (e.g. `google`,
+`github`, etc.).
 
 :::
 
@@ -19,7 +28,7 @@ To get support from the community, please visit our **[Discord server](https://d
 The variables you need to configure to enable support for 42 School (OIDC):
 
 | Environment Variable         | Default | Description                                                                              |
-| ---------------------------- | ------- | ---------------------------------------------------------------------------------------- |
+|------------------------------|---------|------------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_FORTYTWO_ENABLED | -       | If set to true, 42 School will be enabled and you'll need to define the variables below. |
 | FORTYTWO_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                   |
 | FORTYTWO_CLIENT_ID           | -       | Client ID                                                                                |
@@ -30,7 +39,7 @@ The variables you need to configure to enable support for 42 School (OIDC):
 The variables you need to configure to enable support for Apple (OIDC):
 
 | Environment Variable      | Default | Description                                                                          |
-| ------------------------- | ------- | ------------------------------------------------------------------------------------ |
+|---------------------------|---------|--------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_APPLE_ENABLED | -       | If set to true, Apple will be enabled and you'll need to define the variables below. |
 | APPLE_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                               |
 | APPLE_CLIENT_ID           | -       | Client ID                                                                            |
@@ -41,7 +50,7 @@ The variables you need to configure to enable support for Apple (OIDC):
 The variables you need to configure to enable support for Atlassian (OIDC):
 
 | Environment Variable          | Default | Description                                                                              |
-| ----------------------------- | ------- | ---------------------------------------------------------------------------------------- |
+|-------------------------------|---------|------------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_ATLASSIAN_ENABLED | -       | If set to true, Atlassian will be enabled and you'll need to define the variables below. |
 | ATLASSIAN_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                   |
 | ATLASSIAN_SCOPE               | -       | Optionally set a custom scope.                                                           |
@@ -53,7 +62,7 @@ The variables you need to configure to enable support for Atlassian (OIDC):
 The variables you need to configure to enable support for Auth0 (OIDC):
 
 | Environment Variable      | Default | Description                                                                          |
-| ------------------------- | ------- | ------------------------------------------------------------------------------------ |
+|---------------------------|---------|--------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_AUTH0_ENABLED | -       | If set to true, Auth0 will be enabled and you'll need to define the variables below. |
 | AUTH0_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                               |
 | AUTH0_ISSUER              | -       | Issuer.                                                                              |
@@ -65,7 +74,7 @@ The variables you need to configure to enable support for Auth0 (OIDC):
 The variables you need to configure to enable support for Authelia (OIDC).
 
 | Environment Variable         | Default | Description                                                                             |
-| ---------------------------- | ------- | --------------------------------------------------------------------------------------- |
+|------------------------------|---------|-----------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_AUTHELIA_ENABLED | -       | If set to true, Authelia will be enabled and you'll need to define the variables below. |
 | AUTHELIA_WELLKNOWN_URL       | -       | https://\{\{authelia.domain.com\}\}/.well-known/openid-configuration                    |
 | AUTHELIA_CLIENT_ID           | -       | Client ID                                                                               |
@@ -77,7 +86,8 @@ Generate the client secret with
 docker exec -it authelia authelia crypto hash generate pbkdf2 --variant sha512 --random --random.length 72 --random.charset rfc3986
 ```
 
-The `Random Password` should be used for the `AUTHELIA_CLIENT_SECRET` variable in linkwarden & the `Digest` should be used for `client_secret` in th Authelia config below.
+The `Random Password` should be used for the `AUTHELIA_CLIENT_SECRET` variable in linkwarden & the `Digest` should be
+used for `client_secret` in th Authelia config below.
 
 Authelia config should be as follows:
 
@@ -103,14 +113,19 @@ Authelia config should be as follows:
 The variables you need to configure to enable support for Authentik (OIDC):
 
 | Environment Variable          | Default | Description                                                                                                                                                                                                  |
-| ----------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|-------------------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_AUTHENTIK_ENABLED | -       | If set to true, Authentik will be enabled and you'll need to define the variables below.                                                                                                                     |
 | AUTHENTIK_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                                                                                                                                       |
 | AUTHENTIK_ISSUER              | -       | This is the "OpenID Configuration Issuer" shown in the Provider Overview. Note that you must delete the "/" at the end of the URL. Should look like: `https://authentik.my-doma.in/application/o/linkwarden` |
 | AUTHENTIK_CLIENT_ID           | -       | Client ID copied from the Provider Overview screen in Authentik                                                                                                                                              |
 | AUTHENTIK_CLIENT_SECRET       | -       | Client Secret copied from the Provider Overview screen in Authentik                                                                                                                                          |
 
-Administrators are required to also set the environment variable `NEXTAUTH_URL=https://linkwarden.my-doma.in/api/v1/auth` (during the linkwarden install process or docker ENV variables) and ensure a JWT signing key is selected in Authentik's Providers settings (this can be the default self-signed authentik certificate). Note that the Authentik Provider "Redirect URIs" section can be left blank, it will autofill with a URL after the first time it is used. The URL will look like: `https://linkwarden.my-doma.in/api/v1/auth/callback/authentik`
+Administrators are required to also set the environment variable
+`NEXTAUTH_URL=https://linkwarden.my-doma.in/api/v1/auth` (during the linkwarden install process or docker ENV variables)
+and ensure a JWT signing key is selected in Authentik's Providers settings (this can be the default self-signed
+authentik certificate). Note that the Authentik Provider "Redirect URIs" section can be left blank, it will autofill
+with a URL after the first time it is used. The URL will look like:
+`https://linkwarden.my-doma.in/api/v1/auth/callback/authentik`
 
 Authentik Setup Example:
 
@@ -122,7 +137,9 @@ Create an Application with the following settings:
 
 <img src="/img/authentik-setup/authentik-application.png" alt="Authentik Application Settings" width="500" />
 
-Finally, Assign users or groups of users to the application so they have access (Select the linkwarden application in Authentik, select the "Policy/Group/User Bindings" tab, then `Bind existing Policy` -> `Group` or `users` -> select either a group or a user):
+Finally, Assign users or groups of users to the application so they have access (Select the linkwarden application in
+Authentik, select the "Policy/Group/User Bindings" tab, then `Bind existing Policy` -> `Group` or `users` -> select
+either a group or a user):
 
 <img src="/img/authentik-setup/authentik-user-access.png" alt="Authentik User Access Settings" width="500" />
 
@@ -131,7 +148,7 @@ Finally, Assign users or groups of users to the application so they have access 
 The variables you need to configure to enable support for Battle.net (OIDC):
 
 | Environment Variable          | Default | Description                                                                               |
-| ----------------------------- | ------- | ----------------------------------------------------------------------------------------- |
+|-------------------------------|---------|-------------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_BATTLENET_ENABLED | -       | If set to true, Battle.net will be enabled and you'll need to define the variables below. |
 | BATTLENET_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                    |
 | BATTLENET_ISSUER              | -       | Issuer.                                                                                   |
@@ -143,7 +160,7 @@ The variables you need to configure to enable support for Battle.net (OIDC):
 The variables you need to configure to enable support for Box (OIDC):
 
 | Environment Variable    | Default | Description                                                                        |
-| ----------------------- | ------- | ---------------------------------------------------------------------------------- |
+|-------------------------|---------|------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_BOX_ENABLED | -       | If set to true, Box will be enabled and you'll need to define the variables below. |
 | BOX_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                             |
 | BOX_ISSUER              | -       | Issuer.                                                                            |
@@ -155,7 +172,7 @@ The variables you need to configure to enable support for Box (OIDC):
 The variables you need to configure to enable support for Bungie (OIDC):
 
 | Environment Variable       | Default | Description                                                                           |
-| -------------------------- | ------- | ------------------------------------------------------------------------------------- |
+|----------------------------|---------|---------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_BUNGIE_ENABLED | -       | If set to true, Bungie will be enabled and you'll need to define the variables below. |
 | BUNGIE_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                |
 | BUNGIE_API_KEY             | -       | API Key.                                                                              |
@@ -167,7 +184,7 @@ The variables you need to configure to enable support for Bungie (OIDC):
 The variables you need to configure to enable support for Cognito (OIDC):
 
 | Environment Variable        | Default | Description                                                                            |
-| --------------------------- | ------- | -------------------------------------------------------------------------------------- |
+|-----------------------------|---------|----------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_COGNITO_ENABLED | -       | If set to true, Cognito will be enabled and you'll need to define the variables below. |
 | COGNITO_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                 |
 | COGNITO_ISSUER              | -       | Issuer.                                                                                |
@@ -179,7 +196,7 @@ The variables you need to configure to enable support for Cognito (OIDC):
 The variables you need to configure to enable support for Coinbase (OIDC):
 
 | Environment Variable         | Default | Description                                                                             |
-| ---------------------------- | ------- | --------------------------------------------------------------------------------------- |
+|------------------------------|---------|-----------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_COINBASE_ENABLED | -       | If set to true, Coinbase will be enabled and you'll need to define the variables below. |
 | COINBASE_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                  |
 | COINBASE_CLIENT_ID           | -       | Client ID                                                                               |
@@ -190,7 +207,7 @@ The variables you need to configure to enable support for Coinbase (OIDC):
 The variables you need to configure to enable support for Discord (OIDC):
 
 | Environment Variable        | Default | Description                                                                            |
-| --------------------------- | ------- | -------------------------------------------------------------------------------------- |
+|-----------------------------|---------|----------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_DISCORD_ENABLED | -       | If set to true, Discord will be enabled and you'll need to define the variables below. |
 | DISCORD_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                 |
 | DISCORD_CLIENT_ID           | -       | Client ID                                                                              |
@@ -201,7 +218,7 @@ The variables you need to configure to enable support for Discord (OIDC):
 The variables you need to configure to enable support for Dropbox (OIDC):
 
 | Environment Variable        | Default | Description                                                                            |
-| --------------------------- | ------- | -------------------------------------------------------------------------------------- |
+|-----------------------------|---------|----------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_DROPBOX_ENABLED | -       | If set to true, Dropbox will be enabled and you'll need to define the variables below. |
 | DROPBOX_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                 |
 | DROPBOX_CLIENT_ID           | -       | Client ID                                                                              |
@@ -212,7 +229,7 @@ The variables you need to configure to enable support for Dropbox (OIDC):
 The variables you need to configure to enable support for Duende Identity Server 6 (OIDC):
 
 | Environment Variable            | Default | Description                                                                                             |
-| ------------------------------- | ------- | ------------------------------------------------------------------------------------------------------- |
+|---------------------------------|---------|---------------------------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_DUENDE_IDS6_ENABLED | -       | If set to true, Duende Identity Server 6 will be enabled and you'll need to define the variables below. |
 | DUENDE_IDS6_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                                  |
 | DUENDE_IDS6_ISSUER              | -       | Issuer.                                                                                                 |
@@ -224,7 +241,7 @@ The variables you need to configure to enable support for Duende Identity Server
 The variables you need to configure to enable support for EVE Online (OIDC):
 
 | Environment Variable          | Default | Description                                                                               |
-| ----------------------------- | ------- | ----------------------------------------------------------------------------------------- |
+|-------------------------------|---------|-------------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_EVEONLINE_ENABLED | -       | If set to true, EVE Online will be enabled and you'll need to define the variables below. |
 | EVEONLINE_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                    |
 | EVEONLINE_CLIENT_ID           | -       | Client ID                                                                                 |
@@ -235,7 +252,7 @@ The variables you need to configure to enable support for EVE Online (OIDC):
 The variables you need to configure to enable support for Facebook (OIDC):
 
 | Environment Variable         | Default | Description                                                                             |
-| ---------------------------- | ------- | --------------------------------------------------------------------------------------- |
+|------------------------------|---------|-----------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_FACEBOOK_ENABLED | -       | If set to true, Facebook will be enabled and you'll need to define the variables below. |
 | FACEBOOK_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                  |
 | FACEBOOK_CLIENT_ID           | -       | Client ID                                                                               |
@@ -246,7 +263,7 @@ The variables you need to configure to enable support for Facebook (OIDC):
 The variables you need to configure to enable support for FACEIT (OIDC):
 
 | Environment Variable       | Default | Description                                                                           |
-| -------------------------- | ------- | ------------------------------------------------------------------------------------- |
+|----------------------------|---------|---------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_FACEIT_ENABLED | -       | If set to true, FACEIT will be enabled and you'll need to define the variables below. |
 | FACEIT_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                |
 | FACEIT_CLIENT_ID           | -       | Client ID                                                                             |
@@ -257,7 +274,7 @@ The variables you need to configure to enable support for FACEIT (OIDC):
 The variables you need to configure to enable support for Foursquare (OIDC):
 
 | Environment Variable           | Default | Description                                                                               |
-| ------------------------------ | ------- | ----------------------------------------------------------------------------------------- |
+|--------------------------------|---------|-------------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_FOURSQUARE_ENABLED | -       | If set to true, Foursquare will be enabled and you'll need to define the variables below. |
 | FOURSQUARE_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                    |
 | FOURSQUARE_APIVERSION          | -       | API Version.                                                                              |
@@ -269,7 +286,7 @@ The variables you need to configure to enable support for Foursquare (OIDC):
 The variables you need to configure to enable support for Freshbooks (OIDC):
 
 | Environment Variable           | Default | Description                                                                               |
-| ------------------------------ | ------- | ----------------------------------------------------------------------------------------- |
+|--------------------------------|---------|-------------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_FRESHBOOKS_ENABLED | -       | If set to true, Freshbooks will be enabled and you'll need to define the variables below. |
 | FRESHBOOKS_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                    |
 | FRESHBOOKS_CLIENT_ID           | -       | Client ID                                                                                 |
@@ -280,7 +297,7 @@ The variables you need to configure to enable support for Freshbooks (OIDC):
 The variables you need to configure to enable support for Fusionauth (OIDC):
 
 | Environment Variable           | Default | Description                                                                               |
-| ------------------------------ | ------- | ----------------------------------------------------------------------------------------- |
+|--------------------------------|---------|-------------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_FUSIONAUTH_ENABLED | -       | If set to true, Fusionauth will be enabled and you'll need to define the variables below. |
 | FUSIONAUTH_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                    |
 | FUSIONAUTH_ISSUER              | -       | Issuer.                                                                                   |
@@ -293,7 +310,7 @@ The variables you need to configure to enable support for Fusionauth (OIDC):
 The variables you need to configure to enable support for Github (OIDC):
 
 | Environment Variable       | Default | Description                                                                           |
-| -------------------------- | ------- | ------------------------------------------------------------------------------------- |
+|----------------------------|---------|---------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_GITHUB_ENABLED | -       | If set to true, Github will be enabled and you'll need to define the variables below. |
 | GITHUB_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                |
 | GITHUB_ID                  | -       | Client ID                                                                             |
@@ -304,7 +321,7 @@ The variables you need to configure to enable support for Github (OIDC):
 The variables you need to configure to enable support for Gitlab (OIDC):
 
 | Environment Variable       | Default | Description                                                                           |
-| -------------------------- | ------- | ------------------------------------------------------------------------------------- |
+|----------------------------|---------|---------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_GITLAB_ENABLED | -       | If set to true, Gitlab will be enabled and you'll need to define the variables below. |
 | GITLAB_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                |
 | GITLAB_CLIENT_ID           | -       | Client ID                                                                             |
@@ -315,18 +332,34 @@ The variables you need to configure to enable support for Gitlab (OIDC):
 The variables you need to configure to enable support for Google (OIDC):
 
 | Environment Variable       | Default | Description                                                                           |
-| -------------------------- | ------- | ------------------------------------------------------------------------------------- |
+|----------------------------|---------|---------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_GOOGLE_ENABLED | -       | If set to true, Google will be enabled and you'll need to define the variables below. |
 | GOOGLE_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                |
 | GOOGLE_CLIENT_ID           | -       | Client ID                                                                             |
 | GOOGLE_CLIENT_SECRET       | -       | Client Secret.                                                                        |
+
+To create client ID and secret, follow these steps:
+
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
+2. Create a new project or select an existing one.
+3. Navigate to **APIs & Services** > **Credentials**.
+4. Click on **Create credentials** and select **OAuth client ID**.
+5. Configure the consent screen if prompted.
+6. Select **Web application** as the application type.
+7. Set the **Authorized redirect URIs** to `https://<your-domain>/api/v1/auth/callback/google`.
+8. Set the **Authorized JavaScript origins** to `https://<your-domain>`.
+9. Click **Create** to generate your client ID and client secret.
+10. Copy the client ID and client secret and set them in your environment variables as `GOOGLE_CLIENT_ID` and
+    `GOOGLE_CLIENT_SECRET`. Also make sure that the `NEXT_PUBLIC_GOOGLE_ENABLED` variable is set to `true`.
+
+Thats it! You should now be able to use Google as an authentication provider in Linkwarden.
 
 ## Hubspot
 
 The variables you need to configure to enable support for Hubspot (OIDC):
 
 | Environment Variable        | Default | Description                                                                            |
-| --------------------------- | ------- | -------------------------------------------------------------------------------------- |
+|-----------------------------|---------|----------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_HUBSPOT_ENABLED | -       | If set to true, Hubspot will be enabled and you'll need to define the variables below. |
 | HUBSPOT_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                 |
 | HUBSPOT_CLIENT_ID           | -       | Client ID                                                                              |
@@ -337,7 +370,7 @@ The variables you need to configure to enable support for Hubspot (OIDC):
 The variables you need to configure to enable support for IdentityServer4 (OIDC):
 
 | Environment Variable     | Default | Description                                                                                    |
-| ------------------------ | ------- | ---------------------------------------------------------------------------------------------- |
+|--------------------------|---------|------------------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_IDS4_ENABLED | -       | If set to true, IdentityServer4 will be enabled and you'll need to define the variables below. |
 | IDS4_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                         |
 | IDS4_ISSUER              | -       | Issuer.                                                                                        |
@@ -349,7 +382,7 @@ The variables you need to configure to enable support for IdentityServer4 (OIDC)
 The variables you need to configure to enable support for Kakao (OIDC):
 
 | Environment Variable      | Default | Description                                                                          |
-| ------------------------- | ------- | ------------------------------------------------------------------------------------ |
+|---------------------------|---------|--------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_KAKAO_ENABLED | -       | If set to true, Kakao will be enabled and you'll need to define the variables below. |
 | KAKAO_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                               |
 | KAKAO_CLIENT_ID           | -       | Client ID                                                                            |
@@ -360,7 +393,7 @@ The variables you need to configure to enable support for Kakao (OIDC):
 The variables you need to configure to enable support for Keycloak (OIDC):
 
 | Environment Variable         | Default | Description                                                                             |
-| ---------------------------- | ------- | --------------------------------------------------------------------------------------- |
+|------------------------------|---------|-----------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_KEYCLOAK_ENABLED | -       | If set to true, Keycloak will be enabled and you'll need to define the variables below. |
 | KEYCLOAK_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                  |
 | KEYCLOAK_ISSUER              | -       | Issuer should include the realm – e.g. https://my-keycloak-domain.com/realms/My_Realm   |
@@ -372,7 +405,7 @@ The variables you need to configure to enable support for Keycloak (OIDC):
 The variables you need to configure to enable support for Line (OIDC):
 
 | Environment Variable     | Default | Description                                                                         |
-| ------------------------ | ------- | ----------------------------------------------------------------------------------- |
+|--------------------------|---------|-------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_LINE_ENABLED | -       | If set to true, Line will be enabled and you'll need to define the variables below. |
 | LINE_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                              |
 | LINE_CLIENT_ID           | -       | Client ID                                                                           |
@@ -383,7 +416,7 @@ The variables you need to configure to enable support for Line (OIDC):
 The variables you need to configure to enable support for Linkedin (OIDC):
 
 | Environment Variable         | Default | Description                                                                             |
-| ---------------------------- | ------- | --------------------------------------------------------------------------------------- |
+|------------------------------|---------|-----------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_LINKEDIN_ENABLED | -       | If set to true, Linkedin will be enabled and you'll need to define the variables below. |
 | LINKEDIN_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                  |
 | LINKEDIN_CLIENT_ID           | -       | Client ID                                                                               |
@@ -394,7 +427,7 @@ The variables you need to configure to enable support for Linkedin (OIDC):
 The variables you need to configure to enable support for Mailchimp (OIDC):
 
 | Environment Variable          | Default | Description                                                                              |
-| ----------------------------- | ------- | ---------------------------------------------------------------------------------------- |
+|-------------------------------|---------|------------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_MAILCHIMP_ENABLED | -       | If set to true, Mailchimp will be enabled and you'll need to define the variables below. |
 | MAILCHIMP_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                   |
 | MAILCHIMP_CLIENT_ID           | -       | Client ID                                                                                |
@@ -405,7 +438,7 @@ The variables you need to configure to enable support for Mailchimp (OIDC):
 The variables you need to configure to enable support for Mailru (OIDC):
 
 | Environment Variable       | Default | Description                                                                           |
-| -------------------------- | ------- | ------------------------------------------------------------------------------------- |
+|----------------------------|---------|---------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_MAILRU_ENABLED | -       | If set to true, Mailru will be enabled and you'll need to define the variables below. |
 | MAILRU_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                |
 | MAILRU_CLIENT_ID           | -       | Client ID                                                                             |
@@ -416,7 +449,7 @@ The variables you need to configure to enable support for Mailru (OIDC):
 The variables you need to configure to enable support for Naver (OIDC):
 
 | Environment Variable      | Default | Description                                                                          |
-| ------------------------- | ------- | ------------------------------------------------------------------------------------ |
+|---------------------------|---------|--------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_NAVER_ENABLED | -       | If set to true, Naver will be enabled and you'll need to define the variables below. |
 | NAVER_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                               |
 | NAVER_CLIENT_ID           | -       | Client ID                                                                            |
@@ -427,7 +460,7 @@ The variables you need to configure to enable support for Naver (OIDC):
 The variables you need to configure to enable support for Netlify (OIDC):
 
 | Environment Variable        | Default | Description                                                                            |
-| --------------------------- | ------- | -------------------------------------------------------------------------------------- |
+|-----------------------------|---------|----------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_NETLIFY_ENABLED | -       | If set to true, Netlify will be enabled and you'll need to define the variables below. |
 | NETLIFY_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                 |
 | NETLIFY_CLIENT_ID           | -       | Client ID                                                                              |
@@ -438,7 +471,7 @@ The variables you need to configure to enable support for Netlify (OIDC):
 The variables you need to configure to enable support for Okta (OIDC):
 
 | Environment Variable     | Default | Description                                                                         |
-| ------------------------ | ------- | ----------------------------------------------------------------------------------- |
+|--------------------------|---------|-------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_OKTA_ENABLED | -       | If set to true, Okta will be enabled and you'll need to define the variables below. |
 | OKTA_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                              |
 | OKTA_ISSUER              | -       | Issuer.                                                                             |
@@ -450,7 +483,7 @@ The variables you need to configure to enable support for Okta (OIDC):
 The variables you need to configure to enable support for Onelogin (OIDC):
 
 | Environment Variable         | Default | Description                                                                             |
-| ---------------------------- | ------- | --------------------------------------------------------------------------------------- |
+|------------------------------|---------|-----------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_ONELOGIN_ENABLED | -       | If set to true, Onelogin will be enabled and you'll need to define the variables below. |
 | ONELOGIN_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                  |
 | ONELOGIN_ISSUER              | -       | Issuer.                                                                                 |
@@ -462,7 +495,7 @@ The variables you need to configure to enable support for Onelogin (OIDC):
 The variables you need to configure to enable support for Osso (OIDC):
 
 | Environment Variable     | Default | Description                                                                         |
-| ------------------------ | ------- | ----------------------------------------------------------------------------------- |
+|--------------------------|---------|-------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_OSSO_ENABLED | -       | If set to true, Osso will be enabled and you'll need to define the variables below. |
 | OSSO_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                              |
 | OSSO_ISSUER              | -       | Issuer.                                                                             |
@@ -474,7 +507,7 @@ The variables you need to configure to enable support for Osso (OIDC):
 The variables you need to configure to enable support for osu! (OIDC):
 
 | Environment Variable    | Default | Description                                                                         |
-| ----------------------- | ------- | ----------------------------------------------------------------------------------- |
+|-------------------------|---------|-------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_OSU_ENABLED | -       | If set to true, osu! will be enabled and you'll need to define the variables below. |
 | OSU_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                              |
 | OSU_CLIENT_ID           | -       | Client ID                                                                           |
@@ -485,7 +518,7 @@ The variables you need to configure to enable support for osu! (OIDC):
 The variables you need to configure to enable support for Patreon (OIDC):
 
 | Environment Variable        | Default | Description                                                                            |
-| --------------------------- | ------- | -------------------------------------------------------------------------------------- |
+|-----------------------------|---------|----------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_PATREON_ENABLED | -       | If set to true, Patreon will be enabled and you'll need to define the variables below. |
 | PATREON_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                 |
 | PATREON_CLIENT_ID           | -       | Client ID                                                                              |
@@ -496,7 +529,7 @@ The variables you need to configure to enable support for Patreon (OIDC):
 The variables you need to configure to enable support for Pinterest (OIDC):
 
 | Environment Variable          | Default | Description                                                                              |
-| ----------------------------- | ------- | ---------------------------------------------------------------------------------------- |
+|-------------------------------|---------|------------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_PINTEREST_ENABLED | -       | If set to true, Pinterest will be enabled and you'll need to define the variables below. |
 | PINTEREST_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                   |
 | PINTEREST_CLIENT_ID           | -       | Client ID                                                                                |
@@ -507,7 +540,7 @@ The variables you need to configure to enable support for Pinterest (OIDC):
 The variables you need to configure to enable support for Pipedrive (OIDC):
 
 | Environment Variable          | Default | Description                                                                              |
-| ----------------------------- | ------- | ---------------------------------------------------------------------------------------- |
+|-------------------------------|---------|------------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_PIPEDRIVE_ENABLED | -       | If set to true, Pipedrive will be enabled and you'll need to define the variables below. |
 | PIPEDRIVE_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                   |
 | PIPEDRIVE_CLIENT_ID           | -       | Client ID                                                                                |
@@ -518,7 +551,7 @@ The variables you need to configure to enable support for Pipedrive (OIDC):
 The variables you need to configure to enable support for Reddit (OIDC):
 
 | Environment Variable       | Default | Description                                                                           |
-| -------------------------- | ------- | ------------------------------------------------------------------------------------- |
+|----------------------------|---------|---------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_REDDIT_ENABLED | -       | If set to true, Reddit will be enabled and you'll need to define the variables below. |
 | REDDIT_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                |
 | REDDIT_CLIENT_ID           | -       | Client ID                                                                             |
@@ -529,7 +562,7 @@ The variables you need to configure to enable support for Reddit (OIDC):
 The variables you need to configure to enable support for Salesforce (OIDC):
 
 | Environment Variable           | Default | Description                                                                               |
-| ------------------------------ | ------- | ----------------------------------------------------------------------------------------- |
+|--------------------------------|---------|-------------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_SALESFORCE_ENABLED | -       | If set to true, Salesforce will be enabled and you'll need to define the variables below. |
 | SALESFORCE_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                    |
 | SALESFORCE_CLIENT_ID           | -       | Client ID                                                                                 |
@@ -540,7 +573,7 @@ The variables you need to configure to enable support for Salesforce (OIDC):
 The variables you need to configure to enable support for Slack (OIDC):
 
 | Environment Variable      | Default | Description                                                                          |
-| ------------------------- | ------- | ------------------------------------------------------------------------------------ |
+|---------------------------|---------|--------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_SLACK_ENABLED | -       | If set to true, Slack will be enabled and you'll need to define the variables below. |
 | SLACK_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                               |
 | SLACK_CLIENT_ID           | -       | Client ID                                                                            |
@@ -551,7 +584,7 @@ The variables you need to configure to enable support for Slack (OIDC):
 The variables you need to configure to enable support for Spotify (OIDC):
 
 | Environment Variable        | Default | Description                                                                            |
-| --------------------------- | ------- | -------------------------------------------------------------------------------------- |
+|-----------------------------|---------|----------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_SPOTIFY_ENABLED | -       | If set to true, Spotify will be enabled and you'll need to define the variables below. |
 | SPOTIFY_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                 |
 | SPOTIFY_CLIENT_ID           | -       | Client ID                                                                              |
@@ -562,7 +595,7 @@ The variables you need to configure to enable support for Spotify (OIDC):
 The variables you need to configure to enable support for Strava (OIDC):
 
 | Environment Variable       | Default | Description                                                                           |
-| -------------------------- | ------- | ------------------------------------------------------------------------------------- |
+|----------------------------|---------|---------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_STRAVA_ENABLED | -       | If set to true, Strava will be enabled and you'll need to define the variables below. |
 | STRAVA_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                |
 | STRAVA_CLIENT_ID           | -       | Client ID                                                                             |
@@ -573,7 +606,7 @@ The variables you need to configure to enable support for Strava (OIDC):
 The variables you need to configure to enable support for Todoist (OIDC):
 
 | Environment Variable        | Default | Description                                                                            |
-| --------------------------- | ------- | -------------------------------------------------------------------------------------- |
+|-----------------------------|---------|----------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_TODOIST_ENABLED | -       | If set to true, Todoist will be enabled and you'll need to define the variables below. |
 | TODOIST_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                 |
 | TODOIST_CLIENT_ID           | -       | Client ID                                                                              |
@@ -584,7 +617,7 @@ The variables you need to configure to enable support for Todoist (OIDC):
 The variables you need to configure to enable support for Twitch (OIDC):
 
 | Environment Variable       | Default | Description                                                                           |
-| -------------------------- | ------- | ------------------------------------------------------------------------------------- |
+|----------------------------|---------|---------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_TWITCH_ENABLED | -       | If set to true, Twitch will be enabled and you'll need to define the variables below. |
 | TWITCH_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                |
 | TWITCH_CLIENT_ID           | -       | Client ID                                                                             |
@@ -595,7 +628,7 @@ The variables you need to configure to enable support for Twitch (OIDC):
 The variables you need to configure to enable support for United Effects (OIDC):
 
 | Environment Variable               | Default | Description                                                                                   |
-| ---------------------------------- | ------- | --------------------------------------------------------------------------------------------- |
+|------------------------------------|---------|-----------------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_UNITED_EFFECTS_ENABLED | -       | If set to true, United Effects will be enabled and you'll need to define the variables below. |
 | UNITED_EFFECTS_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                        |
 | UNITED_EFFECTS_ISSUER              | -       | Issuer.                                                                                       |
@@ -607,7 +640,7 @@ The variables you need to configure to enable support for United Effects (OIDC):
 The variables you need to configure to enable support for VK (OIDC):
 
 | Environment Variable   | Default | Description                                                                       |
-| ---------------------- | ------- | --------------------------------------------------------------------------------- |
+|------------------------|---------|-----------------------------------------------------------------------------------|
 | NEXT_PUBLIC_VK_ENABLED | -       | If set to true, VK will be enabled and you'll need to define the variables below. |
 | VK_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                            |
 | VK_CLIENT_ID           | -       | Client ID                                                                         |
@@ -618,7 +651,7 @@ The variables you need to configure to enable support for VK (OIDC):
 The variables you need to configure to enable support for Wikimedia (OIDC):
 
 | Environment Variable          | Default | Description                                                                              |
-| ----------------------------- | ------- | ---------------------------------------------------------------------------------------- |
+|-------------------------------|---------|------------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_WIKIMEDIA_ENABLED | -       | If set to true, Wikimedia will be enabled and you'll need to define the variables below. |
 | WIKIMEDIA_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                   |
 | WIKIMEDIA_CLIENT_ID           | -       | Client ID                                                                                |
@@ -629,7 +662,7 @@ The variables you need to configure to enable support for Wikimedia (OIDC):
 The variables you need to configure to enable support for Wordpress.com (OIDC):
 
 | Environment Variable          | Default | Description                                                                                  |
-| ----------------------------- | ------- | -------------------------------------------------------------------------------------------- |
+|-------------------------------|---------|----------------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_WORDPRESS_ENABLED | -       | If set to true, Wordpress.com will be enabled and you'll need to define the variables below. |
 | WORDPRESS_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                       |
 | WORDPRESS_CLIENT_ID           | -       | Client ID                                                                                    |
@@ -640,7 +673,7 @@ The variables you need to configure to enable support for Wordpress.com (OIDC):
 The variables you need to configure to enable support for Yandex (OIDC):
 
 | Environment Variable       | Default | Description                                                                           |
-| -------------------------- | ------- | ------------------------------------------------------------------------------------- |
+|----------------------------|---------|---------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_YANDEX_ENABLED | -       | If set to true, Yandex will be enabled and you'll need to define the variables below. |
 | YANDEX_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                |
 | YANDEX_CLIENT_ID           | -       | Client ID                                                                             |
@@ -651,7 +684,7 @@ The variables you need to configure to enable support for Yandex (OIDC):
 The variables you need to configure to enable support for Zitadel (OIDC):
 
 | Environment Variable        | Default | Description                                                                            |
-| --------------------------- | ------- | -------------------------------------------------------------------------------------- |
+|-----------------------------|---------|----------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_ZITADEL_ENABLED | -       | If set to true, Zitadel will be enabled and you'll need to define the variables below. |
 | ZITADEL_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                 |
 | ZITADEL_ISSUER              | -       | Issuer.                                                                                |
@@ -663,7 +696,7 @@ The variables you need to configure to enable support for Zitadel (OIDC):
 The variables you need to configure to enable support for Zoho (OIDC):
 
 | Environment Variable     | Default | Description                                                                         |
-| ------------------------ | ------- | ----------------------------------------------------------------------------------- |
+|--------------------------|---------|-------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_ZOHO_ENABLED | -       | If set to true, Zoho will be enabled and you'll need to define the variables below. |
 | ZOHO_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                              |
 | ZOHO_CLIENT_ID           | -       | Client ID                                                                           |
@@ -674,7 +707,7 @@ The variables you need to configure to enable support for Zoho (OIDC):
 The variables you need to configure to enable support for Zoom (OIDC):
 
 | Environment Variable     | Default | Description                                                                         |
-| ------------------------ | ------- | ----------------------------------------------------------------------------------- |
+|--------------------------|---------|-------------------------------------------------------------------------------------|
 | NEXT_PUBLIC_ZOOM_ENABLED | -       | If set to true, Zoom will be enabled and you'll need to define the variables below. |
 | ZOOM_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                              |
 | ZOOM_CLIENT_ID           | -       | Client ID                                                                           |

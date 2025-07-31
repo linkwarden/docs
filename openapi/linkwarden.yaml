@@ -712,13 +712,13 @@ paths:
           $ref: "#/components/responses/Unauthorized"
   /api/v1/links:
     get:
+      deprecated: true
       security:
         - bearerAuth: []
       tags:
         - Links
       summary: Retrieve a list of links
-      description: Fetches a paginated list of links, with optional filtering and sorting options.
-      operationId: getLinks
+      description: Fetches a paginated list of links, with optional filtering and sorting options. **This endpoint is deprecated in favor of [`/api/v1/search`](https://docs.linkwarden.app/api/search-links).**
       parameters:
         - name: sort
           in: query
@@ -1805,7 +1805,7 @@ paths:
         - name: searchQueryString
           in: query
           description: A string to filter search results.
-          required: true
+          required: false
           schema:
             type: string
         - name: sort

@@ -14,6 +14,14 @@ To get support from the community, please visit our **[Discord server](https://d
 
 :::
 
+:::note
+
+When creating a new OAuth application, make sure to set the **Redirect URI** to
+`https://<your-domain>/api/v1/auth/callback/<provider>` where `<provider>` is the name of the provider (e.g. `google`,
+`github`, etc.).
+
+:::
+
 ## 42 School
 
 The variables you need to configure to enable support for 42 School (OIDC):
@@ -320,6 +328,22 @@ The variables you need to configure to enable support for Google (OIDC):
 | GOOGLE_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                |
 | GOOGLE_CLIENT_ID           | -       | Client ID                                                                             |
 | GOOGLE_CLIENT_SECRET       | -       | Client Secret.                                                                        |
+
+To create client ID and secret, follow these steps:
+
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
+2. Create a new project or select an existing one.
+3. Navigate to **APIs & Services** > **Credentials**.
+4. Click on **Create credentials** and select **OAuth client ID**.
+5. Configure the consent screen if prompted.
+6. Select **Web application** as the application type.
+7. Set the **Authorized redirect URIs** to `https://<your-domain>/api/v1/auth/callback/google`.
+8. Set the **Authorized JavaScript origins** to `https://<your-domain>`.
+9. Click **Create** to generate your client ID and client secret.
+10. Copy the client ID and client secret and set them in your environment variables as `GOOGLE_CLIENT_ID` and
+    `GOOGLE_CLIENT_SECRET`. Also make sure that the `NEXT_PUBLIC_GOOGLE_ENABLED` variable is set to `true`.
+
+Thats it! You should now be able to use Google as an authentication provider in Linkwarden.
 
 ## Hubspot
 

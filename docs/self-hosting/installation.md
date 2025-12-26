@@ -80,9 +80,9 @@ The Manual Installation is targeted towards a more technical audience, to take a
 **Requirements:**
 
 - Git
-- Node.js
-- Yarn
-- Postgres
+- Node (20 and up)
+- Yarn (with Corepack enabled)
+- Postgres (16 and up)
 - Nano
 - [Monolith](https://github.com/Y2Z/monolith)
 
@@ -96,7 +96,7 @@ cd linkwarden
 #### 2. Install the necessary dependancies
 
 ```bash
-yarn
+yarn workspaces focus linkwarden @linkwarden/web @linkwarden/worker
 ```
 
 #### 3. Configure the Environment Variables

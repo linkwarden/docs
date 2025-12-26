@@ -16,12 +16,26 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: yarn
 
-      - name: Enable Corepack (Yarn from packageManager)
-        run: corepack enable
+      - name: Enable Corepack + activate Yarn from packageManager
+        run: |
+          corepack enable
+          corepack prepare yarn@4.12.0 --activate
+          yarn --version
 
-      - name: Install dependencies (Yarn v4)
+      - name: Cache Yarn v4
+        uses: actions/cache@v4
+        with:
+          path: |
+            .yarn/cache
+            .yarn/unplugged
+            .yarn/install-state.gz
+            .pnp.cjs
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
         run: yarn install --immutable
 
       - name: Generate OpenAPI docs

@@ -41,7 +41,7 @@ OPENAI_API_KEY=YOUR_OPENAI_API_KEY
 Another example, to use Gemini:
 
 ```
-CUSTOM_OPENAI_BASE_URL=https://generativelanguage.googleapis.com/v1beta
-OPENAI_MODEL=gemini-2.5-flash-preview-04-17
+CUSTOM_OPENAI_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai/
+OPENAI_MODEL=gemini-flash-lite-latest
 OPENAI_API_KEY=YOUR_GOOGLE_AI_STUDIO_API_KEY
 ```

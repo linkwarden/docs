@@ -1889,8 +1889,22 @@ paths:
       tags:
         - Tags
       summary: Get a list of tags
-      description: Retrieves a list of tags and their associated metadata.
+      description: Retrieves a paginated list of tags and their associated metadata.
       operationId: getTags
+      parameters:
+        - name: sort
+          in: query
+          description: A numeric value to sort the tag results.
+          required: false
+          schema:
+            type: number
+            enum: [0, 1, 2, 3, 4, 5]
+        - name: cursor
+          in: query
+          description: The pagination cursor for the next batch of tags.
+          required: false
+          schema:
+            type: number
       responses:
         "200":
           description: Successfully retrieved the list of tags.
@@ -1899,28 +1913,47 @@ paths:
               schema:
                 type: object
                 properties:
-                  response:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        name:
-                          type: string
-                        ownerId:
-                          type: integer
-                        createdAt:
-                          type: string
-                          format: date-time
-                        updatedAt:
-                          type: string
-                          format: date-time
-                        _count:
+                  message:
+                    type: string
+                    example: Success
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      nextCursor:
+                        type: number
+                        nullable: true
+                        example: 42
+                      tags:
+                        type: array
+                        items:
                           type: object
                           properties:
-                            links:
+                            id:
                               type: integer
+                              example: 1
+                            name:
+                              type: string
+                              example: Technology
+                            ownerId:
+                              type: integer
+                              example: 1
+                            createdAt:
+                              type: string
+                              format: date-time
+                              example: "2024-12-02T00:40:22.295Z"
+                            updatedAt:
+                              type: string
+                              format: date-time
+                              example: "2024-12-02T00:40:22.295Z"
+                            _count:
+                              type: object
+                              properties:
+                                links:
+                                  type: integer
+                                  example: 12
         "401":
           $ref: "#/components/responses/Unauthorized"
   /api/v1/tags/{id}:

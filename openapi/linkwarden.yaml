@@ -11,15 +11,21 @@ tags:
   - name: Auth
   - name: Avatar
   - name: Collections
+  - name: Config
   - name: Dashboard
+  - name: Highlights
   - name: Links
   - name: Logins
   - name: Migration
+  - name: Preserved
   - name: Public
+  - name: RSS
   - name: Session
   - name: Tags
   - name: Tokens
+  - name: Favicon
   - name: Users
+  - name: Worker
 paths:
   /api/v1/archives/{linkId}:
     get:
@@ -63,13 +69,10 @@ paths:
         "200":
           description: Archive file retrieved successfully.
           content:
-            application/json:
+            application/octet-stream:
               schema:
-                type: object
-                properties:
-                  response:
-                    type: object
-                    description: The archive file.
+                type: string
+                format: binary
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -83,7 +86,10 @@ paths:
                 properties:
                   response:
                     type: string
-      description: Retrieves an archive file in the specified format.
+      description: |
+        Retrieves an archive file in the specified format.
+
+        When `NEXT_PUBLIC_USER_CONTENT_DOMAIN` is configured, browser-style requests for monolith HTML (`format=4`) are rejected on this route unless a bearer token is provided. In that setup, monolith HTML should be loaded through `/api/v1/preserved/token` and `/api/v1/preserved/view` instead.
     post:
       security:
         - bearerAuth: []
@@ -96,7 +102,7 @@ paths:
           required: true
           description: The ID of the desired link
           schema:
-            type: string
+            type: integer
         - name: format
           in: query
           required: true
@@ -105,12 +111,20 @@ paths:
             - `0`: PNG
             - `1`: JPEG
             - `2`: PDF
+            - `4`: Monolith HTML
           schema:
             type: integer
             enum:
               - 0 # PNG
               - 1 # JPEG
               - 2 # PDF
+              - 4 # Monolith HTML
+        - name: preview
+          in: query
+          required: false
+          description: Indicates whether the uploaded file should be stored as the generated preview instead of the main archive file.
+          schema:
+            type: boolean
       requestBody:
         required: true
         content:
@@ -121,7 +135,7 @@ paths:
                 file:
                   type: string
                   format: binary
-                  description: The file to upload (PNG, JPEG, or PDF).
+                  description: The file to upload (PNG, JPEG, PDF, or HTML).
               required:
                 - file
       responses:
@@ -133,46 +147,44 @@ paths:
                 type: object
                 properties:
                   response:
-                    type: object
-                    description: Details about the uploaded file.
+                    $ref: "#/components/schemas/Link"
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
           $ref: "#/components/responses/Forbidden"
-      description: Uploads a file to the specified archive. Supports PDF, PNG, and JPEG formats.
-    put:
+      description: Uploads or replaces a client-side archive file for the specified link.
+  /api/v1/archives:
+    post:
       security:
         - bearerAuth: []
       tags:
         - Archives
-      summary: Updates an archive file by link ID
+      summary: Uploads a standalone archive and creates a new link
       parameters:
-        - name: linkId
-          in: path
-          required: true
-          description: The ID of the desired link
-          schema:
-            type: string
         - name: format
           in: query
-          required: false
+          required: true
           description: |
             The numeric value corresponding to the format of the file being uploaded:
             - `0`: PNG
             - `1`: JPEG
             - `2`: PDF
-            - `3`: Readability JSON
-            - `4` Monolith HTML
+            - `4`: Monolith HTML
           schema:
             type: integer
             enum:
               - 0 # PNG
               - 1 # JPEG
               - 2 # PDF
-              - 3 # Readability JSON
               - 4 # Monolith HTML
+        - name: preview
+          in: query
+          required: false
+          description: Indicates whether the uploaded file should be treated as a generated preview instead of the main archive file.
+          schema:
+            type: boolean
       requestBody:
         required: true
         content:
@@ -183,27 +195,148 @@ paths:
                 file:
                   type: string
                   format: binary
-                  description: The file to upload (PNG, JPEG, or PDF).
+                  description: The file to upload (PNG, JPEG, PDF, or HTML).
+                url:
+                  type: string
+                  format: uri
+                  description: Optional source URL used to populate metadata for the newly created link.
               required:
                 - file
       responses:
         "200":
-          description: Archive file successfully updated.
+          description: Archive file successfully uploaded and linked.
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   response:
-                    type: object
-                    description: Updated details of the archive.
+                    $ref: "#/components/schemas/Link"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      description: Uploads an archive file, creates a new link for it, and stores it in the authenticated user's default collection.
+  /api/v1/config:
+    get:
+      tags:
+        - Config
+      summary: Retrieves public runtime configuration
+      responses:
+        "200":
+          description: Public runtime configuration retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    $ref: "#/components/schemas/PublicConfig"
+      description: Returns the public configuration values used by Linkwarden clients.
+  /api/v1/preserved/token:
+    get:
+      tags:
+        - Preserved
+      summary: Creates a short-lived preserved format URL
+      parameters:
+        - name: linkId
+          in: query
+          required: true
+          description: The ID of the link whose archived format should be accessed.
+          schema:
+            type: integer
+        - name: format
+          in: query
+          required: false
+          description: |
+            The numeric value corresponding to the preserved format:
+            - `0`: PNG
+            - `1`: JPEG
+            - `2`: PDF
+            - `3`: Readability JSON
+            - `4`: Monolith HTML
+          schema:
+            type: integer
+            enum:
+              - 0
+              - 1
+              - 2
+              - 3
+              - 4
+      responses:
+        "200":
+          description: Signed preserved format URL created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    $ref: "#/components/schemas/PreservedFormatUrl"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+      description: |
+        Returns a short-lived signed URL for loading an archived format from the configured user content domain.
+
+        This route supports authenticated requests and can also work for public links if the archived item belongs to a public collection.
+  /api/v1/preserved/view:
+    get:
+      tags:
+        - Preserved
+      summary: Streams an archived format from the user content domain
+      parameters:
+        - name: token
+          in: query
+          required: true
+          description: The short-lived signed token returned by `/api/v1/preserved/token`.
+          schema:
+            type: string
+        - name: download
+          in: query
+          required: false
+          description: If set to `1`, the response is served as a file download.
+          schema:
+            type: string
+            enum:
+              - "1"
+      responses:
+        "200":
+          description: Archived format streamed successfully.
+          content:
+            text/html:
+              schema:
+                type: string
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+            image/png:
+              schema:
+                type: string
+                format: binary
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+            application/json:
+              schema:
+                type: string
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
           $ref: "#/components/responses/Forbidden"
-      description: Updates an archive file by replacing the existing file. Supports PDF, PNG, and JPEG formats.
+        "404":
+          $ref: "#/components/responses/NotFound"
+      description: |
+        Streams an archived format by validating a short-lived signed token.
+
+        This route is intended to be served only on the hostname configured in `NEXT_PUBLIC_USER_CONTENT_DOMAIN`.
   /api/v1/auth/forgot-password:
     post:
       tags:
@@ -702,12 +835,226 @@ paths:
                         type: array
                         items:
                           $ref: "#/components/schemas/Link"
+                      collectionLinks:
+                        type: object
+                        additionalProperties:
+                          type: array
+                          items:
+                            $ref: "#/components/schemas/Link"
                       numberOfPinnedLinks:
+                        type: integer
+                        example: 0
+                      numberOfTags:
                         type: integer
                         example: 0
                   message:
                     type: string
                     example: "Dashboard data fetched successfully."
+                  success:
+                    type: boolean
+                    example: true
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    put:
+      security:
+        - bearerAuth: []
+      summary: Update dashboard layout (v2)
+      description: Replaces the authenticated user's dashboard section layout.
+      operationId: updateDashboardLayoutV2
+      tags:
+        - Dashboard
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                required:
+                  - type
+                  - enabled
+                properties:
+                  type:
+                    type: string
+                    enum:
+                      - STATS
+                      - RECENT_LINKS
+                      - PINNED_LINKS
+                      - COLLECTION
+                  collectionId:
+                    type: integer
+                    nullable: true
+                  enabled:
+                    type: boolean
+                  order:
+                    type: integer
+      responses:
+        "200":
+          description: Dashboard layout updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      links:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Link"
+                      collectionLinks:
+                        type: object
+                        additionalProperties:
+                          type: array
+                          items:
+                            $ref: "#/components/schemas/Link"
+                      numberOfPinnedLinks:
+                        type: integer
+                      numberOfTags:
+                        type: integer
+                  message:
+                    type: string
+                  success:
+                    type: boolean
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /api/v1/getFavicon:
+    get:
+      tags:
+        - Favicon
+      summary: Fetch a favicon for a URL
+      description: Resolves a site origin from the provided URL, redirects to the canonical origin-based request when needed, and proxies a favicon image when available.
+      parameters:
+        - name: url
+          in: query
+          required: true
+          description: The target page or origin URL.
+          schema:
+            type: string
+            format: uri
+      responses:
+        "200":
+          description: Favicon image retrieved successfully.
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+            image/x-icon:
+              schema:
+                type: string
+                format: binary
+        "204":
+          description: No favicon could be resolved for the requested URL.
+        "308":
+          description: Redirect to the canonical origin-based favicon URL.
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /api/v1/highlights:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Highlights
+      summary: Create or update a highlight
+      description: Creates a new highlight for the authenticated user, or updates an existing one matching the same offsets on the same link.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - color
+                - startOffset
+                - endOffset
+                - text
+                - linkId
+              properties:
+                color:
+                  type: string
+                  maxLength: 50
+                comment:
+                  type: string
+                  maxLength: 2048
+                  nullable: true
+                startOffset:
+                  type: integer
+                endOffset:
+                  type: integer
+                text:
+                  type: string
+                  maxLength: 2048
+                linkId:
+                  type: integer
+      responses:
+        "200":
+          description: Highlight saved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      userId:
+                        type: integer
+                      linkId:
+                        type: integer
+                      color:
+                        type: string
+                      comment:
+                        type: string
+                        nullable: true
+                      startOffset:
+                        type: integer
+                      endOffset:
+                        type: integer
+                      text:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /api/v1/highlights/{id}:
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - Highlights
+      summary: Delete a highlight
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the highlight to delete.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Highlight deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: integer
+        "400":
+          $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
   /api/v1/links:
@@ -750,31 +1097,6 @@ paths:
           required: false
           schema:
             type: string
-        - name: searchByName
-          in: query
-          required: false
-          schema:
-            type: boolean
-        - name: searchByUrl
-          in: query
-          required: false
-          schema:
-            type: boolean
-        - name: searchByDescription
-          in: query
-          required: false
-          schema:
-            type: boolean
-        - name: searchByTextContent
-          in: query
-          required: false
-          schema:
-            type: boolean
-        - name: searchByTags
-          in: query
-          required: false
-          schema:
-            type: boolean
       responses:
         "200":
           description: Successfully retrieved the list of links.
@@ -1183,6 +1505,93 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           $ref: "#/components/responses/NotFound"
+  /api/v1/links/{id}/highlights:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Links
+      summary: Get highlights for a link
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the link whose highlights should be returned.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Highlights retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        userId:
+                          type: integer
+                        linkId:
+                          type: integer
+                        color:
+                          type: string
+                        comment:
+                          type: string
+                          nullable: true
+                        startOffset:
+                          type: integer
+                        endOffset:
+                          type: integer
+                        text:
+                          type: string
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /api/v1/links/archive:
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - Links
+      summary: Delete archived files for multiple links
+      description: Removes stored archive files for the provided link IDs and resets their preservation fields.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - linkIds
+              properties:
+                linkIds:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        "200":
+          description: Archive deletion queued successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
   /api/v1/logins:
     get:
       summary: Get login configuration
@@ -1424,7 +1833,7 @@ paths:
       requestBody:
         required: true
         content:
-          multipart/form-data:
+          application/json:
             schema:
               type: object
               required:
@@ -1437,15 +1846,18 @@ paths:
                     - 0 # Linkwarden JSON
                     - 1 # Bookmarks HTML
                     - 2 # Wallabag JSON
+                    - 3 # Omnivore JSON
+                    - 4 # Pocket JSON
                   description: |
                     The format of the data to import.
                     - `0`: Linkwarden JSON format.
-                    - `1`: HTML file format.
+                    - `1`: Bookmarks HTML format.
                     - `2`: Wallabag JSON format.
+                    - `3`: Omnivore JSON format.
+                    - `4`: Pocket JSON format.
                 data:
                   type: string
-                  format: binary
-                  description: The file to import. Should be in the specified format.
+                  description: The raw import payload serialized as a string in the selected source format.
       responses:
         "200":
           description: Data imported successfully.
@@ -1795,6 +2207,142 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "404":
           $ref: "#/components/responses/NotFound"
+  /api/v1/rss:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - RSS
+      summary: List RSS subscriptions
+      responses:
+        "200":
+          description: RSS subscriptions retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        url:
+                          type: string
+                          format: uri
+                        ownerId:
+                          type: integer
+                        collectionId:
+                          type: integer
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+                        collection:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - RSS
+      summary: Create an RSS subscription
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - url
+              properties:
+                name:
+                  type: string
+                  maxLength: 50
+                url:
+                  type: string
+                  format: uri
+                  maxLength: 2048
+                collectionId:
+                  type: integer
+                collectionName:
+                  type: string
+                  maxLength: 50
+      responses:
+        "200":
+          description: RSS subscription created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      url:
+                        type: string
+                        format: uri
+                      ownerId:
+                        type: integer
+                      collectionId:
+                        type: integer
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+  /api/v1/rss/{id}:
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - RSS
+      summary: Delete an RSS subscription
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the RSS subscription to delete.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: RSS subscription deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
   /api/v1/search:
     get:
       summary: Search links
@@ -1854,7 +2402,6 @@ paths:
               required:
                 - username
                 - password
-                - sessionName
               properties:
                 username:
                   type: string
@@ -1962,7 +2509,166 @@ paths:
                                   example: 12
         "401":
           $ref: "#/components/responses/Unauthorized"
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Tags
+      summary: Create or update tags in bulk
+      description: Creates tags that do not exist yet and updates archival settings for tags that already exist.
+      operationId: createTags
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - tags
+              properties:
+                tags:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - label
+                    properties:
+                      label:
+                        type: string
+                        maxLength: 50
+                      archiveAsScreenshot:
+                        type: boolean
+                        nullable: true
+                      archiveAsMonolith:
+                        type: boolean
+                        nullable: true
+                      archiveAsPDF:
+                        type: boolean
+                        nullable: true
+                      archiveAsReadable:
+                        type: boolean
+                        nullable: true
+                      archiveAsWaybackMachine:
+                        type: boolean
+                        nullable: true
+                      aiTag:
+                        type: boolean
+                        nullable: true
+      responses:
+        "200":
+          description: Tags saved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        ownerId:
+                          type: integer
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+                        _count:
+                          type: object
+                          properties:
+                            links:
+                              type: integer
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - Tags
+      summary: Delete tags in bulk
+      operationId: deleteTagsBulk
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - tagIds
+              properties:
+                tagIds:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        "200":
+          description: Tags deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: integer
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
   /api/v1/tags/{id}:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Tags
+      summary: Get a tag by ID
+      operationId: getTag
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the tag to retrieve.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successfully retrieved the tag.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      ownerId:
+                        type: integer
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+                      _count:
+                        type: object
+                        properties:
+                          links:
+                            type: integer
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
     put:
       tags:
         - Tags
@@ -2354,7 +3060,108 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
+  /api/v1/users/me:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Users
+      summary: Get the current authenticated user
+      operationId: getCurrentUser
+      responses:
+        "200":
+          description: Current user retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                        nullable: true
+                      username:
+                        type: string
+                      email:
+                        type: string
+                        nullable: true
+                      image:
+                        type: string
+                      locale:
+                        type: string
+                      dashboardSections:
+                        type: array
+                        items:
+                          type: object
+                      subscription:
+                        type: object
+                      parentSubscription:
+                        type: object
+                      hasUnIndexedLinks:
+                        type: boolean
+        "401":
+          $ref: "#/components/responses/Unauthorized"
   /api/v1/users/{id}:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Users
+      summary: Get a user by ID
+      description: Returns the authenticated user's account data. Non-admin users may only request their own ID.
+      operationId: getUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the user to retrieve.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: User retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                        nullable: true
+                      username:
+                        type: string
+                      email:
+                        type: string
+                        nullable: true
+                      image:
+                        type: string
+                      locale:
+                        type: string
+                      dashboardSections:
+                        type: array
+                        items:
+                          type: object
+                      subscription:
+                        type: object
+                      parentSubscription:
+                        type: object
+                      hasUnIndexedLinks:
+                        type: boolean
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
     put:
       security:
         - bearerAuth: []
@@ -2571,6 +3378,166 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
+  /api/v1/users/{id}/preference:
+    put:
+      security:
+        - bearerAuth: []
+      tags:
+        - Users
+      summary: Update user reading and theme preferences
+      operationId: updateUserPreference
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the user whose preferences should be updated.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                theme:
+                  type: string
+                  enum:
+                    - dark
+                    - light
+                    - auto
+                readableFontFamily:
+                  type: string
+                  maxLength: 100
+                readableFontSize:
+                  type: string
+                  maxLength: 100
+                readableLineHeight:
+                  type: string
+                  maxLength: 100
+                readableLineWidth:
+                  type: string
+                  maxLength: 100
+      responses:
+        "200":
+          description: User preferences updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      theme:
+                        type: string
+                      readableFontFamily:
+                        type: string
+                        nullable: true
+                      readableFontSize:
+                        type: string
+                        nullable: true
+                      readableLineHeight:
+                        type: string
+                        nullable: true
+                      readableLineWidth:
+                        type: string
+                        nullable: true
+                      dashboardSections:
+                        type: array
+                        items:
+                          type: object
+                      subscription:
+                        type: object
+                      parentSubscription:
+                        type: object
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /api/v1/worker:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Worker
+      summary: Get worker statistics
+      description: Returns preservation and search indexing queue statistics for the server admin user.
+      responses:
+        "200":
+          description: Worker statistics retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      link:
+                        type: object
+                        properties:
+                          pending:
+                            type: integer
+                          done:
+                            type: integer
+                          failed:
+                            type: integer
+                      search:
+                        type: object
+                        properties:
+                          pending:
+                            type: integer
+                          done:
+                            type: integer
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+  /api/v1/worker/preservation:
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - Worker
+      summary: Reset preserved data in bulk
+      description: Server-admin-only endpoint for clearing preserved files across all links or only links with broken archives.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - action
+              properties:
+                action:
+                  type: string
+                  enum:
+                    - allAndRePreserve
+                    - allBroken
+      responses:
+        "200":
+          description: Preservation reset started successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
 components:
   securitySchemes:
     bearerAuth:
@@ -2583,6 +3550,41 @@ components:
       properties:
         response:
           type: string
+    PublicConfig:
+      type: object
+      properties:
+        DISABLE_REGISTRATION:
+          type: boolean
+          nullable: true
+        ADMIN:
+          type: integer
+          nullable: true
+        RSS_POLLING_INTERVAL_MINUTES:
+          type: integer
+          nullable: true
+        EMAIL_PROVIDER:
+          type: boolean
+          nullable: true
+        MAX_FILE_BUFFER:
+          type: integer
+          nullable: true
+        USER_CONTENT_DOMAIN:
+          type: string
+          nullable: true
+          example: https://usercontent.example.com
+        AI_ENABLED:
+          type: boolean
+          nullable: true
+        INSTANCE_VERSION:
+          type: string
+          nullable: true
+    PreservedFormatUrl:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          example: https://usercontent.example.com/api/v1/preserved/view?token=eyJ...
     Link:
       type: object
       properties:

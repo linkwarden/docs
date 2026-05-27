@@ -22,6 +22,12 @@ For Mozilla Firefox, you can get the extension from the [Mozilla Addon Store](ht
 
 [![Linkwarden Firefox extension](/img/mozilla-addons.png)](https://addons.mozilla.org/en-US/firefox/addon/linkwarden)
 
+### Safari
+
+For Safari on macOS, you can get **Linkwarden for Safari** from the [Mac App Store](https://apps.apple.com/app/linkwarden-for-safari/id6763451006):
+
+[![Download Linkwarden for Safari on the Mac App Store](/img/mac_app_store.png)](https://apps.apple.com/app/linkwarden-for-safari/id6763451006)
+
 ## One Time Setup
 
 The first time you use the extension, you'll need to fill in three fields:

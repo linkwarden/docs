@@ -103,6 +103,26 @@ If these variables are not set, Linkwarden stores files locally under `STORAGE_F
 | `SPACES_REGION`           | -       | Bucket region.                                                                                     |
 | `SPACES_FORCE_PATH_STYLE` | `false` | Forces path-style S3 addressing. Useful for some self-hosted S3-compatible services such as MinIO. |
 
+For S3-compatible services such as MinIO or RustFS, make sure every required
+`SPACES_*` value is set. Linkwarden only enables S3-compatible storage when
+`SPACES_ENDPOINT`, `SPACES_REGION`, `SPACES_KEY`, and `SPACES_SECRET` are all
+present.
+
+Example MinIO-style configuration:
+
+```bash
+SPACES_KEY=linkwarden-access-key
+SPACES_SECRET=linkwarden-secret-key
+SPACES_ENDPOINT=http://minio:9000
+SPACES_BUCKET_NAME=linkwarden
+SPACES_REGION=us-east-1
+SPACES_FORCE_PATH_STYLE=true
+```
+
+Use an endpoint that is reachable from the Linkwarden container or process. For
+local S3-compatible services, `SPACES_REGION` still needs a value even if the
+storage server is running on your own network.
+
 ## SMTP Settings
 
 These variables enable email-based sign-in, invitations, verification emails, and password resets.

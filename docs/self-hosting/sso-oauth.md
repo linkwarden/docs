@@ -37,12 +37,14 @@ The variables you need to configure to enable support for 42 School (OIDC):
 
 The variables you need to configure to enable support for Apple (OIDC):
 
-| Environment Variable      | Default | Description                                                                          |
-| ------------------------- | ------- | ------------------------------------------------------------------------------------ |
-| NEXT_PUBLIC_APPLE_ENABLED | -       | If set to true, Apple will be enabled and you'll need to define the variables below. |
-| APPLE_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                               |
-| APPLE_CLIENT_ID           | -       | Client ID                                                                            |
-| APPLE_CLIENT_SECRET       | -       | Client Secret.                                                                       |
+| Environment Variable      | Default | Description                                                                                                                                                                          |
+| ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| NEXT_PUBLIC_APPLE_ENABLED | -       | If set to true, Apple will be enabled and you'll need to define the variables below.                                                                                                 |
+| APPLE_CUSTOM_NAME         | -       | Optionally set a custom provider name.                                                                                                                                               |
+| APPLE_CLIENT_ID           | -       | The Services ID from the Apple Developer portal (used as the OAuth client ID).                                                                                                       |
+| APPLE_TEAM_ID             | -       | Your Apple Developer Team ID.                                                                                                                                                        |
+| APPLE_KEY_ID              | -       | The key ID of your Sign in with Apple key.                                                                                                                                           |
+| APPLE_PRIVATE_KEY         | -       | Path to the Sign in with Apple `.p8` private key file (the key contents or their base64 encoding also work). The client secret is generated and rotated automatically from this key. |
 
 ## Atlassian
 

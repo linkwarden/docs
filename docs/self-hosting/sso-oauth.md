@@ -22,6 +22,21 @@ When creating a new OAuth application, make sure to set the **Redirect URI** to
 
 :::
 
+## Generic OIDC
+
+The variables you need to configure to enable Generic OIDC support:
+
+| Environment Variable     | Default                | Description                                                                          |
+| ------------------------ | ---------------------- | ------------------------------------------------------------------------------------ |
+| NEXT_PUBLIC_OIDC_ENABLED | -                      | If set to true, generic OIDC will be enabled and you'll need to define the variables below. |
+| OIDC_CUSTOM_NAME         | OIDC                   | Optionally set a custom provider name.                                               |
+| OIDC_WELLKNOWN_URL       | -                      | OIDC discovery URL, e.g. `https://idp.example.com/.well-known/openid-configuration`. |
+| OIDC_CLIENT_ID           | -                      | Client ID                                                                            |
+| OIDC_CLIENT_SECRET       | -                      | Client Secret.                                                                       |
+| OIDC_SCOPES              | `openid email profile` | Optionally override the requested scopes (space-separated).                          |
+
+The redirect URI to register at your identity provider is `https://<your-domain>/api/v1/auth/callback/oidc`.
+
 ## 42 School
 
 The variables you need to configure to enable support for 42 School (OIDC):

@@ -23,43 +23,43 @@ After changing your `.env` file, run `docker compose down` and `docker compose u
 
 ## Runtime, Upload, and Archiving
 
-| Environment Variable                        | Default            | Description                                                                                                                       |
-| ------------------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
-| `PAGINATION_TAKE_COUNT`                     | `50`               | Number of links or tags fetched per paginated request.                                                                            |
-| `STORAGE_FOLDER`                            | `data`             | Local folder used for archives, previews, and uploaded files when S3-compatible storage is not configured.                        |
-| `AUTOSCROLL_TIMEOUT`                        | `30`               | Maximum time, in seconds, spent auto-scrolling a page before screenshot/PDF capture continues.                                    |
-| `NEXT_PUBLIC_DISABLE_REGISTRATION`          | `false`            | Disables self-service account registration when set to `true`.                                                                    |
-| `NEXT_PUBLIC_CREDENTIALS_ENABLED`           | `true`             | Enables username/password sign-in when not set to `false`.                                                                        |
-| `DISABLE_NEW_SSO_USERS`                     | `false`            | Blocks first-time sign-ins from SSO providers while still allowing already linked SSO accounts to authenticate.                   |
-| `MAX_LINKS_PER_USER`                        | `30000`            | Maximum number of links a collection owner can store.                                                                             |
-| `ARCHIVE_TAKE_COUNT`                        | `5`                | Number of links processed per background archiving or auto-tagging batch.                                                         |
-| `BROWSER_TIMEOUT`                           | `5`                | Hard timeout, in minutes, for a single browser-based preservation job.                                                            |
-| `IGNORE_URL_SIZE_LIMIT`                     | `false`            | Skips the preflight `HEAD` request used before archiving to inspect remote content headers such as size.                          |
-| `NEXT_PUBLIC_DEMO`                          | `false`            | Enables read-only demo restrictions across the UI and API.                                                                        |
-| `NEXT_PUBLIC_DEMO_USERNAME`                 | -                  | Demo account username shown on the login page when demo mode is enabled.                                                          |
-| `NEXT_PUBLIC_DEMO_PASSWORD`                 | -                  | Demo account password shown on the login page when demo mode is enabled.                                                          |
-| `NEXT_PUBLIC_ADMIN`                         | `1`                | Numeric user ID treated as the server administrator for admin-only endpoints and worker controls.                                 |
-| `NEXT_PUBLIC_MAX_FILE_BUFFER`               | `10`               | Maximum upload size, in MB, for direct file archives such as PDF, image, HTML, and text uploads.                                  |
-| `PDF_MAX_BUFFER`                            | `100`              | Maximum generated PDF archive size, in MB.                                                                                        |
-| `SCREENSHOT_MAX_BUFFER`                     | `100`              | Maximum generated screenshot archive size, in MB.                                                                                 |
-| `READABILITY_MAX_BUFFER`                    | `100`              | Maximum readability JSON archive size, in MB.                                                                                     |
-| `PREVIEW_MAX_BUFFER`                        | `10`               | Maximum generated preview image size, in MB.                                                                                      |
-| `MONOLITH_MAX_BUFFER`                       | `100`              | Maximum monolith HTML archive size, in MB.                                                                                        |
-| `MONOLITH_CUSTOM_OPTIONS`                   | `-j -F -q`         | Space-separated CLI arguments passed to `monolith`. Setting this overrides the built-in default arguments.                        |
-| `IMPORT_LIMIT`                              | `10`               | Maximum size, in MB, for JSON import payloads.                                                                                    |
-| `PLAYWRIGHT_LAUNCH_OPTIONS_EXECUTABLE_PATH` | -                  | Custom browser executable path for Playwright. Ignored when `PLAYWRIGHT_WS_URL` is set.                                           |
-| `PLAYWRIGHT_WS_URL`                         | -                  | Connects the archiver to a remote Chromium instance over CDP instead of launching a local browser.                                |
-| `MAX_WORKERS`                               | Playwright default | Number of Playwright test workers. This affects the web app's Playwright test config, not normal runtime request handling.        |
-| `DISABLE_PRESERVATION`                      | `false`            | Skips preservation work and marks links as processed without generating screenshot, PDF, readability, monolith, or preview files. |
-| `NEXT_PUBLIC_RSS_POLLING_INTERVAL_MINUTES`  | `60`               | Interval, in minutes, between background RSS polling runs.                                                                        |
-| `RSS_SUBSCRIPTION_LIMIT_PER_USER`           | `20`               | Maximum number of RSS subscriptions each user can create.                                                                         |
-| `TEXT_CONTENT_LIMIT`                        | unlimited          | Maximum number of extracted readable-text characters stored in `textContent`.                                                     |
-| `SEARCH_FILTER_LIMIT`                       | unlimited          | Caps how many non-general advanced search filters are parsed from a search query.                                                 |
-| `INDEX_TAKE_COUNT`                          | `50`               | Number of links sent to MeiliSearch per indexing batch.                                                                           |
-| `MEILI_TIMEOUT`                             | `1000000`          | Timeout, in milliseconds, for waiting on MeiliSearch indexing tasks.                                                              |
-| `ALLOW_PRIVATE_NETWORK_ACCESS`              | `false`            | Allows server-side fetches and archiving jobs to access URLs that resolve to private or internal IP addresses. Use with care.     |
-| `ALLOW_INSECURE_TLS`                        | `false`            | Disables TLS certificate verification for Playwright and server-side fetches. Use only for trusted internal services.             |
-| `NEXT_PUBLIC_USER_CONTENT_DOMAIN`           | -                  | Separate origin used to serve preserved content through short-lived signed URLs, for example `https://content.example.com`.       |
+| Environment Variable                        | Default            | Description                                                                                                                   |
+| ------------------------------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| `PAGINATION_TAKE_COUNT`                     | `50`               | Number of links or tags fetched per paginated request.                                                                        |
+| `STORAGE_FOLDER`                            | `data`             | Local folder used for archives, previews, and uploaded files when S3-compatible storage is not configured.                    |
+| `AUTOSCROLL_TIMEOUT`                        | `30`               | Maximum time, in seconds, spent auto-scrolling a page before screenshot/PDF capture continues.                                |
+| `NEXT_PUBLIC_DISABLE_REGISTRATION`          | `false`            | Disables self-service account registration when set to `true`.                                                                |
+| `NEXT_PUBLIC_CREDENTIALS_ENABLED`           | `true`             | Enables username/password sign-in when not set to `false`.                                                                    |
+| `DISABLE_NEW_SSO_USERS`                     | `false`            | Blocks first-time sign-ins from SSO providers while still allowing already linked SSO accounts to authenticate.               |
+| `MAX_LINKS_PER_USER`                        | `30000`            | Maximum number of links a collection owner can store.                                                                         |
+| `ARCHIVE_TAKE_COUNT`                        | `5`                | Number of links processed per background archiving or auto-tagging batch.                                                     |
+| `BROWSER_TIMEOUT`                           | `5`                | Hard timeout, in minutes, for a single browser-based preservation job.                                                        |
+| `IGNORE_URL_SIZE_LIMIT`                     | `false`            | Skips the preflight `HEAD` request used before archiving to inspect remote content headers such as size.                      |
+| `NEXT_PUBLIC_DEMO`                          | `false`            | Enables read-only demo restrictions across the UI and API.                                                                    |
+| `NEXT_PUBLIC_DEMO_USERNAME`                 | -                  | Demo account username shown on the login page when demo mode is enabled.                                                      |
+| `NEXT_PUBLIC_DEMO_PASSWORD`                 | -                  | Demo account password shown on the login page when demo mode is enabled.                                                      |
+| `NEXT_PUBLIC_ADMIN`                         | `1`                | Numeric user ID treated as the server administrator for admin-only endpoints and worker controls.                             |
+| `NEXT_PUBLIC_MAX_FILE_BUFFER`               | `10`               | Maximum upload size, in MB, for direct file archives such as PDF, image, HTML, and text uploads.                              |
+| `PDF_MAX_BUFFER`                            | `100`              | Maximum generated PDF archive size, in MB.                                                                                    |
+| `SCREENSHOT_MAX_BUFFER`                     | `100`              | Maximum generated screenshot archive size, in MB.                                                                             |
+| `READABILITY_MAX_BUFFER`                    | `100`              | Maximum readability JSON archive size, in MB.                                                                                 |
+| `PREVIEW_MAX_BUFFER`                        | `10`               | Maximum generated preview image size, in MB.                                                                                  |
+| `MONOLITH_MAX_BUFFER`                       | `100`              | Maximum monolith HTML archive size, in MB.                                                                                    |
+| `MONOLITH_CUSTOM_OPTIONS`                   | `-j -F -q`         | Space-separated CLI arguments passed to `monolith`. Setting this overrides the built-in default arguments.                    |
+| `IMPORT_LIMIT`                              | `10`               | Maximum size, in MB, for JSON import payloads.                                                                                |
+| `PLAYWRIGHT_LAUNCH_OPTIONS_EXECUTABLE_PATH` | -                  | Custom browser executable path for Playwright. Ignored when `PLAYWRIGHT_WS_URL` is set.                                       |
+| `PLAYWRIGHT_WS_URL`                         | -                  | Connects the archiver to a remote Chromium instance over CDP instead of launching a local browser.                            |
+| `MAX_WORKERS`                               | Playwright default | Number of Playwright test workers. This affects the web app's Playwright test config, not normal runtime request handling.    |
+| `DISABLE_BROWSER`                           | `false`            | Formerly `DISABLE_PRESERVATION`. Skips any worker task that relies on the browser.                                            |
+| `NEXT_PUBLIC_RSS_POLLING_INTERVAL_MINUTES`  | `60`               | Interval, in minutes, between background RSS polling runs.                                                                    |
+| `RSS_SUBSCRIPTION_LIMIT_PER_USER`           | `20`               | Maximum number of RSS subscriptions each user can create.                                                                     |
+| `TEXT_CONTENT_LIMIT`                        | unlimited          | Maximum number of extracted readable-text characters stored in `textContent`.                                                 |
+| `SEARCH_FILTER_LIMIT`                       | unlimited          | Caps how many non-general advanced search filters are parsed from a search query.                                             |
+| `INDEX_TAKE_COUNT`                          | `50`               | Number of links sent to MeiliSearch per indexing batch.                                                                       |
+| `MEILI_TIMEOUT`                             | `1000000`          | Timeout, in milliseconds, for waiting on MeiliSearch indexing tasks.                                                          |
+| `ALLOW_PRIVATE_NETWORK_ACCESS`              | `false`            | Allows server-side fetches and archiving jobs to access URLs that resolve to private or internal IP addresses. Use with care. |
+| `ALLOW_INSECURE_TLS`                        | `false`            | Disables TLS certificate verification for Playwright and server-side fetches. Use only for trusted internal services.         |
+| `NEXT_PUBLIC_USER_CONTENT_DOMAIN`           | -                  | Separate origin used to serve preserved content through short-lived signed URLs, for example `https://content.example.com`.   |
 
 ## AI Settings
 

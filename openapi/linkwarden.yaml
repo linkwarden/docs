@@ -2429,6 +2429,27 @@ paths:
                         description: The token generated for the session.
         "400":
           $ref: "#/components/responses/BadRequest"
+        "401":
+          description:
+            The credentials are correct but the user's email address is
+            not verified.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    description: Human-readable error message.
+                    example: Please verify your email address before logging in.
+                  code:
+                    type: string
+                    description: Machine-readable error code.
+                    enum:
+                      - EMAIL_NOT_VERIFIED
+                  email:
+                    type: string
+                    description: The email address of the unverified account.
   /api/v1/tags:
     get:
       security:

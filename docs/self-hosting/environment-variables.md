@@ -132,12 +132,13 @@ Make sure to define the correct protocol for your SMTP port:
 - `smtp://` with port `587` for STARTTLS
 - `smtps://` with port `465` for implicit SSL/TLS
 
-| Environment Variable         | Default | Description                                                                                                                                    |
-| ---------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_EMAIL_PROVIDER` | `false` | Enables email-provider features in the UI and related account flows. Normally used together with `EMAIL_FROM`, `EMAIL_SERVER`, and `BASE_URL`. |
-| `EMAIL_FROM`                 | -       | Sender address used for verification, invitation, and password-reset emails.                                                                   |
-| `EMAIL_SERVER`               | -       | URL-encoded SMTP connection string, for example `smtp://user:password@host:587`.                                                               |
-| `BASE_URL`                   | -       | Public base URL of your app, for example `https://example.com`. Unlike `NEXTAUTH_URL`, this should not include `/api/v1/auth`.                 |
+| Environment Variable                      | Default | Description                                                                                                                                                                                                                                                                                                   |
+| ----------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_EMAIL_PROVIDER`              | `false` | Enables email-provider features in the UI and related account flows. Normally used together with `EMAIL_FROM`, `EMAIL_SERVER`, and `BASE_URL`.                                                                                                                                                                |
+| `EMAIL_FROM`                              | -       | Sender address used for verification, invitation, and password-reset emails.                                                                                                                                                                                                                                  |
+| `EMAIL_SERVER`                            | -       | URL-encoded SMTP connection string, for example `smtp://user:password@host:587`.                                                                                                                                                                                                                              |
+| `BASE_URL`                                | -       | Public base URL of your app, for example `https://example.com`. Unlike `NEXTAUTH_URL`, this should not include `/api/v1/auth`.                                                                                                                                                                                |
+| `NEXT_PUBLIC_MOBILE_APP_REDIRECT_ENABLED` | `false` | When set to `true`, the email-verification page offers to open the link in the Linkwarden mobile app on phones, verifying the email and logging the user in directly in the app. When disabled, verification always continues in the browser. Requires a mobile app version that supports verification links. |
 
 ## Proxy and PDF Settings
 

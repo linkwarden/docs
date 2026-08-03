@@ -146,6 +146,12 @@ Keep in mind that you need to have Meilisearch running in the background before 
 yarn concurrently:start
 ```
 
+### Managed Hosting
+
+If you would rather not run a server yourself, Zenith hosts a managed Linkwarden instance for you, with storage, backups and a free subdomain included. A share of every subscription goes back to Linkwarden.
+
+[![Deploy with Zenith](https://cdn.zenith.hosting/buttons/deploy-with-zenith.svg)](https://zenith.hosting/host/linkwarden)
+
 ### Troubleshooting
 
 There are a few common issues that you might encounter when setting up Linkwarden, here are some of them:

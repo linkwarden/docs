@@ -1,4 +1,5 @@
 {
   "label": "Self Hosting",
-  "position": 5
+  "position": 5,
+  "className": "sidebar-icon bi bi-server"
 }

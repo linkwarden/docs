@@ -15,7 +15,7 @@ Linkwarden offers mobile app for both iOS and Android! You can browse and save y
 You can choose between:
 
 - [**Linkwarden Cloud**](https://linkwarden.app/#pricing) – instant setup, and your subscription directly supports ongoing development.
-- [**Self-hosted Linkwarden**](https://docs.linkwarden.app/self-hosting/installation) – free, but you’ll need to deploy and maintain a Linkwarden instance on a server.
+- [**Self-hosted Linkwarden**](https://docs.linkwarden.app/self-hosting/setup) – free, but you’ll need to deploy and maintain a Linkwarden instance on a server.
 
 After creating an account, download the app from your preferred store:
 

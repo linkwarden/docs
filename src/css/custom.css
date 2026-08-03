@@ -4,6 +4,8 @@
  * work well for content-centric websites.
  */
 
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
 :root {
   --ifm-color-primary: #0284c7;
   --ifm-color-primary-dark: #0277b3;
@@ -12,6 +14,7 @@
   --ifm-color-primary-light: #0291db;
   --ifm-color-primary-lighter: #0298e5;
   --ifm-color-primary-lightest: #09aafd;
+  --ifm-navbar-background-color: #fff;
 }
 
 [data-theme="dark"] {
@@ -22,14 +25,27 @@
   --ifm-color-primary-light: #1eb0f1;
   --ifm-color-primary-lighter: #2ab4f2;
   --ifm-color-primary-lightest: #4dc0f4;
+  /* A touch darker than Infima's #1b1b1d */
+  --ifm-background-color: #161618;
+  /* Match the article background (light mode's is `transparent`, so it's hardcoded above) */
+  --ifm-navbar-background-color: var(--ifm-background-color);
 }
 
 .theme-doc-sidebar-container {
-  background-color: #f7f7f7;
+  background-color: var(--ifm-background-color);
 }
 
-[data-theme="dark"] .theme-doc-sidebar-container {
-  background-color: #292929;
+/* "Docs" next to the wordmark */
+.navbar__title {
+  font-family: var(--ifm-font-family-monospace);
+  font-weight: var(--ifm-font-weight-normal);
+  opacity: 0.6;
+  /* Optical centering against the larger wordmark */
+  transform: translateY(2px);
+}
+
+.navbar__brand:hover {
+  color: var(--ifm-navbar-link-color);
 }
 
 .footer__col {
@@ -44,6 +60,35 @@
   border-radius: 0.25rem 0 0 0.25rem;
 }
 
+/* Icons for the top-level sidebar categories. The `bi-*` class sits on the <li>, so its
+   ::before is placed over the category's own row and the link is indented to make room. */
+.sidebar-icon {
+  position: relative;
+}
+
+.sidebar-icon::before {
+  position: absolute;
+  top: var(--ifm-menu-link-padding-vertical);
+  left: var(--ifm-menu-link-padding-horizontal);
+  display: flex;
+  align-items: center;
+  height: 1.25em; /* .menu__link's line-height, so the icon centers on the label */
+  color: var(--ifm-menu-color);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.sidebar-icon > .menu__list-item-collapsible > .menu__link {
+  padding-left: calc(var(--ifm-menu-link-padding-horizontal) + 1.5rem);
+}
+
+/* Follow the label when the category itself is the active page */
+.sidebar-icon:has(
+    > .menu__list-item-collapsible > .menu__link--active
+  )::before {
+  color: var(--ifm-menu-color-active);
+}
+
 .menu__link--active:not(.menu__link--sublist) {
   border-right: 1px solid var(--ifm-menu-color-active);
   background-color: rgba(2, 132, 199, 0.1);
@@ -52,6 +97,19 @@
 .navbar {
   box-shadow: none;
   border-bottom: 1px solid var(--ifm-toc-border-color);
+}
+
+/* Continue the sidebar's right border up through the navbar */
+@media (min-width: 997px) {
+  .docs-doc-page .navbar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--doc-sidebar-width) - 1px);
+    width: 1px;
+    background-color: var(--ifm-toc-border-color);
+  }
 }
 
 .theme-doc-sidebar-container {

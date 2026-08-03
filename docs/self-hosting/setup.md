@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Installation
+# Setup
 
 :::tip
 
@@ -22,7 +22,7 @@ Here you can find everything you need to setup a fully fledged Linkwarden instan
 
 Linkwarden has pretty minimal hardware requirements - it was tested on a VPS with 4gb of memory and it ran pretty smoothly, the most intense part is when you build the app, but once it's running it's relatively lightweight.
 
-### Docker 🐋
+### Docker Compose 🐋 {#docker-compose}
 
 **Requirements:**
 
@@ -73,7 +73,7 @@ After a few minutes (depending on your internet connection) you can access Linkw
 
 :::note
 
-The Manual Installation is targeted towards a more technical audience, to take an easier path, go for installation using [Docker](/self-hosting/installation#docker-).
+The Manual Installation is targeted towards a more technical audience, to take an easier path, go for installation using [Docker](/self-hosting/setup#docker-compose).
 
 :::
 

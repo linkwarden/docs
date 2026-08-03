@@ -17,7 +17,7 @@ If Linkwarden is running on a different host or port, replace `127.0.0.1:3000` e
 
 :::note
 
-If you have not installed Linkwarden yet, follow the [Installation](/self-hosting/installation) guide first and confirm that the app works locally before adding a reverse proxy.
+If you have not installed Linkwarden yet, follow the [Setup](/self-hosting/setup) guide first and confirm that the app works locally before adding a reverse proxy.
 
 :::
 

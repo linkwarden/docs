@@ -1,4 +1,5 @@
 {
   "label": "Billing and Subscription",
-  "position": 4
+  "position": 4,
+  "className": "sidebar-icon bi bi-credit-card"
 }

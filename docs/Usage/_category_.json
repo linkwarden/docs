@@ -1,4 +1,5 @@
 {
   "label": "Usage",
-  "position": 2
+  "position": 2,
+  "className": "sidebar-icon bi bi-book"
 }

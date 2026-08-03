@@ -2371,6 +2371,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@docusaurus/plugin-client-redirects@npm:3.6.3":
+  version: 3.6.3
+  resolution: "@docusaurus/plugin-client-redirects@npm:3.6.3"
+  dependencies:
+    "@docusaurus/core": "npm:3.6.3"
+    "@docusaurus/logger": "npm:3.6.3"
+    "@docusaurus/utils": "npm:3.6.3"
+    "@docusaurus/utils-common": "npm:3.6.3"
+    "@docusaurus/utils-validation": "npm:3.6.3"
+    eta: "npm:^2.2.0"
+    fs-extra: "npm:^11.1.1"
+    lodash: "npm:^4.17.21"
+    tslib: "npm:^2.6.0"
+  peerDependencies:
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  checksum: 10c0/3bc4a215471c9bd4d080fc5f9294ae67fdcfed2c97d181ed6b8d6b39fc44f0b29b9349a026b14feb94a5cd8cb172e23f4109c61e285d10ed2aed4c2f5a44bd3c
+  languageName: node
+  linkType: hard
+
 "@docusaurus/plugin-content-blog@npm:3.6.3":
   version: 3.6.3
   resolution: "@docusaurus/plugin-content-blog@npm:3.6.3"
@@ -4709,6 +4729,13 @@ __metadata:
   version: 1.0.0
   resolution: "boolbase@npm:1.0.0"
   checksum: 10c0/e4b53deb4f2b85c52be0e21a273f2045c7b6a6ea002b0e139c744cb6f95e9ec044439a52883b0d74dedd1ff3da55ed140cfdddfed7fb0cccbed373de5dce1bcf
+  languageName: node
+  linkType: hard
+
+"bootstrap-icons@npm:^1.13.1":
+  version: 1.13.1
+  resolution: "bootstrap-icons@npm:1.13.1"
+  checksum: 10c0/2c1adeb1796502e67b476ce049c86bc3a7ff7984c61777e056820389a8db5ec6535c12a33f76f3ed52674bca4c01472065a7fbcde6cc384ebb86c2eae51390bd
   languageName: node
   linkType: hard
 
@@ -10687,10 +10714,12 @@ __metadata:
   dependencies:
     "@docusaurus/core": "npm:^3.6.3"
     "@docusaurus/module-type-aliases": "npm:^3.6.3"
+    "@docusaurus/plugin-client-redirects": "npm:3.6.3"
     "@docusaurus/preset-classic": "npm:^3.6.3"
     "@docusaurus/tsconfig": "npm:^3.6.3"
     "@docusaurus/types": "npm:^3.6.3"
     "@mdx-js/react": "npm:^3.0.0"
+    bootstrap-icons: "npm:^1.13.1"
     clsx: "npm:^1.2.1"
     docusaurus-plugin-openapi-docs: "npm:^4.2.0"
     docusaurus-theme-openapi-docs: "npm:^4.2.0"

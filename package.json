@@ -17,8 +17,10 @@
   },
   "dependencies": {
     "@docusaurus/core": "^3.6.3",
+    "@docusaurus/plugin-client-redirects": "3.6.3",
     "@docusaurus/preset-classic": "^3.6.3",
     "@mdx-js/react": "^3.0.0",
+    "bootstrap-icons": "^1.13.1",
     "clsx": "^1.2.1",
     "docusaurus-plugin-openapi-docs": "^4.2.0",
     "docusaurus-theme-openapi-docs": "^4.2.0",

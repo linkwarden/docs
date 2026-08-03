@@ -71,78 +71,22 @@ const config: Config = {
     // Replace with your project's social card
     image: "img/logo.png",
     navbar: {
-      title: "Linkwarden",
+      title: "Docs",
       logo: {
         alt: "Linkwarden Logo",
-        src: "img/logo.png",
+        src: "img/linkwarden_light.png",
+        srcDark: "img/linkwarden_dark.png",
       },
       items: [
         {
-          href: "/",
-          label: "Documentation",
-          position: "left",
-        },
-        {
-          to: "https://blog.linkwarden.app",
-          label: "Blog",
-          position: "left",
-        },
-        {
-          to: "https://linkwarden.app",
-          label: "Website",
-          position: "left",
+          href: "https://discord.gg/CtuYV47nuJ",
+          label: "Discord",
+          position: "right",
         },
         {
           href: "https://github.com/linkwarden",
           label: "GitHub",
           position: "right",
-        },
-      ],
-    },
-    footer: {
-      copyright: `Copyright © ${new Date().getFullYear()} Linkwarden.`,
-      links: [
-        {
-          title: "Explore",
-          items: [
-            {
-              label: "Our Website",
-              to: "https://linkwarden.app",
-            },
-            {
-              label: "Read our blog",
-              to: "https://blog.linkwarden.app",
-            },
-            {
-              label: "Our public roadmap",
-              to: "https://github.com/orgs/linkwarden/projects/1",
-            },
-            {
-              label: "Study the documentation",
-              to: "https://docs.linkwarden.app",
-            },
-          ],
-        },
-        {
-          title: "Community",
-          items: [
-            {
-              label: "GitHub",
-              href: "https://github.com/linkwarden",
-            },
-            {
-              label: "Twitter",
-              href: "https://twitter.com/LinkwardenHQ",
-            },
-            {
-              label: "Mastodon",
-              href: "https://fosstodon.org/@linkwarden",
-            },
-            {
-              label: "Discord",
-              href: "https://discord.gg/CtuYV47nuJ",
-            },
-          ],
         },
       ],
     },
@@ -158,6 +102,17 @@ const config: Config = {
   },
 
   plugins: [
+    [
+      "@docusaurus/plugin-client-redirects",
+      {
+        redirects: [
+          {
+            from: "/self-hosting/installation",
+            to: "/self-hosting/setup",
+          },
+        ],
+      },
+    ],
     [
       "docusaurus-plugin-openapi-docs",
       {

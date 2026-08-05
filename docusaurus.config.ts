@@ -79,6 +79,10 @@ const config: Config = {
       },
       items: [
         {
+          type: "search",
+          position: "right",
+        },
+        {
           href: "https://discord.gg/CtuYV47nuJ",
           label: "Discord",
           position: "right",
@@ -94,6 +98,12 @@ const config: Config = {
       sidebar: {
         autoCollapseCategories: true,
       },
+    },
+    algolia: {
+      appId: "QQG7IO4GFL",
+      apiKey: "c53e0f4e15e58db426d5e8a4a7ce5219",
+      indexName: "Linkwarden Documentation",
+      contextualSearch: true,
     },
     prism: {
       theme: lightCodeTheme,

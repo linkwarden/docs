@@ -48,6 +48,22 @@
   color: var(--ifm-navbar-link-color);
 }
 
+html:root,
+html:root[data-theme="dark"] {
+  --docsearch-searchbox-background: var(--ifm-navbar-background-color);
+  --docsearch-searchbox-focus-background: var(--ifm-navbar-background-color);
+  --docsearch-modal-background: var(--ifm-navbar-background-color);
+  --docsearch-hit-background: var(--ifm-navbar-background-color);
+  --docsearch-footer-background: var(--ifm-navbar-background-color);
+  --docsearch-hit-color: var(--ifm-font-color-base);
+  --docsearch-muted-color: var(--ifm-color-emphasis-600);
+}
+
+.DocSearch-Button.DocSearch-Button {
+  border: 1px solid var(--ifm-toc-border-color);
+  border-radius: var(--ifm-global-radius);
+}
+
 .footer__col {
   text-align: center;
 }

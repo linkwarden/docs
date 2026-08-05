@@ -1,0 +1,6 @@
+# Algolia-Crawler-Verif: 9BB95CBA86FD1D99
+
+User-agent: *
+Allow: /
+
+Sitemap: https://docs.linkwarden.app/sitemap.xml

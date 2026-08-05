@@ -22,6 +22,6 @@ The final result should look something like this:
 
 <img src="/img/singlefile_final.jpeg" alt="SingleFile Final Image" height="500px" />
 
-(Where `{{endpoint}}` is where your Linkwarden instance is hosted.)
+(`{{endpoint}}` is where your Linkwarden instance is hosted.)
 
 Now you can start uploading your saved links directly from the SingleFile extension into Linkwarden!

@@ -48,7 +48,7 @@ After changing your `.env` file, run `docker compose down` and `docker compose u
 | `MONOLITH_CUSTOM_OPTIONS`                   | `-j -F -q`         | Space-separated CLI arguments passed to `monolith`. Setting this overrides the built-in default arguments.                    |
 | `IMPORT_LIMIT`                              | `10`               | Maximum size, in MB, for JSON import payloads.                                                                                |
 | `PLAYWRIGHT_LAUNCH_OPTIONS_EXECUTABLE_PATH` | -                  | Custom browser executable path for Playwright. Ignored when `PLAYWRIGHT_WS_URL` is set.                                       |
-| `PLAYWRIGHT_WS_URL`                         | -                  | Connects the archiver to a remote Chromium instance over CDP instead of launching a local browser.                            |
+| `PLAYWRIGHT_WS_URL`                         | -                  | Connects the archiver to a remote Chromium instance over CDP instead of launching a local browser. Page requests egress from the remote browser's network.[^1] |
 | `MAX_WORKERS`                               | Playwright default | Number of Playwright test workers. This affects the web app's Playwright test config, not normal runtime request handling.    |
 | `DISABLE_BROWSER`                           | `false`            | Formerly `DISABLE_PRESERVATION`. Skips any worker task that relies on the browser.                                            |
 | `NEXT_PUBLIC_RSS_POLLING_INTERVAL_MINUTES`  | `60`               | Interval, in minutes, between background RSS polling runs.                                                                    |
@@ -60,6 +60,8 @@ After changing your `.env` file, run `docker compose down` and `docker compose u
 | `ALLOW_PRIVATE_NETWORK_ACCESS`              | `false`            | Allows server-side fetches and archiving jobs to access URLs that resolve to private or internal IP addresses. Use with care. |
 | `ALLOW_INSECURE_TLS`                        | `false`            | Disables TLS certificate verification for Playwright and server-side fetches. Use only for trusted internal services.         |
 | `NEXT_PUBLIC_USER_CONTENT_DOMAIN`           | -                  | Separate origin used to serve preserved content through short-lived signed URLs, for example `https://content.example.com`.   |
+
+[^1]: When `PLAYWRIGHT_WS_URL` is set, page requests are validated against the internal-address blocklist and then fetched by the remote browser itself. Because the browser resolves DNS on its own, run it on a network segment that cannot reach anything sensitive, the same as any other service that fetches untrusted URLs. Without `PLAYWRIGHT_WS_URL`, all page requests are fetched by the worker with DNS pinned to a validated IP.
 
 ## AI Settings
 

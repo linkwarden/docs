@@ -73,7 +73,7 @@ The folders to `chown` are simply the host side of the volumes in your `docker-c
 
 ## Verify That It Works
 
-Check the user the container runs as:
+Check which user the container is running as:
 
 ```bash
 docker compose exec linkwarden id

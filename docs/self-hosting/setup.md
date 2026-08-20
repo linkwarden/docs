@@ -20,7 +20,13 @@ Here you can find everything you need to setup a fully fledged Linkwarden instan
 
 ### Hardware Requirements
 
-Linkwarden has pretty minimal hardware requirements - it was tested on a VPS with 4gb of memory and it ran pretty smoothly, the most intense part is when you build the app, but once it's running it's relatively lightweight.
+Linkwarden runs comfortably on a small VPS or home server:
+
+- **Memory:** 4 GB is a comfortable starting point.
+- **CPU:** any 2 core machine. Images are published for both x86-64 and ARM64.
+- **Disk:** about 1.5 GB for the image, plus your data.
+
+If you're running on a smaller machine, or want to know where the memory and disk usage actually goes, see [Running a Lighter Setup](/self-hosting/lighter-setup).
 
 ### Docker Compose 🐋 {#docker-compose}
 

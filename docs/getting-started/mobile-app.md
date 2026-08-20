@@ -26,4 +26,4 @@ After creating an account, download the app from your preferred store:
 
 ## One Time Setup
 
-You can login to the app either by entering your username and password, or by creating an access token from Settings > Access Tokens.
+You can login to the app either by entering your username and password, or by creating an access token from Settings → Access Tokens.

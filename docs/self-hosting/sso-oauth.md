@@ -147,7 +147,7 @@ Create an Application with the following settings:
 
 <img src="/img/authentik-setup/authentik-application.png" alt="Authentik Application Settings" width="500" />
 
-Finally, Assign users or groups of users to the application so they have access (Select the linkwarden application in Authentik, select the "Policy/Group/User Bindings" tab, then `Bind existing Policy` -> `Group` or `users` -> select either a group or a user):
+Finally, Assign users or groups of users to the application so they have access (Select the linkwarden application in Authentik, select the "Policy/Group/User Bindings" tab, then `Bind existing Policy` → `Group` or `users` → select either a group or a user):
 
 <img src="/img/authentik-setup/authentik-user-access.png" alt="Authentik User Access Settings" width="500" />
 
@@ -350,7 +350,7 @@ To create client ID and secret, follow these steps:
 
 1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
 2. Create a new project or select an existing one.
-3. Navigate to **APIs & Services** > **Credentials**.
+3. Navigate to **APIs & Services** → **Credentials**.
 4. Click on **Create credentials** and select **OAuth client ID**.
 5. Configure the consent screen if prompted.
 6. Select **Web application** as the application type.

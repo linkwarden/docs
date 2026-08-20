@@ -98,7 +98,7 @@ services:
   # meilisearch service removed
 ```
 
-Search then falls back to PostgreSQL, matching against link titles, URLs, descriptions, and tag names. You lose the [advanced search operators](/usage/advanced-search) and full-text search across preserved page content.
+Search then falls back to PostgreSQL, matching against link titles, URLs, descriptions, and tag names. You lose the [advanced search operators](/Usage/advanced-search) and full-text search across preserved page content.
 
 ### 8. Quiet the background loops
 

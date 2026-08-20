@@ -9,6 +9,6 @@ We've added a new feature in Linkwarden 2.9 that automatically tags your links b
 1. **Auto-generate Tags**: When a link is added, Linkwarden will automatically generate and assign tags based on the content of the link.
 2. **Using Predefined Tags**: You can also use predefined tags to let Linkwarden auto-assign tags based on the content of the link.
 
-You can enable this feature in the Settings > Preferences page.
+You can enable this feature in the Settings → Preferences page.
 
 ![AI Tagging Image](/img/ai_tagging.jpeg)

@@ -10,7 +10,7 @@ That changed in [2.15](https://linkwarden.app/blog/releases/2.15). The Docker im
 
 We are not done, and these numbers should keep coming down. What is left is mostly preservation: Linkwarden ships a headless browser, a Rust HTML archiver, a search engine, and a database, because it saves a copy of every page you bookmark rather than just its address. That is a real cost, but it is one you can opt out of, in whole or in part.
 
-This guide which settings actually reduce disk, memory, and CPU usage. Everything here is optional. The defaults are already reasonable, so treat the rest as tuning for your hardware rather than repairs.
+This guide which settings actually reduce disk, memory, and CPU usage. **Everything here is optional.** The defaults are already reasonable, so treat the rest as tuning for your hardware rather than repairs.
 
 ## Making It Lighter
 
@@ -38,7 +38,30 @@ Every worker task that needs the browser is skipped and links are marked as havi
 
 The worker still briefly starts Chromium while it drains links that were already queued, and closes it 60 seconds after the queue empties.
 
-### 3. Preserve one link at a time
+### 3. Let your own browser do the preserving
+
+**Effect: large. Moves the expensive part off the server entirely.**
+
+Preservation is expensive because the server loads the page in a headless browser. If the page is already open in _your_ browser, that work is already done, and it can be uploaded as a finished file instead. Two ways to do that:
+
+- **The Linkwarden browser extension.** Tick **Upload image from browser** when saving a link. The extension captures a full-page screenshot in your own browser and uploads it, so the server only writes the file and updates the row.
+- **[SingleFile](/usage/upload-from-singlefile).** Point the SingleFile extension at your instance and it uploads a complete self-contained HTML snapshot, which is the same format Monolith produces server side.
+
+The upload itself is cheap. The server writes the file and, for images, resizes a thumbnail with an image library. No Chromium, no Monolith. Both paths also capture the page exactly as you see it, which covers pages that are behind a login or that restrict automated visitors.
+
+What an upload does not do is take the link out of the worker's queue. The worker only fills in formats that are still missing, so it will not redo the one you uploaded, but it does open the page in Chromium to build the others. The saving comes from turning those others off in **Settings → Preferences → Archive Settings**: uploading a screenshot while **Webpage** and **PDF** are still enabled leaves the two most expensive jobs running behind you.
+
+When a SingleFile snapshot is already attached, the worker still navigates to the URL, but then loads your uploaded copy into the page, so whatever formats remain enabled are generated from what you captured rather than from the live page.
+
+:::caution
+
+Do not combine this with `DISABLE_BROWSER=true`. Links you upload to are still queued for the worker, and with the browser disabled the worker marks every format as unavailable, which clears the reference to the file you just uploaded. Turn the individual formats off instead.
+
+:::
+
+Uploads are capped by `NEXT_PUBLIC_MAX_FILE_BUFFER`, which is 10 MB by default. Long pages can exceed that, so raise it if uploads start failing.
+
+### 4. Preserve one link at a time
 
 **Effect: medium. Flattens memory spikes at the cost of throughput.**
 
@@ -48,7 +71,7 @@ ARCHIVE_TAKE_COUNT=1
 
 This caps how many links are preserved concurrently, and also how many are auto-tagged per batch. A backlog takes longer to clear, but the peak stays low and predictable.
 
-### 4. Constrain the allocators
+### 5. Constrain the allocators
 
 **Effect: medium. Lowers idle and steady-state memory.**
 
@@ -60,16 +83,6 @@ NODE_OPTIONS=--max-old-space-size=400
 `MALLOC_ARENA_MAX` limits how many per-thread memory pools glibc creates. The default scales with CPU count and is generous for a workload like this, so capping it at 2 reclaims a noticeable chunk of resident memory on multi-core machines.
 
 `--max-old-space-size` caps the V8 heap in MB, which makes garbage collection kick in earlier instead of letting the heap grow toward the process default. Setting it too low causes crashes on large pages or large imports, so treat 400 as a floor for a preservation-enabled instance and raise it if you see out-of-memory restarts. It applies to both the web and worker processes.
-
-### 5. Keep the browser on-demand
-
-**Effect: small, but already the default.**
-
-```bash
-BROWSER_LIFECYCLE=on-demand
-```
-
-`on-demand` (the default) starts Chromium when work arrives and closes it when the queue has been empty for 60 seconds. The alternative, `persistent`, keeps one browser alive for the life of the worker and restarts it every 30 minutes. Persistent trades steady memory for lower per-batch latency, so it only makes sense on a busy instance with memory to spare.
 
 ### 6. Move the browser off the machine
 
@@ -98,7 +111,7 @@ services:
   # meilisearch service removed
 ```
 
-Search then falls back to PostgreSQL, matching against link titles, URLs, descriptions, and tag names. You lose the [advanced search operators](/Usage/advanced-search) and full-text search across preserved page content.
+Search then falls back to PostgreSQL, matching against link titles, URLs, descriptions, and tag names. You lose the [advanced search operators](/usage/advanced-search) and full-text search across preserved page content.
 
 ### 8. Quiet the background loops
 
@@ -150,7 +163,7 @@ Lowest possible footprint. No preservation, no search engine, one database conta
 ```bash
 DISABLE_BROWSER=true
 MALLOC_ARENA_MAX=2
-MEILI_MASTER_KEY=
+NODE_OPTIONS=--max-old-space-size=400
 ```
 
 Plus removing the `meilisearch` service from `docker-compose.yml`. This keeps the instance close to the ~350 MB idle mark.

@@ -6,6 +6,25 @@ import customSidebarItemsGenerator from "./docs/sidebar";
 const lightCodeTheme = themes.github;
 const darkCodeTheme = themes.dracula;
 
+// Every route on this site is lowercase, but plenty of links in the wild are
+// not: the Usage section used to be published as /Usage, and older Linkwarden
+// releases still link to /Usage/advanced-search from the app. Hosts match paths
+// case-sensitively, so those all land on the 404 page.
+//
+// This runs as a plain inline script in <head>, before the deferred bundles, so
+// the browser leaves for the correct URL before React ever renders the missing
+// route. Doing it later (from a client module) makes the router render its
+// not-found state first, which surfaces as an error overlay in dev.
+const lowercaseRouteRedirect = `
+(function () {
+  var pathname = window.location.pathname;
+  var lowercased = pathname.toLowerCase();
+  if (lowercased !== pathname) {
+    window.location.replace(lowercased + window.location.search + window.location.hash);
+  }
+})();
+`.trim();
+
 const config: Config = {
   title: "Linkwarden",
   tagline: "Docs",
@@ -30,6 +49,14 @@ const config: Config = {
       async: true,
       defer: true,
       "data-domain": "docs.linkwarden.app",
+    },
+  ],
+
+  headTags: [
+    {
+      tagName: "script",
+      attributes: {},
+      innerHTML: lowercaseRouteRedirect,
     },
   ],
 

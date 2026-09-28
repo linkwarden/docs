@@ -75,6 +75,12 @@ After a few minutes (depending on your internet connection) you can access Linkw
 
 **Enjoy!**
 
+### Easypanel
+
+[Easypanel](https://easypanel.io) is a self-hosted Docker deployment platform, and it maintains a one-click deployment template for Linkwarden that provisions the app and PostgreSQL database together:
+
+[![Deploy on Easypanel](https://easypanel.io/img/deploy-on-easypanel-40.svg)](https://easypanel.io/templates/linkwarden)
+
 ### Manual Installation
 
 :::note

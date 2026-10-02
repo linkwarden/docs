@@ -42,7 +42,7 @@ The worker still briefly starts Chromium while it drains links that were already
 
 **Effect: large. Moves the expensive part off the server entirely.**
 
-Preservation is expensive because the server loads the page in a headless browser. If the page is already open in _your_ browser, that work is already done, and it can be uploaded as a finished file instead. Two ways to do that:
+Preservation is expensive because the server loads the page in a headless browser. If the page is already open in _your_ browser, that work is already done, and it can be uploaded as a finished file instead ([Preserve from Your Browser](/usage/preserve-from-your-browser) covers this from the user's side). Two ways to do that:
 
 - **The Linkwarden browser extension.** Tick **Upload image from browser** when saving a link. The extension captures a full-page screenshot in your own browser and uploads it, so the server only writes the file and updates the row.
 - **[SingleFile](/usage/upload-from-singlefile).** Point the SingleFile extension at your instance and it uploads a complete self-contained HTML snapshot, which is the same format Monolith produces server side.

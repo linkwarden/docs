@@ -1,5 +1,6 @@
 ---
 sidebar_label: To Linkwarden v2
+sidebar_position: 2
 ---
 
 # Upgrading to Linkwarden v2

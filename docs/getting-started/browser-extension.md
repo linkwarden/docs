@@ -43,3 +43,10 @@ The first time you use the extension, you'll need to fill in three fields:
 - **Password**: The current password for your Linkwarden account.
 
 ![Linkwarden extension config](/img/extension-config.png)
+
+:::tip
+
+- The extension is specifically for saving links. To keep your browser's own bookmarks in sync with Linkwarden instead, see [Browser Sync](/getting-started/browser-sync).
+- Saving something that needed you to sign in? Tick "**Upload image from browser**" so the screenshot is captured in your own tab rather than on the server. See [Preserve from Your Browser](/usage/preserve-from-your-browser).
+
+:::

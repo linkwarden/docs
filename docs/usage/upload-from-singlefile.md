@@ -1,9 +1,11 @@
 ---
-sidebar_position: 8
+sidebar_position: 9
 sidebar_label: Upload from SingleFile
 ---
 
 # Upload from SingleFile
+
+This page covers the SingleFile setup specifically. For the other ways to send Linkwarden a copy captured in your own browser, see [Preserve from Your Browser](/usage/preserve-from-your-browser).
 
 SingleFile is an awesome browser extension that allows you to save complete webpages as a single HTML file on your device. As of Linkwarden 2.12, you can upload your saved links directly from the SingleFile browser extension into Linkwarden. This allows you to easily save articles which are behind paywalls or require authentication directly from your browser.
 

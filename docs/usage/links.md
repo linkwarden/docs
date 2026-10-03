@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 3
 ---
 
 # Links
@@ -44,6 +44,14 @@ Currently, only Collection owners can pin Links to their dashboard.
 ## Delete a Link
 
 To delete a Link, click on the menu dropdown of the Link and click on "**Delete**".
+
+## Editing or Deleting Many Links at Once
+
+Everything above works on one Link at a time. To move, retag, preserve again, or delete a batch of Links in one step, see [Bulk Actions](/usage/bulk-actions).
+
+## Preserved Copies
+
+Every Link is saved along with copies of the page itself, so you keep the content even if the original disappears. See [Preservation](/usage/preservation) for the formats and how they're produced, and [Read and Annotate](/usage/read-and-annotate) for reading an article in Linkwarden and marking it up.
 
 ## What data is associated with each Link?
 

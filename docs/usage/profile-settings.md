@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 8
 ---
 
 # Profile Settings
@@ -50,7 +50,7 @@ Controls whether Linkwarden tags your links for you, and how. See [AI Tagging](/
 
 ### Archive Settings
 
-Which formats Linkwarden preserves for every new Link: **Screenshot**, **Webpage**, **PDF**, **Readable**, and **Archive.org Snapshot**.
+Which formats Linkwarden preserves for every new Link: **Screenshot**, **Webpage**, **PDF**, **Readable**, and **Archive.org Snapshot**. [Preservation](/usage/preservation) explains what each one is.
 
 Below that you can set preservation rules per Tag, which override the global ones. This is useful when you want full preservation for a handful of Tags and something lighter everywhere else. Turning formats off is also the most effective way to cut resource usage on a small server, see [Running a Lighter Setup](/self-hosting/lighter-setup).
 

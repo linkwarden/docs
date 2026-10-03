@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 10
 ---
 
 # Advanced Search
@@ -37,3 +37,5 @@ Linkwarden provides a powerful search feature that allows you to find links quic
 You can also combine these operators to create more complex queries. For example:
 
 - `tag:"ai tools" before:2020-01-01 !collection:unorganized` - Find links that are tagged with "ai tools", created before January 1, 2020, and not in the "unorganized" collection.
+
+Search results are an ordinary Link list, so you can turn on edit mode and apply [Bulk Actions](/usage/bulk-actions) to everything a query turns up.

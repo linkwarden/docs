@@ -20,8 +20,8 @@ Select "**From Bookmarks HTML file**". Any browser that exports the standard boo
 
 How to produce the file:
 
-- **Chrome and Brave**: open the Bookmark Manager, then the three-dot menu → **Export bookmarks**.
-- **Edge**: **Settings → Favorites**, then the three-dot menu → **Export favorites**.
+- **Chrome and Brave**: open the Bookmark Manager, then the <Icon name="three-dots-vertical" /> three-dot menu → **Export bookmarks**.
+- **Edge**: **Settings → Favorites**, then the <Icon name="three-dots-vertical" /> three-dot menu → **Export favorites**.
 - **Firefox**: **Bookmarks → Manage bookmarks**, then **Import and Backup → Export Bookmarks to HTML**.
 - **Safari**: **File → Export → Bookmarks**.
 

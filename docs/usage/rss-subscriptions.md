@@ -44,7 +44,7 @@ The other direction works too. Every [public Collection](/usage/collections#make
 https://cloud.linkwarden.app/public/collections/<COLLECTION_ID>/rss
 ```
 
-The feed carries the 20 most recently added Links. You can also get to it with the RSS icon on the public Collection page.
+The feed carries the 20 most recently added Links. You can also get to it with the <Icon name="rss" /> RSS icon on the public Collection page.
 
 :::note
 

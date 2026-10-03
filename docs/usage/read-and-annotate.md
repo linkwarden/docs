@@ -29,17 +29,17 @@ The dark-mode toggle at the top right switches the theme for the page you're on.
 
 Select some text and a small menu appears with four colors: yellow, red, blue, and green. Click one and the passage is marked.
 
-To change a highlight, click it and the same menu opens, with the current color ticked. Pick a different color to recolor it, or use the trash icon to remove it.
+To change a highlight, click it and the same menu opens, with the current color ticked. Pick a different color to recolor it, or use the <Icon name="trash" /> trash icon to remove it.
 
 ## Adding a Note
 
-The speech-bubble icon in that menu turns a highlight into a note. Type your comment, click "**Save**", and it's attached to the highlighted passage.
+The <Icon name="chat-text" /> speech-bubble icon in that menu turns a highlight into a note. Type your comment, click "**Save**", and it's attached to the highlighted passage.
 
 A note always belongs to a highlight, so highlighting is the way in: there's no free-floating annotation. Click an existing highlight and then the speech-bubble to add or edit its note later.
 
 ## The Notes and Highlights Panel
 
-The highlighter icon at the top of the reader opens a panel listing everything you've marked on this article, in a colored stripe matching each highlight, with its note underneath and the date you made it. Clicking an entry jumps to that passage in the text. The trash icon on an entry deletes it.
+The <Icon name="highlighter" /> highlighter icon at the top of the reader opens a panel listing everything you've marked on this article, in a colored stripe matching each highlight, with its note underneath and the date you made it. Clicking an entry jumps to that passage in the text. The trash icon on an entry deletes it.
 
 ## Who Sees Your Annotations
 

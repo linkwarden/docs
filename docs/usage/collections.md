@@ -10,11 +10,11 @@ Links saved without a Collection go to one called "Unorganized", which Linkwarde
 
 ## Finding Your Collections
 
-The sidebar lists your Collections under the "**Collections**" entry. Clicking the entry opens the Collections page; clicking the caret beside it expands the tree in place, where each Collection shows its icon, name, and Link count. A Collection with sub-collections gets its own caret for expanding.
+The sidebar lists your Collections under the "**Collections**" entry. Clicking the entry opens the Collections page; clicking the <Icon name="caret-right-fill" /> caret beside it expands the tree in place, where each Collection shows its icon, name, and Link count. A Collection with sub-collections gets its own caret for expanding.
 
-The Collections page shows a card per Collection you own, with its name, Link count, creation date, and the avatars of everyone who has access. A globe icon means the Collection is public. Collections owned by other people that you've been added to are listed separately below, under "**Other Collections**".
+The Collections page shows a card per Collection you own, with its name, Link count, creation date, and the avatars of everyone who has access. A <Icon name="globe2" /> globe icon means the Collection is public. Collections owned by other people that you've been added to are listed separately below, under "**Other Collections**".
 
-The chevron button at the top right sorts the cards by creation date or name.
+The <Icon name="chevron-expand" /> chevron button at the top right sorts the cards by creation date or name.
 
 :::note
 
@@ -26,7 +26,7 @@ The Link count on a parent Collection in the sidebar includes the Links in its s
 
 There are a few ways in, and they all open the same dialog:
 
-- The folder-plus icon next to the "**+ New Link**" button in the sidebar.
+- The <Icon name="folder-plus" /> folder-plus icon next to the "**+ New Link**" button in the sidebar.
 - The "**+**" button next to the heading on the Collections page.
 - The "**New Collection**" button on the Collections page when you don't have any yet.
 
@@ -36,7 +36,7 @@ Collection names don't have to be unique, so nothing stops you from having two C
 
 ### Choosing an Icon and Color
 
-The large folder button to the left of the name field opens the icon picker:
+The large <Icon name="folder-fill" /> folder button to the left of the name field opens the icon picker:
 
 - Search the icon set and click an icon to use it instead of the default folder.
 - The color picker below sets the icon's color. It applies to the plain folder too, and tints the header of the Collection's page and the background of its card.
@@ -47,7 +47,7 @@ Click outside the picker to apply your choice, then save the Collection.
 
 ## Editing a Collection
 
-Open the three-dots menu, either on the Collection's card or at the top of the Collection's page, and click "**Edit Collection Info**" to change the name, description, icon, or color.
+Open the <Icon name="three-dots" /> three-dots menu, either on the Collection's card or at the top of the Collection's page, and click "**Edit Collection Info**" to change the name, description, icon, or color.
 
 :::note
 
@@ -57,7 +57,7 @@ Only the owner of a Collection can edit it. Members, whatever their role, don't 
 
 ## Sub-Collections
 
-A Collection can hold other Collections. To create one, open a Collection's page, click the three-dots menu, and choose "**Create Sub-Collection**". The dialog is the same as for a new Collection and shows which Collection it's being created under.
+A Collection can hold other Collections. To create one, open a Collection's page, click the <Icon name="three-dots" /> three-dots menu, and choose "**Create Sub-Collection**". The dialog is the same as for a new Collection and shows which Collection it's being created under.
 
 You can also nest an existing Collection by dragging it onto another one in the sidebar.
 
@@ -86,7 +86,7 @@ Your [Dashboard](/usage/dashboard) can show a Collection as its own row. Open th
 
 ## Sharing a Collection
 
-Open the three-dots menu on the Collection's card or page and click "**Share and Collaborate**". Members see this as "**View Team**" instead, and get a read-only view of who's involved.
+Open the <Icon name="three-dots" /> three-dots menu on the Collection's card or page and click "**Share and Collaborate**". Members see this as "**View Team**" instead, and get a read-only view of who's involved.
 
 You can also click the stack of avatars on a Collection card or page to open the same dialog.
 
@@ -104,7 +104,7 @@ Publishing a Collection doesn't publish its sub-collections. Each one has its ow
 
 :::
 
-Public Collections are marked with a globe icon in the sidebar and on their card. Untick the box and save to take one offline again.
+Public Collections are marked with a <Icon name="globe2" /> globe icon in the sidebar and on their card. Untick the box and save to take one offline again.
 
 ### Adding a Member
 
@@ -152,15 +152,15 @@ Click the "**x**" next to a member, then "**Save Changes**". They keep their own
 
 ## Leaving a Collection
 
-If you're a member rather than the owner, the three-dots menu offers "**Leave Collection**" in place of the delete option. Leaving removes your access and nothing else: the Collection and its Links stay as they are for everyone else, including any Links you added.
+If you're a member rather than the owner, the <Icon name="three-dots" /> three-dots menu offers "**Leave Collection**" in place of the delete option. Leaving removes your access and nothing else: the Collection and its Links stay as they are for everyone else, including any Links you added.
 
 ## Opening Every Link in a Collection
 
-The three-dots menu on a Collection's page has "**Open all Links**", which opens each Link currently listed in its own browser tab. Browsers usually block this the first time, so allow pop-ups for your Linkwarden instance if nothing happens.
+The <Icon name="three-dots" /> three-dots menu on a Collection's page has "**Open all Links**", which opens each Link currently listed in its own browser tab. Browsers usually block this the first time, so allow pop-ups for your Linkwarden instance if nothing happens.
 
 ## Deleting a Collection
 
-Open the three-dots menu and click "**Delete Collection**", then confirm.
+Open the <Icon name="three-dots" /> three-dots menu and click "**Delete Collection**", then confirm.
 
 :::caution
 

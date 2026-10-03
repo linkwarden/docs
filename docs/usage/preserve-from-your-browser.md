@@ -32,7 +32,7 @@ Links created this way land in your **Unorganized** Collection, so move them aft
 
 ## A PDF or Image You Already Have
 
-In Linkwarden, find "**Upload file**" next to the new-link button in the sidebar. It's behind the three-dot menu when the sidebar is expanded, and in the "**+**" menu when it's collapsed. Pick the file, choose a Collection, and optionally set a name, tags, and description under **More options**.
+In Linkwarden, find "**Upload file**" next to the new-link button in the sidebar. It's behind the <Icon name="three-dots" /> three-dot menu when the sidebar is expanded, and in the "**+**" menu when it's collapsed. Pick the file, choose a Collection, and optionally set a name, tags, and description under **More options**.
 
 PDF, PNG, and JPG are accepted, up to 10 MB by default. This is a good match for your browser's own **Print → Save as PDF**, which works on just about any page you can open, including one you had to sign in to read.
 

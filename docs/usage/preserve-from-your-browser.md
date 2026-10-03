@@ -1,10 +1,10 @@
 ---
-sidebar_position: 8
+sidebar_position: 11
 ---
 
 # Preserve from Your Browser
 
-Linkwarden normally preserves a page by opening it on the server. That covers most of the web, but not pages that only exist for you. A site can require a login, put its article behind a paywall, or decline to serve its content to anything that doesn't look like a person at a keyboard. In those cases the server gets the sign-in wall or the block notice, and that's what gets preserved.
+Linkwarden [normally preserves a page](/usage/preservation) by opening it on the server. That covers most of the web, but not pages that only exist for you. A site can require a login, put its article behind a paywall, or decline to serve its content to anything that doesn't look like a person at a keyboard. In those cases the server gets the sign-in wall or the block notice, and that's what gets preserved.
 
 The way around it is to capture the page in the browser where you're already signed in, and send that copy to Linkwarden. Whatever you upload is kept as-is, and Linkwarden fills in the formats you didn't provide.
 

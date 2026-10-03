@@ -36,7 +36,7 @@ While a Link is waiting, its details show "**Link preservation is in the queue**
 
 ## Seeing What Was Preserved
 
-Open a Link's details, from the three-dots menu or by clicking the Link if that's your preference, and look at **Preserved Formats**. Each available format has two buttons: one opens it in a new tab, the other downloads the file. Below the list is a link to the latest snapshot of that address on archive.org, whether or not you asked Linkwarden to submit it.
+Open a Link's details, from the <Icon name="three-dots" /> three-dots menu or by clicking the Link if that's your preference, and look at **Preserved Formats**. Each available format has two buttons: one opens it in a new tab, the other downloads the file. Below the list is a link to the latest snapshot of that address on archive.org, whether or not you asked Linkwarden to submit it.
 
 Opening a format takes you to the preservation view: the format on the page, with a dropdown at the top to switch between the ones that exist for this Link, a download button, and a dark-mode toggle. Only the formats that were actually preserved are listed.
 
@@ -50,7 +50,7 @@ If you pick a format and a particular Link doesn't have it, the click falls back
 
 ## Preserving Again
 
-To throw away a Link's formats and preserve it from scratch, open its details and click the refresh icon next to **Preserved Formats**, then confirm.
+To throw away a Link's formats and preserve it from scratch, open its details and click the <Icon name="arrow-clockwise" /> refresh icon next to **Preserved Formats**, then confirm.
 
 This is the right move for a Link that was saved while the site was down or misbehaving. [Bulk Actions](/usage/bulk-actions) has the same thing for many Links at once.
 

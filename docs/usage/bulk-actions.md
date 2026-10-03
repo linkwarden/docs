@@ -8,7 +8,7 @@ Most of Linkwarden works one Link at a time. Edit mode works on many: pick the L
 
 ## Turning On Edit Mode
 
-Click the pencil icon above the list, next to the sort and view options.
+Click the <Icon name="pencil-fill" /> pencil icon above the list, next to the sort and view options.
 
 Edit mode is available anywhere Links are listed:
 
@@ -43,7 +43,7 @@ Three buttons sit on the right side of that bar, and all of them stay disabled u
 
 ### Refresh Preserved Formats
 
-The circular arrow throws away the preserved formats of every selected Link and preserves them again from scratch. This is the one to reach for when a batch of Links was saved while a site was down, or when you've changed your [Archive Settings](/usage/profile-settings#archive-settings) and want older Links to catch up.
+The <Icon name="arrow-clockwise" /> circular arrow throws away the preserved formats of every selected Link and preserves them again from scratch. This is the one to reach for when a batch of Links was saved while a site was down, or when you've changed your [Archive Settings](/usage/profile-settings#archive-settings) and want older Links to catch up.
 
 The work is handed to the background worker, so the new formats fill in gradually rather than all at once.
 
@@ -57,7 +57,7 @@ This one needs **Delete** permission (or ownership) in the Link's Collection. Se
 
 ### Edit
 
-The pencil-square opens a modal whose fields apply to all selected Links at once:
+The <Icon name="pencil-square" /> pencil-square opens a modal whose fields apply to all selected Links at once:
 
 - **Move to Collection**: moves every selected Link into the Collection you choose. Only existing Collections are listed, so you can't create one from here. Leave it empty to keep each Link where it is.
 - **Add Tags**: adds the tags you enter to every selected Link, on top of the tags they already carry. Tags that don't exist yet are created.
@@ -69,7 +69,7 @@ Links in Collections where you lack **Update** permission are left untouched. If
 
 ### Delete
 
-The trash icon asks for confirmation, then deletes the selected Links along with their preserved files. There's no undo. Holding **Shift** while clicking the trash icon skips the confirmation, which the modal also mentions.
+The <Icon name="trash" /> trash icon asks for confirmation, then deletes the selected Links along with their preserved files. There's no undo. Holding **Shift** while clicking the trash icon skips the confirmation, which the modal also mentions.
 
 :::note
 
@@ -79,11 +79,11 @@ Bulk deletion is all or nothing. If even one selected Link sits in a Collection 
 
 ## Bulk Actions for Tags
 
-The Tags page has its own pencil icon at the top right. Turn it on and every tag card gets a checkbox; click a card to select it rather than open it. The same counter and select-all checkbox appear above the grid.
+The Tags page has its own <Icon name="pencil-fill" /> pencil icon at the top right. Turn it on and every tag card gets a checkbox; click a card to select it rather than open it. The same counter and select-all checkbox appear above the grid.
 
 ### Merge Tags
 
-Select two or more tags, click the merge icon, and give the result a name. The selected tags are replaced by a single tag with that name, and every Link that carried any of them ends up with the new one.
+Select two or more tags, click the <Icon name="intersect" /> merge icon, and give the result a name. The selected tags are replaced by a single tag with that name, and every Link that carried any of them ends up with the new one.
 
 :::note
 

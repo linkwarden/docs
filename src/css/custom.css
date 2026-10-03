@@ -219,3 +219,17 @@ html:root[data-theme="dark"] {
   color: var(--ifm-color-secondary-contrast-foreground);
   border-color: var(--ifm-color-secondary-dark);
 }
+
+/* Bootstrap Icons rendered inline in prose, where a doc points at a control the
+   app labels with nothing but an icon. See src/components/Icon.tsx.
+   `line-height` stays under the paragraph's own so the glyph doesn't stretch the
+   line it sits on. */
+.inline-icon {
+  font-size: 1.1em;
+  line-height: 1;
+}
+
+.inline-icon::before {
+  /* Optical alignment: the glyph box sits a touch high on the baseline */
+  vertical-align: -0.0625em;
+}

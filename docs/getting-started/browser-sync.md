@@ -38,7 +38,7 @@ Open Floccus, add a new profile, and choose **Linkwarden** as the sync method. T
 - **Username**: your Linkwarden username.
 - **Password**: the access token you just created.
 - **Server folder**: the name of the Collection to sync into. Floccus creates it if it doesn't exist.
-- **Local folder**: the bookmarks folder on your side. Floccus makes a new one by default, or you can pick an existing one with the folder icon.
+- **Local folder**: the bookmarks folder on your side. Floccus makes a new one by default, or you can pick an existing one with the <Icon name="folder" /> folder icon.
 
 ### 3. Turn Off Your Browser's Own Sync
 

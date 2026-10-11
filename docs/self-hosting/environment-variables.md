@@ -81,6 +81,11 @@ These variables are used for AI-powered tag generation. If multiple providers ar
 | `OPENROUTER_MODEL`                | -                           | OpenRouter model name used for tagging.                                                    |
 | `PERPLEXITY_API_KEY`              | -                           | Perplexity API key.                                                                        |
 | `PERPLEXITY_MODEL`                | `sonar-pro`                 | Perplexity model name used for tagging.                                                    |
+| `AI_GENERATE_TAGS_PROMPT`         | -                           | Replaces the built-in prompt used by the "Auto Generate Tags" method.                      |
+| `AI_PREDEFINED_TAGS_PROMPT`       | -                           | Replaces the built-in prompt used by the "Based on Predefined Tags" method.                |
+| `AI_EXISTING_TAGS_PROMPT`         | -                           | Replaces the built-in prompt used by the "Based on Existing Tags" method.                  |
+
+The three prompt variables are optional. Inside them, `{{text}}` is replaced with the content of the page and `{{tags}}` with the list of tags the model has to choose from. See [AI Tagging](/self-hosting/ai-worker#custom-prompts) for details.
 
 ## MeiliSearch Settings
 

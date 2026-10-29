@@ -381,6 +381,9 @@ paths:
       tags:
         - Auth
       summary: Resets the password for a user using a valid token
+      description:
+        Sets a new password and signs the user out everywhere, revoking all of
+        their web sessions and access tokens.
       requestBody:
         required: true
         content:
@@ -436,11 +439,12 @@ paths:
           $ref: "#/components/responses/BadRequest"
   /api/v1/avatar/{id}:
     get:
-      security:
-        - bearerAuth: []
       tags:
         - Avatar
       summary: Retrieves the avatar of a user by their ID
+      description:
+        Does not require authentication. Avatars are public so they can be
+        shown on public collection pages.
       parameters:
         - name: id
           in: path
@@ -459,7 +463,7 @@ paths:
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
-          $ref: "#/components/responses/Unauthorized"
+          description: The ID is missing or not a valid number.
   /api/v1/collections:
     get:
       security:
@@ -1189,6 +1193,20 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
+        "429":
+          description:
+            Links are still being added to this account by another request,
+            such as an import, and this one waited 30 seconds without getting
+            a turn. Try again once it's done.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    description: Human-readable error message.
+                    example: Links are still being added to your account, please try again in a moment.
     put:
       security:
         - bearerAuth: []
@@ -1873,6 +1891,20 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
+        "429":
+          description:
+            Links are still being added to this account by another request,
+            such as an earlier import, and this one waited 30 seconds without
+            getting a turn. Try again once it's done.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    description: Human-readable error message.
+                    example: Links are still being added to your account, please try again in a moment.
   /api/v1/public/collections/links:
     get:
       summary: Retrieve links from a specific collection.
@@ -2390,7 +2422,10 @@ paths:
   /api/v1/session:
     post:
       summary: Create a new session
-      description: Authenticates a user and creates a new session.
+      description:
+        Authenticates a user and creates a new session. Returns a 400 error
+        when username/password sign-in is disabled with
+        `NEXT_PUBLIC_CREDENTIALS_ENABLED=false`.
       tags:
         - Session
       requestBody:
@@ -2410,6 +2445,14 @@ paths:
                   type: string
                   format: password
                   description: The password of the user.
+                code:
+                  type: string
+                  description:
+                    The 6-digit code emailed to an unverified user. Sent
+                    together with the password, it verifies the email and
+                    creates the session. A wrong or expired code returns a 400
+                    error with `code` set to `INVALID_VERIFICATION_CODE`.
+                  example: "123456"
                 sessionName:
                   type: string
                   description: A name for the session.
@@ -2432,7 +2475,8 @@ paths:
         "401":
           description:
             The credentials are correct but the user's email address is
-            not verified.
+            not verified. A verification code is emailed to the user; send it
+            back in `code` with the same credentials.
           content:
             application/json:
               schema:
@@ -2450,6 +2494,56 @@ paths:
                   email:
                     type: string
                     description: The email address of the unverified account.
+        "429":
+          description:
+            The attempt came too soon after earlier ones for this username or
+            email. The first 10 attempts go through, then each failed one makes
+            the next wait longer (1, 2, 4, 8 and 16 seconds, then 25 seconds
+            each time). Only one attempt per username or email runs at a time.
+            A successful login, or a day without attempts, resets the delay.
+            The same limit applies to the web login form.
+          headers:
+            Retry-After:
+              description: Seconds to wait before the next attempt.
+              schema:
+                type: integer
+                example: 4
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    description: Human-readable error message.
+                    example: Too many login attempts. Please try again in 4 seconds.
+    delete:
+      security:
+        - bearerAuth: []
+      summary: Sign out a session
+      description:
+        Revokes the session token sent in the `Authorization` header, so it
+        can't be used again. Only session tokens created with `POST
+        /api/v1/session` (or a mobile sign-in) can be revoked this way. Access
+        tokens created from the access tokens page return a 404 error and stay
+        valid; revoke them with `DELETE /api/v1/tokens/{id}` instead.
+      tags:
+        - Session
+      responses:
+        "200":
+          description: Session revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    example: Session revoked.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
   /api/v1/tags:
     get:
       security:
@@ -3189,7 +3283,13 @@ paths:
       tags:
         - Users
       summary: Update a user's account details
-      description: Updates the details of an existing user account.
+      description:
+        Updates the details of an existing user account. Changing the password
+        (sending `oldPassword` and `newPassword`) signs the user out of every
+        other session and revokes all of their access tokens, including the
+        token used for this request. When the request is made from a web
+        session, the response sets a new session cookie so that browser stays
+        signed in.
       operationId: updateUser
       parameters:
         - name: id

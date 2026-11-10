@@ -73,6 +73,12 @@ docker compose up
 
 After a few minutes (depending on your internet connection) you can access Linkwarden via [http://localhost:3000](http://localhost:3000) (or whichever hostname you deployed Linkwarden on).
 
+:::note
+
+The first account created on a new instance becomes its administrator. Create yours before making the instance publicly reachable, or set [`NEXT_PUBLIC_ADMIN`](/self-hosting/environment-variables) to choose a different account.
+
+:::
+
 **Enjoy!**
 
 ### Manual Installation
@@ -151,6 +157,12 @@ Keep in mind that you need to have Meilisearch running in the background before 
 ```bash
 yarn concurrently:start
 ```
+
+:::warning
+
+The first account created on a new instance becomes its administrator. Create yours before making the instance publicly reachable, or set [`NEXT_PUBLIC_ADMIN`](/self-hosting/environment-variables) to choose a different account.
+
+:::
 
 ### Troubleshooting
 

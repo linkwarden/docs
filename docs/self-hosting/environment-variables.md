@@ -35,7 +35,7 @@ After changing your `.env` file, run `docker compose up -d` to apply the changes
 | `NEXT_PUBLIC_DEMO`                          | `false`            | Enables read-only demo restrictions across the UI and API.                                                                                                                                                                    |
 | `NEXT_PUBLIC_DEMO_USERNAME`                 | -                  | Demo account username shown on the login page when demo mode is enabled.                                                                                                                                                      |
 | `NEXT_PUBLIC_DEMO_PASSWORD`                 | -                  | Demo account password shown on the login page when demo mode is enabled.                                                                                                                                                      |
-| `NEXT_PUBLIC_ADMIN`                         | `1`                | Numeric user ID treated as the server administrator for admin-only endpoints and worker controls.                                                                                                                             |
+| `NEXT_PUBLIC_ADMIN`                         | `1`                | Numeric user ID treated as the server administrator for admin-only endpoints and worker controls. By default, this is the first account created on the instance.                                                              |
 | `NEXT_PUBLIC_MAX_FILE_BUFFER`               | `10`               | Maximum upload size, in MB, for direct file archives such as PDF, image, HTML, and text uploads.                                                                                                                              |
 | `PDF_MAX_BUFFER`                            | `100`              | Maximum generated PDF archive size, in MB.                                                                                                                                                                                    |
 | `SCREENSHOT_MAX_BUFFER`                     | `100`              | Maximum generated screenshot archive size, in MB.                                                                                                                                                                             |
@@ -81,6 +81,11 @@ These variables are used for AI-powered tag generation. If multiple providers ar
 | `OPENROUTER_MODEL`                | -                           | OpenRouter model name used for tagging.                                                    |
 | `PERPLEXITY_API_KEY`              | -                           | Perplexity API key.                                                                        |
 | `PERPLEXITY_MODEL`                | `sonar-pro`                 | Perplexity model name used for tagging.                                                    |
+| `AI_GENERATE_TAGS_PROMPT`         | -                           | Replaces the built-in prompt used by the "Auto Generate Tags" method.                      |
+| `AI_PREDEFINED_TAGS_PROMPT`       | -                           | Replaces the built-in prompt used by the "Based on Predefined Tags" method.                |
+| `AI_EXISTING_TAGS_PROMPT`         | -                           | Replaces the built-in prompt used by the "Based on Existing Tags" method.                  |
+
+The three prompt variables are optional. Inside them, `{{text}}` is replaced with the content of the page and `{{tags}}` with the list of tags the model has to choose from. See [AI Tagging](/self-hosting/ai-worker#custom-prompts) for details.
 
 ## MeiliSearch Settings
 
@@ -124,20 +129,19 @@ storage server is running on your own network.
 
 ## SMTP Settings
 
-These variables enable email-based sign-in, invitations, verification emails, and password resets.
+These variables enable invitations, verification emails, and password resets.
 
 Make sure to define the correct protocol for your SMTP port:
 
 - `smtp://` with port `587` for STARTTLS
 - `smtps://` with port `465` for implicit SSL/TLS
 
-| Environment Variable                      | Default | Description                                                                                                                                                                                                                                                                                                   |
-| ----------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_EMAIL_PROVIDER`              | `false` | Enables email-provider features in the UI and related account flows. Normally used together with `EMAIL_FROM`, `EMAIL_SERVER`, and `BASE_URL`.                                                                                                                                                                |
-| `EMAIL_FROM`                              | -       | Sender address used for verification, invitation, and password-reset emails.                                                                                                                                                                                                                                  |
-| `EMAIL_SERVER`                            | -       | URL-encoded SMTP connection string, for example `smtp://user:password@host:587`.                                                                                                                                                                                                                              |
-| `BASE_URL`                                | -       | Public base URL of your app, for example `https://example.com`. Unlike `NEXTAUTH_URL`, this should not include `/api/v1/auth`.                                                                                                                                                                                |
-| `NEXT_PUBLIC_MOBILE_APP_REDIRECT_ENABLED` | `false` | When set to `true`, the email-verification page offers to open the link in the Linkwarden mobile app on phones, verifying the email and logging the user in directly in the app. When disabled, verification always continues in the browser. Requires a mobile app version that supports verification links. |
+| Environment Variable         | Default | Description                                                                                                                                    |
+| ---------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_EMAIL_PROVIDER` | `false` | Enables email-provider features in the UI and related account flows. Normally used together with `EMAIL_FROM`, `EMAIL_SERVER`, and `BASE_URL`. |
+| `EMAIL_FROM`                 | -       | Sender address used for verification, invitation, and password-reset emails.                                                                   |
+| `EMAIL_SERVER`               | -       | URL-encoded SMTP connection string, for example `smtp://user:password@host:587`.                                                               |
+| `BASE_URL`                   | -       | Public base URL of your app, for example `https://example.com`. Unlike `NEXTAUTH_URL`, this should not include `/api/v1/auth`.                 |
 
 ## Proxy and PDF Settings
 

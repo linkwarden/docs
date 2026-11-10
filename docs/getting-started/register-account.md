@@ -24,13 +24,13 @@ Your email is the sole method of validation for dedicated support and account re
 
 :::
 
-To ensure accuracy, a confirmation link will be sent to your email right after you sign up, which requires a simple click.
+To ensure accuracy, a 6-digit verification code will be sent to your email right after you sign up. Enter it on the page that appears to finish signing up.
 
 Don't see this email in your inbox? Please check your spam folder or verify your email address is correct.
 
 ### Step 2: Complete your Subscription
 
-After clicking the confirmation link, select a **Monthly** or **Yearly** plan, with a 25% discount on the yearly option. Click "**Complete your Subscription**" to proceed with your payment, securely handled by [Stripe](https://stripe.com), a trusted payment platform used by millions of businesses.
+After entering the code, select a **Monthly** or **Yearly** plan, with a 25% discount on the yearly option. Click "**Complete your Subscription**" to proceed with your payment, securely handled by [Stripe](https://stripe.com), a trusted payment platform used by millions of businesses.
 
 ![Subscribe page](/img/subscribe.png)
 

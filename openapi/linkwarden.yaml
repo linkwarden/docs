@@ -2496,18 +2496,18 @@ paths:
                     description: The email address of the unverified account.
         "429":
           description:
-            The attempt came too soon after earlier ones for this username or
-            email. The first 10 attempts go through, then each failed one makes
-            the next wait longer (1, 2, 4, 8 and 16 seconds, then 25 seconds
-            each time). Only one attempt per username or email runs at a time.
-            A successful login, or a day without attempts, resets the delay.
-            The same limit applies to the web login form.
+            Too many wrong passwords for this account. The first 15 go through
+            right away, then each attempt has to come at least 25 seconds after
+            the last one. A correct password, a password reset or a password
+            change starts the count over. The web login form and the password
+            prompts for changing the email or password and for deleting the
+            account share the same limit.
           headers:
             Retry-After:
               description: Seconds to wait before the next attempt.
               schema:
                 type: integer
-                example: 4
+                example: 25
           content:
             application/json:
               schema:
@@ -2516,7 +2516,12 @@ paths:
                   response:
                     type: string
                     description: Human-readable error message.
-                    example: Too many login attempts. Please try again in 4 seconds.
+                    example: Too many incorrect passwords. Please try again in 25 seconds.
+                  code:
+                    type: string
+                    description: Machine-readable error code.
+                    enum:
+                      - TOO_MANY_ATTEMPTS
     delete:
       security:
         - bearerAuth: []
@@ -3152,6 +3157,8 @@ paths:
                         type: string
                       preventDuplicateLinks:
                         type: boolean
+                      shareUsageAnalytics:
+                        type: boolean
                       archiveAsScreenshot:
                         type: boolean
                       archiveAsMonolith:
@@ -3425,6 +3432,9 @@ paths:
                       preventDuplicateLinks:
                         type: boolean
                         example: false
+                      shareUsageAnalytics:
+                        type: boolean
+                        example: true
                       archiveAsScreenshot:
                         type: boolean
                         example: true
@@ -3469,6 +3479,20 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
+        "429":
+          description:
+            Too many wrong passwords for this account, sent in `password` to
+            change the email or in `oldPassword` to change the password. This
+            is the same limit as `POST /api/v1/session`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    description: Human-readable error message.
+                    example: Too many incorrect passwords. Please try again in 25 seconds.
     delete:
       security:
         - bearerAuth: []
@@ -3499,6 +3523,20 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
+        "429":
+          description:
+            Too many wrong passwords for this account, sent in `password` to
+            confirm the deletion. This is the same limit as
+            `POST /api/v1/session`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    description: Human-readable error message.
+                    example: Too many incorrect passwords. Please try again in 25 seconds.
   /api/v1/users/{id}/preference:
     put:
       security:
@@ -3539,6 +3577,9 @@ paths:
                 readableLineWidth:
                   type: string
                   maxLength: 100
+                shareUsageAnalytics:
+                  type: boolean
+                  description: Whether Linkwarden Cloud records usage analytics for this account. Self-hosted instances don't record any.
       responses:
         "200":
           description: User preferences updated successfully.
@@ -3566,6 +3607,8 @@ paths:
                       readableLineWidth:
                         type: string
                         nullable: true
+                      shareUsageAnalytics:
+                        type: boolean
                       dashboardSections:
                         type: array
                         items:

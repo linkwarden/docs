@@ -34,7 +34,7 @@ Note that a preview image is always generated, so the browser still runs even wi
 DISABLE_BROWSER=true
 ```
 
-Every worker task that needs the browser is skipped and links are marked as having no preserved formats. You keep bookmarks, tags, collections, sharing, and search over titles, URLs, descriptions, and tags. You lose screenshots, PDFs, HTML snapshots, readable view, and preview images.
+Every worker task that needs the browser is skipped and links are marked as having no preserved formats. You keep bookmarks, tags, collections, sharing, and search over titles, URLs, descriptions, and tags. You lose screenshots, PDFs, HTML snapshots, readable view, and preview images. [AI tagging](/self-hosting/ai-worker) also stops: it tags from the page description and text that the browser extracts, so a link saved while this is set has nothing to tag from, is marked as tagged anyway, and stays untagged after you turn it off.
 
 The worker still briefly starts Chromium while it drains links that were already queued, and closes it 60 seconds after the queue empties.
 

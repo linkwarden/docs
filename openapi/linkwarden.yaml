@@ -1919,9 +1919,14 @@ paths:
             example: 4
         - name: sort
           in: query
+          description: >-
+            How to order the links, with the same values as the `sort` parameter of
+            `/api/v1/search`. 5 (best match) ranks links by how well they match
+            `searchQueryString`.
           required: false
           schema:
             type: integer
+            enum: [0, 1, 2, 3, 4, 5]
             example: 1
         - name: cursor
           in: query
@@ -1937,6 +1942,10 @@ paths:
             example: true
         - name: searchQueryString
           in: query
+          description: >-
+            The search text, read the same way as `searchQueryString` in
+            `/api/v1/search`. A search that makes more than 20 combinations of `OR`
+            returns a 400 error.
           required: false
           schema:
             type: string
@@ -2384,16 +2393,23 @@ paths:
       parameters:
         - name: searchQueryString
           in: query
-          description: A string to filter search results.
+          description: >-
+            The search text. It can use the operators, `!`, `AND`, `OR` and
+            parentheses described in [Advanced Search](https://docs.linkwarden.app/usage/advanced-search).
           required: false
           schema:
             type: string
         - name: sort
           in: query
-          description: A numeric value to sort the search results.
+          description: >-
+            How to order the results. 0 is newest first, 1 oldest first, 2 name A-Z,
+            3 name Z-A, 4 the collection's custom order (only with `collectionId`,
+            otherwise newest first), and 5 best match, which ranks links by how well
+            they match the search text (newest first when there's no search text).
           required: false
           schema:
             type: number
+            enum: [0, 1, 2, 3, 4, 5]
         - name: cursor
           in: query
           description: A numeric value for pagination.
@@ -2419,6 +2435,20 @@ paths:
                         type: array
                         items:
                           $ref: "#/components/schemas/Link"
+        "400":
+          description: >-
+            The search makes more than 20 combinations of `OR`, for example
+            `(a OR b) (c OR d) (e OR f) (g OR h) (i OR j)`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
   /api/v1/session:
     post:
       summary: Create a new session
